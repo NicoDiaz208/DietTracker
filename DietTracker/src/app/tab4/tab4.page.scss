@@ -1,34 +1,23 @@
-.avatars{
-    margin:auto;
+.ion-text-center{
+   text-align: center;
 }
 
-.alter{
-   display: inline;
-   float: left;
-   width: 20%;
+.ion-align-items-center{
+   text-align: center;
 }
-.gewicht{
-    display: inline;
-    float: left;
-    width: 50%;
- }
- .ziel{
-    display: inline;
- 
-    
- }
- h2{
-    display: inline-block;
-    margin: 5%;
+
+.flex{
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   text-align: center;
+   align-items: center;
  }
 
- .box {
-   float: right;
-   width: 25%;
-   margin-right: 3.33333%;
-   padding: 5%;
-   
-}
-   
+ .ttt{
+   margin-left: 10%;
+ }
 
-  
+ .image-center{
+   margin:0 auto;
+   }

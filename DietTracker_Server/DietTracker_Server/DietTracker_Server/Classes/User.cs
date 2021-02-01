@@ -15,5 +15,18 @@ namespace DietTracker_Server.Classes
         public string Email { get; set; }
         public string Phonenumber { get; set; }
         public int ActivityLevel { get; set; }
+
+        public User(int id, string name, DateTime dateofBirth, string gender, double goalWeight, int height, string email, string phonenumber, int activityLevel)
+        {
+            Id = id;
+            Name = name;
+            DateofBirth = dateofBirth;
+            Gender = gender;
+            GoalWeight = goalWeight;
+            Height = height;
+            Email = email;
+            Phonenumber = phonenumber;
+            ActivityLevel = activityLevel;
+        }
     }
 }

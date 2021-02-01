@@ -11,5 +11,14 @@ namespace DietTracker_Server.Classes
         public  double GoalTime { get; set; }
         public double BurnedCalories { get; set; }
         public double Distance { get; set; }
+
+        public Activity(int steps, double aktiveTime, double goalTime, double burnedCalories, double distance)
+        {
+            Steps = steps;
+            AktiveTime = aktiveTime;
+            GoalTime = goalTime;
+            BurnedCalories = burnedCalories;
+            Distance = distance;
+        }
     }
 }

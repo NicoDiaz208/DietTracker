@@ -10,5 +10,11 @@ namespace DietTracker_Server.Classes
         public int GoWG { get; set; }
         //GoWC=Glasses of Water Current
         public int GoWC { get; set; }
+
+        public WaterIntake(int goWG, int goWC)
+        {
+            GoWG = goWG;
+            GoWC = goWC;
+        }
     }
 }

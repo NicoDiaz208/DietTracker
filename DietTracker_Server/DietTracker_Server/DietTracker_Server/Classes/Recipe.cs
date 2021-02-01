@@ -10,5 +10,13 @@ namespace DietTracker_Server.Classes
         public double PrepareTime { get; set; }
         public double Difficulty { get; set; }
         public string Kategorie { get; set; }
+
+        public Recipe(string name, double prepareTime, double difficulty, string kategorie)
+        {
+            Name = name;
+            PrepareTime = prepareTime;
+            Difficulty = difficulty;
+            Kategorie = kategorie;
+        }
     }
 }

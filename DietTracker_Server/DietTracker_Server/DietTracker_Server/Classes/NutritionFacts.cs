@@ -12,5 +12,15 @@ namespace DietTracker_Server.Classes
         public double Sugar { get; set; }
         public double Fiber { get; set; }
         public double Fat { get; set; }
+
+        public NutritionFacts(double calories, double protein, double totalCarbohydrates, double sugar, double fiber, double fat)
+        {
+            Calories = calories;
+            Protein = protein;
+            TotalCarbohydrates = totalCarbohydrates;
+            Sugar = sugar;
+            Fiber = fiber;
+            Fat = fat;
+        }
     }
 }

@@ -6,7 +6,6 @@ namespace DietTracker_Server.Classes
 {
     class User
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateofBirth { get; set; }
         public string Gender { get; set; }
@@ -16,9 +15,8 @@ namespace DietTracker_Server.Classes
         public string Phonenumber { get; set; }
         public int ActivityLevel { get; set; }
 
-        public User(int id, string name, DateTime dateofBirth, string gender, double goalWeight, int height, string email, string phonenumber, int activityLevel)
+        public User(string name, DateTime dateofBirth, string gender, double goalWeight, int height, string email, string phonenumber, int activityLevel)
         {
-            Id = id;
             Name = name;
             DateofBirth = dateofBirth;
             Gender = gender;

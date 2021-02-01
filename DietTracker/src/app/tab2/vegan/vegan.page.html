@@ -10,6 +10,12 @@
     <ion-button (click)="filter()" color="light" slot="start" style="top: 50%;" >
       <ion-icon name="settings-outline"></ion-icon>
     </ion-button>
+    <!--
+      TODO:
+      
+      Bitte in den sucheinstellungen einbauen nicht direkt auf tab2/vegan schaut auf smartphons nicht gut aus 
+    
+      
     <ion-segment slot="end">
       <ion-segment-button>
         <ion-label>Datum</ion-label>
@@ -20,18 +26,18 @@
       <ion-segment-button (click)="Sort('Z-A')">
         <ion-label>Z-A</ion-label>
       </ion-segment-button>
-    </ion-segment>
+    </ion-segment>-->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-grid>
       <ion-row >
-        <ion-col sizeLg="3" sizeMd="3" sizeXs="3" *ngFor="let recipe of recipes, let i index">
+        <ion-col size="6" *ngFor="let recipe of recipes, let i index">
           <ion-card>
             <ion-card-header>
               <ion-card-subtitle>{{recipe.category}}</ion-card-subtitle>
-              <ion-card-title>{{recipe.name}}</ion-card-title>
+              <ion-card-title style="font-size: medium; font-weight: bold;">{{recipe.name}}</ion-card-title>
             </ion-card-header>
           
             <ion-card-content>

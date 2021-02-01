@@ -6,6 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+  },
+  {
+    path: 'vegan',
+    loadChildren: () => import('./vegan/vegan.module').then( m => m.VeganPageModule)
+  },
+  {
+    path: 'vegetarian',
+    loadChildren: () => import('./vegetarian/vegetarian.module').then( m => m.VegetarianPageModule)
   }
 ];
 

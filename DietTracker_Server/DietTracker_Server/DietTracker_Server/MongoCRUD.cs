@@ -13,6 +13,7 @@ namespace DietTracker_Server
         public MongoCRUD(string database)
         {
             var client = new MongoClient("mongodb://localhost:27017");
+            
             db = client.GetDatabase(database);
         }
         public void insertRecord<T>(string table, T record)

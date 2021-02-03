@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DietTracker_Server.Classes
+namespace DietTracker_Server.Classes.NutritionFacts
 {
     class NutritionFacts
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using DietTracker_Server.Classes;
+using DietTracker_Server.Classes.User;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 

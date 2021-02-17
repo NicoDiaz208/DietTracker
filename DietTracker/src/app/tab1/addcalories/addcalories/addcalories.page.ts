@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./addcalories.page.scss'],
 })
 export class AddcaloriesPage implements OnInit {
-
+  addItesm:any = {};
   constructor() { }
 
   ngOnInit() {
   }
-
+  add(){
+    
+  }
 }

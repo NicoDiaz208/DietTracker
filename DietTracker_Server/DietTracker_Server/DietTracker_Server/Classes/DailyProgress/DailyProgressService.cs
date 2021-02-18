@@ -9,16 +9,23 @@ namespace DietTracker_Server.Classes.DailyProgress
     {
         DailyProgressRepository dr = new DailyProgressRepository();
 
-        public string AddAchievements(DailyProgress dailyProgress)
+        public String AddDailyProgress(DailyProgress dailyProgress)
         {
             var newdaily = ConvertToBson(dailyProgress);
             return dr.AddDailyProgress(newdaily);
         }
 
-        public string DeleteAchievements(DailyProgress dailyProgress)
+        public String DeleteDailyProgress(DailyProgress dailyProgress)
         {
             var newachievement = ConvertToBson(dailyProgress);
             return dr.DeleteDailyProgress(newachievement);
+        }
+
+        public String ReplaceDailyProgress(DailyProgress old,DailyProgress newdP)
+        {
+            var toReplace = ConvertToBson(old);
+            var replacement = ConvertToBson(newdP);
+            return dr.ReplaceDailyProgress(toReplace, replacement);
         }
 
         private BsonDocument ConvertToBson(DailyProgress dailyProgress)

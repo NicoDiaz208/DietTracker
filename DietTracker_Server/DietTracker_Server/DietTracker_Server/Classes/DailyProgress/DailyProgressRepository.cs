@@ -11,29 +11,41 @@ namespace DietTracker_Server.Classes.DailyProgress
         MongoClient db = new MongoClient("mongodb://localhost:27017");
 
 
-        public String AddDailyProgress(BsonDocument user)
+        public String AddDailyProgress(BsonDocument dailyP)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(user) != null)
+            if (collection.Find(dailyP) != null)
             {
                 return "Exestiert bereits";
             }
-            collection.InsertOne(user);
+            collection.InsertOne(dailyP);
 
             return "Insert OK";
         }
 
-        public String DeleteDailyProgress(BsonDocument user)
+        public String DeleteDailyProgress(BsonDocument dailyP)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(user) == null)
+            if (collection.Find(dailyP) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(dailyP);
             return "Delete OK";
+        }
+
+        public String ReplaceDailyProgress(BsonDocument oldDP,BsonDocument newDP)
+        {
+            var database = db.GetDatabase("TestDietTracker");
+            var collection = database.GetCollection<BsonDocument>("DailyProgress");
+            if (collection.Find(oldDP) == null)
+            {
+                return "Exestiert nicht";
+            }
+            collection.ReplaceOne(oldDP, newDP);
+            return "Replace OK";
         }
     }
 }

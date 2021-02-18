@@ -9,17 +9,25 @@ namespace DietTracker_Server.Classes.Food
     {
         DailyProgressRepository fr = new DailyProgressRepository();
 
-        public string AddAchievements(Food food)
+        public string AddFood(Food food)
         {
             var newfood = ConvertToBson(food);
             return fr.AddFood(newfood);
         }
 
-        public string DeleteAchievements(Food food)
+        public string DeleteFood(Food food)
         {
             var newfood = ConvertToBson(food);
             return fr.DeleteFood(newfood);
         }
+
+        public string ReplaceFood(Food oldFood, Food newFood)
+        {
+            var toReplace = ConvertToBson(oldFood);
+            var replacement = ConvertToBson(newFood);
+            return fr.ReplaceFood(toReplace, replacement);
+        }
+
 
         private BsonDocument ConvertToBson(Food food)
         {

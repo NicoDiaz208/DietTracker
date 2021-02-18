@@ -9,31 +9,42 @@ namespace DietTracker_Server.Classes.Food
     class DailyProgressRepository
     {
         MongoClient db = new MongoClient("mongodb://localhost:27017");
-
-
-        public String AddFood(BsonDocument user)
+        public String AddFood(BsonDocument food)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(user) != null)
+            if (collection.Find(food) != null)
             {
                 return "Exestiert bereits";
             }
-            collection.InsertOne(user);
+            collection.InsertOne(food);
 
             return "Insert OK";
         }
 
-        public String DeleteFood(BsonDocument user)
+        public String DeleteFood(BsonDocument food)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(user) == null)
+            if (collection.Find(food) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(food);
             return "Delete OK";
         }
+
+        public string ReplaceFood(BsonDocument oldFood, BsonDocument newFood)
+        {
+            var database = db.GetDatabase("TestDietTracker");
+            var collection = database.GetCollection<BsonDocument>("Food");
+            if (collection.Find(oldFood) == null)
+            {
+                return "Exestiert nicht";
+            }
+            collection.ReplaceOne(oldFood, newFood);
+            return "Altes Nahrungsmittel wurde geändert";
+        }
+
     }
 }

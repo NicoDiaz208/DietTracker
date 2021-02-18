@@ -7,9 +7,8 @@
 <ion-content [fullscreen]="true">
 <br>
 
-<div class="ion-text-center"> Tobias Fraunberger</div>
+<div class="ion-text-center">Username</div>
 <ion-list>
-   
       <ion-item>
         <ion-avatar slot="start">
           <img src="../../assets/Recipes/restaurant.png">
@@ -18,7 +17,7 @@
           <h2>Kalorien Eingabe</h2>
           <p>0/3768</p>
         </ion-label>
-        <ion-button slot="end">add</ion-button>
+        <ion-button routerLink="./addcalories" slot="end">add</ion-button>
       </ion-item>
      
       <ion-item>
@@ -53,7 +52,7 @@
           <ion-button (click)="plusS()">+</ion-button>
           <ion-button (click)="minusS()">-</ion-button>
         </ion-label>
-        <ion-text>{{sleepcount}} Liter</ion-text>
+        <ion-text>{{sleepcount}} Stunden</ion-text>
       </ion-item>
 
       <ion-item>
@@ -66,10 +65,5 @@
         </ion-label>
         <ion-button slot="end">GoTo</ion-button>
       </ion-item>
-      
- 
     </ion-list>
 </ion-content>
-
-
-

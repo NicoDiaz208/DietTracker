@@ -34,7 +34,7 @@ namespace DietTracker_Server.Classes.Food
             return "Delete OK";
         }
 
-        public string ReplaceFood(BsonDocument oldFood, BsonDocument newFood)
+        public String ReplaceFood(BsonDocument oldFood, BsonDocument newFood)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("Food");

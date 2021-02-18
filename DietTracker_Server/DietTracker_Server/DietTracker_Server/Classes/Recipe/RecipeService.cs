@@ -9,16 +9,23 @@ namespace DietTracker_Server.Classes.Recipe
     {
         DailyProgressRepository rr = new DailyProgressRepository();
 
-        public string AddAchievements(Recipe recipe)
+        public String AddRecipe(Recipe recipe)
         {
             var newrecipe = ConvertToBson(recipe);
             return rr.AddRecipe(newrecipe);
         }
 
-        public string DeleteAchievements(Recipe recipe)
+        public String DeleteRecipe(Recipe recipe)
         {
             var newrecipe = ConvertToBson(recipe);
             return rr.DeleteRecipe(newrecipe);
+        }
+
+        public String ReplaceRecipe(Recipe oldRecipe,Recipe newRecipe)
+        {
+            var toReplace = ConvertToBson(oldRecipe);
+            var replacement = ConvertToBson(newRecipe);
+            return rr.ReplaceRecipe(toReplace, replacement);
         }
 
         private BsonDocument ConvertToBson(Recipe recipe)

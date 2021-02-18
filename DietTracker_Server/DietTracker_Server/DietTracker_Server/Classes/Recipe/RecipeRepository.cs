@@ -11,28 +11,40 @@ namespace DietTracker_Server.Classes.Recipe
         MongoClient db = new MongoClient("mongodb://localhost:27017");
 
 
-        public String AddRecipe(BsonDocument user)
+        public String AddRecipe(BsonDocument recipe)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("Recipe");
-            if (collection.Find(user) != null)
+            if (collection.Find(recipe) != null)
             {
                 return "Exestiert bereits";
             }
-            collection.InsertOne(user);
+            collection.InsertOne(recipe);
 
             return "Insert OK";
         }
 
-        public String DeleteRecipe(BsonDocument user)
+        public String DeleteRecipe(BsonDocument recipe)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("Recipe");
-            if (collection.Find(user) == null)
+            if (collection.Find(recipe) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(recipe);
+            return "Delete OK";
+        }
+
+        public String ReplaceRecipe(BsonDocument oldRecipe, BsonDocument newRecipe)
+        {
+            var database = db.GetDatabase("TestDietTracker");
+            var collection = database.GetCollection<BsonDocument>("Recipe");
+            if (collection.Find(oldRecipe) == null)
+            {
+                return "Exestiert nicht";
+            }
+            collection.ReplaceOne(oldRecipe, newRecipe);
             return "Delete OK";
         }
     }

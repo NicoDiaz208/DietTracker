@@ -46,7 +46,7 @@ namespace DietTracker_Server.Classes.User
                 return "Exestiert nicht";
             }
             collection.ReplaceOne(oldInfo, newInfo);
-            return "Delete OK";
+            return "Replace OK";
         }
     }
 }

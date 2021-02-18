@@ -11,29 +11,41 @@ namespace DietTracker_Server.Classes.NutritionFacts
         MongoClient db = new MongoClient("mongodb://localhost:27017");
 
 
-        public String AddNF(BsonDocument user)
+        public String AddNF(BsonDocument nf)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(user) != null)
+            if (collection.Find(nf) != null)
             {
                 return "Exestiert bereits";
             }
-            collection.InsertOne(user);
+            collection.InsertOne(nf);
 
             return "Insert OK";
         }
 
-        public String DeleteNF(BsonDocument user)
+        public String DeleteNF(BsonDocument nf)
         {
             var database = db.GetDatabase("TestDietTracker");
             var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(user) == null)
+            if (collection.Find(nf) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(nf);
             return "Delete OK";
+        }
+
+        public String ReplaceNF(BsonDocument oldNF,BsonDocument newNF)
+        {
+            var database = db.GetDatabase("TestDietTracker");
+            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
+            if (collection.Find(oldNF) == null)
+            {
+                return "Exestiert nicht";
+            }
+            collection.ReplaceOne(oldNF, newNF);
+            return "Replace OK";
         }
     }
 }

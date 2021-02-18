@@ -45,7 +45,7 @@ namespace DietTracker_Server.Classes.Recipe
                 return "Exestiert nicht";
             }
             collection.ReplaceOne(oldRecipe, newRecipe);
-            return "Delete OK";
+            return "Replace OK";
         }
     }
 }

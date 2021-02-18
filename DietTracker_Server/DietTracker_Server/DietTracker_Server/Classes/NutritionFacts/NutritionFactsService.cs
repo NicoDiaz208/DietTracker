@@ -9,16 +9,23 @@ namespace DietTracker_Server.Classes.NutritionFacts
     {
         DailyProgressRepository nfr = new DailyProgressRepository();
 
-        public string AddAchievements(NutritionFacts nutritionFacts)
+        public string AddNF(NutritionFacts nutritionFacts)
         {
             var newnf = ConvertToBson(nutritionFacts);
             return nfr.AddNF(newnf);
         }
 
-        public string DeleteAchievements(NutritionFacts nutritionFacts)
+        public string DeleteNFs(NutritionFacts nutritionFacts)
         {
             var newnf = ConvertToBson(nutritionFacts);
             return nfr.DeleteNF(newnf);
+        }
+
+        public String ReplaceNF(NutritionFacts oldNF,NutritionFacts newNF)
+        {
+            var toReplace = ConvertToBson(oldNF);
+            var replacement = ConvertToBson(newNF);
+            return nfr.ReplaceNF(toReplace, replacement);
         }
 
         private BsonDocument ConvertToBson(NutritionFacts nutritionFacts)

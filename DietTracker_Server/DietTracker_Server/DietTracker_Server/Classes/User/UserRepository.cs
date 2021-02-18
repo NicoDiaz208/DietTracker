@@ -36,5 +36,17 @@ namespace DietTracker_Server.Classes.User
             collection.DeleteOne(user);
             return "Delete OK";
         }
+
+        public String ReplaceUser(BsonDocument oldInfo,BsonDocument newInfo)
+        {
+            var database = db.GetDatabase("TestDietTracker");
+            var collection = database.GetCollection<BsonDocument>("Users");
+            if (collection.Find(oldInfo) == null)
+            {
+                return "Exestiert nicht";
+            }
+            collection.ReplaceOne(oldInfo, newInfo);
+            return "Delete OK";
+        }
     }
 }

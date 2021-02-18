@@ -9,16 +9,23 @@ namespace DietTracker_Server.Classes.User
     {
         UserRepository ur = new UserRepository();
 
-        public string AddUser(User user)
+        public String AddUser(User user)
         {
             var newUser = ConvertToBson(user);
             return ur.AddUser(newUser);
         }
 
-        public string DeleteUser(User user)
+        public String DeleteUser(User user)
         {
             var toDeleteUser = ConvertToBson(user);
             return ur.DeleteUser(toDeleteUser);
+        }
+
+        public String ReplaceUser(User oldInfo,User newInfo)
+        {
+            var toReplace = ConvertToBson(oldInfo);
+            var replacement = ConvertToBson(newInfo);
+            return ur.ReplaceUser(toReplace, replacement);
         }
 
         public BsonDocument ConvertToBson(User user)

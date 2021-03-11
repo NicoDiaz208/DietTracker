@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.Recipe
         }
 
 
-        public String AddRecipe(BsonDocument recipe)
+        public String AddRecipe(BsonDocument recipe,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Recipe");
             if (collection.Find(recipe) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.Recipe
             return "Insert OK";
         }
 
-        public String DeleteRecipe(BsonDocument recipe)
+        public String DeleteRecipe(BsonDocument recipe, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Recipe");
             if (collection.Find(recipe) == null)
             {
@@ -41,9 +41,9 @@ namespace DietTracker_Server.Classes.Recipe
             return "Delete OK";
         }
 
-        public String ReplaceRecipe(BsonDocument oldRecipe, BsonDocument newRecipe)
+        public String ReplaceRecipe(BsonDocument oldRecipe, BsonDocument newRecipe, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Recipe");
             if (collection.Find(oldRecipe) == null)
             {

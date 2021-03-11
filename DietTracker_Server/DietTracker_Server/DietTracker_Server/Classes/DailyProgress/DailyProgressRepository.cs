@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.DailyProgress
         }
 
 
-        public String AddDailyProgress(BsonDocument dailyP)
+        public String AddDailyProgress(BsonDocument dailyP,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("DailyProgress");
             if (collection.Find(dailyP) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.DailyProgress
             return "Insert OK";
         }
 
-        public String DeleteDailyProgress(BsonDocument dailyP)
+        public String DeleteDailyProgress(BsonDocument dailyP, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("DailyProgress");
             if (collection.Find(dailyP) == null)
             {
@@ -41,9 +41,9 @@ namespace DietTracker_Server.Classes.DailyProgress
             return "Delete OK";
         }
 
-        public String ReplaceDailyProgress(BsonDocument oldDP,BsonDocument newDP)
+        public String ReplaceDailyProgress(BsonDocument oldDP,BsonDocument newDP, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("DailyProgress");
             if (collection.Find(oldDP) == null)
             {

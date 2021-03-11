@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.NutritionFacts
         }
 
 
-        public String AddNF(BsonDocument nf)
+        public String AddNF(BsonDocument nf,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("NutritionFacts");
             if (collection.Find(nf) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.NutritionFacts
             return "Insert OK";
         }
 
-        public String DeleteNF(BsonDocument nf)
+        public String DeleteNF(BsonDocument nf, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("NutritionFacts");
             if (collection.Find(nf) == null)
             {
@@ -41,9 +41,9 @@ namespace DietTracker_Server.Classes.NutritionFacts
             return "Delete OK";
         }
 
-        public String ReplaceNF(BsonDocument oldNF,BsonDocument newNF)
+        public String ReplaceNF(BsonDocument oldNF,BsonDocument newNF, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("NutritionFacts");
             if (collection.Find(oldNF) == null)
             {

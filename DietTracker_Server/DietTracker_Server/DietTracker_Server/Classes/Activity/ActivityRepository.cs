@@ -17,9 +17,9 @@ namespace DietTracker_Server.Classes.Activity
         }
 
 
-        public String AddActivity(BsonDocument user)
+        public String AddActivity(BsonDocument user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Acivity");
             if (collection.Find(user) != null)
             {
@@ -30,9 +30,9 @@ namespace DietTracker_Server.Classes.Activity
             return "Insert OK";
         }
 
-        public String DeletedActivity(BsonDocument user)
+        public String DeletedActivity(BsonDocument user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Acivity");
             if (collection.Find(user) == null)
             {

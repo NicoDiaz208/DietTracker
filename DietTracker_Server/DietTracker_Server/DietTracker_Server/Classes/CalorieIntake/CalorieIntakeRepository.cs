@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.CalorieIntake
         }
 
 
-        public String AddCalorie(BsonDocument user)
+        public String AddCalorie(BsonDocument user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("CalorieIntake");
             if (collection.Find(user) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.CalorieIntake
             return "Insert OK";
         }
 
-        public String DeleteCalorie(BsonDocument user)
+        public String DeleteCalorie(BsonDocument user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("CalorieIntake");
             if (collection.Find(user) == null)
             {

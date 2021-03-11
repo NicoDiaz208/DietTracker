@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.WaterIntake
         }
 
 
-        public String AddWaterIntake(BsonDocument user)
+        public String AddWaterIntake(BsonDocument user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("WaterIntake");
             if (collection.Find(user) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.WaterIntake
             return "Insert OK";
         }
 
-        public String DeleteWaterIntake(BsonDocument user)
+        public String DeleteWaterIntake(BsonDocument user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("WaterIntake");
             if (collection.Find(user) == null)
             {

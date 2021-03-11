@@ -16,9 +16,9 @@ namespace DietTracker_Server.Classes.User
         }
 
 
-        public String AddUser(BsonDocument user)
+        public String AddUser(BsonDocument user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Users");
             if(collection.Find(user) != null)
             {
@@ -29,9 +29,9 @@ namespace DietTracker_Server.Classes.User
             return "Insert OK";
         }
 
-        public String DeleteUser(BsonDocument user)
+        public String DeleteUser(BsonDocument user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Users");
             if (collection.Find(user) == null)
             {
@@ -41,9 +41,9 @@ namespace DietTracker_Server.Classes.User
             return "Delete OK";
         }
 
-        public String ReplaceUser(BsonDocument oldInfo,BsonDocument newInfo)
+        public String ReplaceUser(BsonDocument oldInfo,BsonDocument newInfo, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Users");
             if (collection.Find(oldInfo) == null)
             {

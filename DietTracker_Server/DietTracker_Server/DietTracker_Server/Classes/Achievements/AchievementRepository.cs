@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using System.Text;
 using MongoDB.Bson;
 
-namespace DietTracker_Server.Classes.Achievements
+namespace DietTracker_Server.Classes.Achievement
 {
     class AchievmentRepository
     {
@@ -15,10 +15,10 @@ namespace DietTracker_Server.Classes.Achievements
             db = new MongoClient(connectionString);
         }
 
-        public String AddAchievement(BsonDocument user)
+        public String AddAchievement(Achievement user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Achievement");
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Achievement>("Achievement");
             if (collection.Find(user) != null)
             {
                 return "Exestiert bereits";
@@ -28,9 +28,9 @@ namespace DietTracker_Server.Classes.Achievements
             return "Insert OK";
         }
 
-        public String DeleteAchievement(BsonDocument user)
+        public String DeleteAchievement(BsonDocument user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
+            var database = db.GetDatabase(Database);
             var collection = database.GetCollection<BsonDocument>("Achievement");
             if (collection.Find(user) == null)
             {

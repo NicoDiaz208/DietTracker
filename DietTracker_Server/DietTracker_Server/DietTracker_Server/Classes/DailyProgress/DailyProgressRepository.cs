@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.DailyProgress
         }
 
 
-        public String AddDailyProgress(BsonDocument dailyP,string Database)
+        public String AddDailyProgress(DailyProgress dailyP,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(dailyP) != null)
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(dailyP.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,27 +29,27 @@ namespace DietTracker_Server.Classes.DailyProgress
             return "Insert OK";
         }
 
-        public String DeleteDailyProgress(BsonDocument dailyP, string Database)
+        public String DeleteDailyProgress(DailyProgress dailyP, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(dailyP) == null)
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(dailyP.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(dailyP);
+            collection.DeleteOne(dailyP.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceDailyProgress(BsonDocument oldDP,BsonDocument newDP, string Database)
+        public String ReplaceDailyProgress(DailyProgress oldDP, DailyProgress newDP, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(oldDP) == null)
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(oldDP.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldDP, newDP);
+            collection.ReplaceOne(oldDP.ToBsonDocument(), newDP.ToBsonDocument());
             return "Replace OK";
         }
     }

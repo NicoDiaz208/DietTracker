@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.Recipe
         }
 
 
-        public String AddRecipe(BsonDocument recipe,string Database)
+        public String AddRecipe(Recipe recipe,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Recipe");
-            if (collection.Find(recipe) != null)
+            var collection = database.GetCollection<Recipe>("Recipe");
+            if (collection.Find(recipe.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,27 +29,27 @@ namespace DietTracker_Server.Classes.Recipe
             return "Insert OK";
         }
 
-        public String DeleteRecipe(BsonDocument recipe, string Database)
+        public String DeleteRecipe(Recipe recipe, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Recipe");
-            if (collection.Find(recipe) == null)
+            var collection = database.GetCollection<Recipe>("Recipe");
+            if (collection.Find(recipe.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(recipe);
+            collection.DeleteOne(recipe.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceRecipe(BsonDocument oldRecipe, BsonDocument newRecipe, string Database)
+        public String ReplaceRecipe(Recipe oldRecipe, Recipe newRecipe, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Recipe");
-            if (collection.Find(oldRecipe) == null)
+            var collection = database.GetCollection<Recipe>("Recipe");
+            if (collection.Find(oldRecipe.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldRecipe, newRecipe);
+            collection.ReplaceOne(oldRecipe.ToBsonDocument(), newRecipe);
             return "Replace OK";
         }
     }

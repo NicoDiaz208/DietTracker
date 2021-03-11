@@ -14,11 +14,11 @@ namespace DietTracker_Server.Classes.Food
         {
             db = new MongoClient(connectionString);
         }
-        public String AddFood(BsonDocument food,string Database)
+        public String AddFood(Food food,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(food) != null)
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(food.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -27,27 +27,27 @@ namespace DietTracker_Server.Classes.Food
             return "Insert OK";
         }
 
-        public String DeleteFood(BsonDocument food, string Database)
+        public String DeleteFood(Food food, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(food) == null)
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(food.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(food);
+            collection.DeleteOne(food.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceFood(BsonDocument oldFood, BsonDocument newFood, string Database)
+        public String ReplaceFood(Food oldFood, Food newFood, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(oldFood) == null)
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(oldFood.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldFood, newFood);
+            collection.ReplaceOne(oldFood.ToBsonDocument(), newFood);
             return "Altes Nahrungsmittel wurde geändert";
         }
 

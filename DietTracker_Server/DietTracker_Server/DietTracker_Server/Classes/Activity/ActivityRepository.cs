@@ -17,11 +17,11 @@ namespace DietTracker_Server.Classes.Activity
         }
 
 
-        public String AddActivity(BsonDocument user,string Database)
+        public String AddActivity(Activity user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Acivity");
-            if (collection.Find(user) != null)
+            var collection = database.GetCollection<Activity>("Acivity");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -30,15 +30,15 @@ namespace DietTracker_Server.Classes.Activity
             return "Insert OK";
         }
 
-        public String DeletedActivity(BsonDocument user, string Database)
+        public String DeletedActivity(Activity user, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Acivity");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<Activity>("Acivity");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

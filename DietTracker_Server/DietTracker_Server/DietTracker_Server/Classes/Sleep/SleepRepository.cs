@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.Sleep
         }
 
 
-        public String AddSleep(BsonDocument user,string Database)
+        public String AddSleep(Sleep user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Sleep");
-            if (collection.Find(user) != null)
+            var collection = database.GetCollection<Sleep>("Sleep");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,15 +29,15 @@ namespace DietTracker_Server.Classes.Sleep
             return "Insert OK";
         }
 
-        public String DeleteSleep(BsonDocument user, string Database)
+        public String DeleteSleep(Sleep user, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Sleep");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<Sleep>("Sleep");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.NutritionFacts
         }
 
 
-        public String AddNF(BsonDocument nf,string Database)
+        public String AddNF(NutritionFacts nf,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(nf) != null)
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(nf.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,27 +29,27 @@ namespace DietTracker_Server.Classes.NutritionFacts
             return "Insert OK";
         }
 
-        public String DeleteNF(BsonDocument nf, string Database)
+        public String DeleteNF(NutritionFacts nf, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(nf) == null)
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(nf.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(nf);
+            collection.DeleteOne(nf.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceNF(BsonDocument oldNF,BsonDocument newNF, string Database)
+        public String ReplaceNF(NutritionFacts oldNF, NutritionFacts newNF, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(oldNF) == null)
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(oldNF.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldNF, newNF);
+            collection.ReplaceOne(oldNF.ToBsonDocument(), newNF);
             return "Replace OK";
         }
     }

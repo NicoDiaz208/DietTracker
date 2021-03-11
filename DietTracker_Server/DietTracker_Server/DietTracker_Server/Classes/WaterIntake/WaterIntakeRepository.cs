@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.WaterIntake
         }
 
 
-        public String AddWaterIntake(BsonDocument user,string Database)
+        public String AddWaterIntake(WaterIntake user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("WaterIntake");
-            if (collection.Find(user) != null)
+            var collection = database.GetCollection<WaterIntake>("WaterIntake");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,15 +29,15 @@ namespace DietTracker_Server.Classes.WaterIntake
             return "Insert OK";
         }
 
-        public String DeleteWaterIntake(BsonDocument user,string Database)
+        public String DeleteWaterIntake(WaterIntake user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("WaterIntake");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<WaterIntake>("WaterIntake");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

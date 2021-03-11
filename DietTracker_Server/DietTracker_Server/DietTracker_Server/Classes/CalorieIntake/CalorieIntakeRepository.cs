@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.CalorieIntake
         }
 
 
-        public String AddCalorie(BsonDocument user,string Database)
+        public String AddCalorie(CalorieIntake user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("CalorieIntake");
-            if (collection.Find(user) != null)
+            var collection = database.GetCollection<CalorieIntake>("CalorieIntake");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,15 +29,15 @@ namespace DietTracker_Server.Classes.CalorieIntake
             return "Insert OK";
         }
 
-        public String DeleteCalorie(BsonDocument user, string Database)
+        public String DeleteCalorie(CalorieIntake user, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("CalorieIntake");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<CalorieIntake>("CalorieIntake");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

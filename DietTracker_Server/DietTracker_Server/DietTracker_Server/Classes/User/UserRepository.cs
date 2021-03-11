@@ -16,11 +16,11 @@ namespace DietTracker_Server.Classes.User
         }
 
 
-        public String AddUser(BsonDocument user,string Database)
+        public String AddUser(User user,string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if(collection.Find(user) != null)
+            var collection = database.GetCollection<User>("Users");
+            if(collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -29,27 +29,27 @@ namespace DietTracker_Server.Classes.User
             return "Insert OK";
         }
 
-        public String DeleteUser(BsonDocument user, string Database)
+        public String DeleteUser(User user, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<User>("Users");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceUser(BsonDocument oldInfo,BsonDocument newInfo, string Database)
+        public String ReplaceUser(User oldInfo, User newInfo, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if (collection.Find(oldInfo) == null)
+            var collection = database.GetCollection<User>("Users");
+            if (collection.Find(oldInfo.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldInfo, newInfo);
+            collection.ReplaceOne(oldInfo.ToBsonDocument(), newInfo);
             return "Replace OK";
         }
     }

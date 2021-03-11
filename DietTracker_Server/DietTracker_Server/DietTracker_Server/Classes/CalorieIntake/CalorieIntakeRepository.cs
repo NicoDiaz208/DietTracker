@@ -8,7 +8,12 @@ namespace DietTracker_Server.Classes.CalorieIntake
 {
     class CalorieIntakeRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public CalorieIntakeRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddCalorie(BsonDocument user)

@@ -8,9 +8,13 @@ namespace DietTracker_Server.Classes.User
 {
     class UserRepository
     {
-        //Könnte Probleme machen
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
-        
+        MongoClient db;
+
+        public UserRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
+
 
         public String AddUser(BsonDocument user)
         {

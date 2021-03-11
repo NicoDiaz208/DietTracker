@@ -9,7 +9,12 @@ namespace DietTracker_Server.Classes.Activity
     class ActivityRepository
     {
 
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public ActivityRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddActivity(BsonDocument user)

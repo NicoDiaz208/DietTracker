@@ -6,9 +6,14 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.Sleep
 {
-    class DailyProgressRepository
+    class SleepRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public SleepRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddSleep(BsonDocument user)

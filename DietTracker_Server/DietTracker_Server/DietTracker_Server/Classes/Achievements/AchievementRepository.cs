@@ -6,15 +6,19 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.Achievements
 {
-    class DailyProgressRepository
+    class AchievmentRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
+        public AchievmentRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
-        public String AddAchievements(BsonDocument user)
+        public String AddAchievement(BsonDocument user)
         {
             var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Achievements");
+            var collection = database.GetCollection<BsonDocument>("Achievement");
             if (collection.Find(user) != null)
             {
                 return "Exestiert bereits";
@@ -24,10 +28,10 @@ namespace DietTracker_Server.Classes.Achievements
             return "Insert OK";
         }
 
-        public String DeleteAchievements(BsonDocument user)
+        public String DeleteAchievement(BsonDocument user)
         {
             var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Achievements");
+            var collection = database.GetCollection<BsonDocument>("Achievement");
             if (collection.Find(user) == null)
             {
                 return "Exestiert nicht";

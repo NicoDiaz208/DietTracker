@@ -8,7 +8,12 @@ namespace DietTracker_Server.Classes.DailyProgress
 {
     class DailyProgressRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public DailyProgressRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddDailyProgress(BsonDocument dailyP)

@@ -6,9 +6,14 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.Recipe
 {
-    class DailyProgressRepository
+    class RecipeRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public RecipeRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddRecipe(BsonDocument recipe)

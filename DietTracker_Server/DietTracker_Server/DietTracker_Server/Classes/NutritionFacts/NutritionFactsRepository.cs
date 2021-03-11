@@ -6,9 +6,14 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.NutritionFacts
 {
-    class DailyProgressRepository
+    class NutritionFactRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
+
+        public NutritionFactRepository(string connectionString)
+        {
+            db = new MongoClient(connectionString);
+        }
 
 
         public String AddNF(BsonDocument nf)

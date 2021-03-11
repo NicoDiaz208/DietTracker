@@ -15,11 +15,11 @@ namespace DietTracker_Server.Classes.Achievement
             db = new MongoClient(connectionString);
         }
 
-        public String AddAchievement(Achievement user,string Database)
+        public string AddAchievement(Achievement user,string Database)
         {
             var database = db.GetDatabase(Database);
             var collection = database.GetCollection<Achievement>("Achievement");
-            if (collection.Find(user) != null)
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -28,15 +28,15 @@ namespace DietTracker_Server.Classes.Achievement
             return "Insert OK";
         }
 
-        public String DeleteAchievement(BsonDocument user, string Database)
+        public string DeleteAchievement(Achievement user, string Database)
         {
             var database = db.GetDatabase(Database);
-            var collection = database.GetCollection<BsonDocument>("Achievement");
-            if (collection.Find(user) == null)
+            var collection = database.GetCollection<Achievement>("Achievement");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

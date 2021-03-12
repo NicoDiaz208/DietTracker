@@ -19,13 +19,12 @@ namespace DietTracker_Server.Classes.Achievement
         {
             var database = db.GetDatabase(Database);
             var collection = database.GetCollection<Achievement>("Achievement");
-            if (collection.Find(user.ToBsonDocument()) != null)
-            {
-                return "Exestiert bereits";
-            }
-            collection.InsertOne(user);
+           
+                collection.InsertOne(user);
+                return "Insert OK";
+            
 
-            return "Insert OK";
+
         }
 
         public string DeleteAchievement(Achievement user, string Database)

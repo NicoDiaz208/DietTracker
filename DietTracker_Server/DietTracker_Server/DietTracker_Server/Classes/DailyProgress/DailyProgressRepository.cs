@@ -49,7 +49,7 @@ namespace DietTracker_Server.Classes.DailyProgress
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldDP.ToBsonDocument(), newDP.ToBsonDocument());
+            collection.ReplaceOne(oldDP.ToBsonDocument(), newDP);
             return "Replace OK";
         }
     }

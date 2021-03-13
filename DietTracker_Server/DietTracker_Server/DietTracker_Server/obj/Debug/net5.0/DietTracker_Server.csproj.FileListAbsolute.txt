@@ -24,3 +24,29 @@ C:\Users\Muhamed\Documents\DietTracker\DietTracker_Server\DietTracker_Server\Die
 C:\Users\Muhamed\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\ref\DietTracker_Server.dll
 C:\Users\Muhamed\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.pdb
 C:\Users\Muhamed\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.genruntimeconfig.cache
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.exe
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.deps.json
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.runtimeconfig.json
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.runtimeconfig.dev.json
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\ref\DietTracker_Server.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DietTracker_Server.pdb
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\DnsClient.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\MongoDB.Bson.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\MongoDB.Driver.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\MongoDB.Driver.Core.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\MongoDB.Libmongocrypt.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\SharpCompress.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\runtimes\win\native\libzstd.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\runtimes\win\native\snappy32.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\bin\Debug\net5.0\runtimes\win\native\snappy64.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.csprojAssemblyReference.cache
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.AssemblyInfoInputs.cache
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.AssemblyInfo.cs
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.csproj.CoreCompileInputs.cache
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.csproj.CopyComplete
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\ref\DietTracker_Server.dll
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.pdb
+C:\Users\Nico Diaz\Documents\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Server\obj\Debug\net5.0\DietTracker_Server.genruntimeconfig.cache

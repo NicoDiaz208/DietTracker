@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Muhamed\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj": {}
+    "C:\\Users\\Nico Diaz\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Muhamed\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj": {
+    "C:\\Users\\Nico Diaz\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Muhamed\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj",
+        "projectUniqueName": "C:\\Users\\Nico Diaz\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj",
         "projectName": "DietTracker_Server",
-        "projectPath": "C:\\Users\\Muhamed\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj",
-        "packagesPath": "C:\\Users\\Muhamed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Muhamed\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\obj\\",
+        "projectPath": "C:\\Users\\Nico Diaz\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server.csproj",
+        "packagesPath": "C:\\Users\\Nico Diaz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nico Diaz\\Documents\\DietTracker\\DietTracker_Server\\DietTracker_Server\\DietTracker_Server\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Muhamed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nico Diaz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -6,14 +6,19 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.Food
 {
-    class DailyProgressRepository
+    class FoodRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
-        public String AddFood(BsonDocument food)
+        MongoClient db;
+
+        public FoodRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(food) != null)
+            db = new MongoClient(connectionString);
+        }
+        public String AddFood(Food food,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(food.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -22,27 +27,27 @@ namespace DietTracker_Server.Classes.Food
             return "Insert OK";
         }
 
-        public String DeleteFood(BsonDocument food)
+        public String DeleteFood(Food food, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(food) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(food.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(food);
+            collection.DeleteOne(food.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceFood(BsonDocument oldFood, BsonDocument newFood)
+        public String ReplaceFood(Food oldFood, Food newFood, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Food");
-            if (collection.Find(oldFood) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Food>("Food");
+            if (collection.Find(oldFood.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldFood, newFood);
+            collection.ReplaceOne(oldFood.ToBsonDocument(), newFood);
             return "Altes Nahrungsmittel wurde geändert";
         }
 

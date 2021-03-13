@@ -8,14 +8,19 @@ namespace DietTracker_Server.Classes.CalorieIntake
 {
     class CalorieIntakeRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddCalorie(BsonDocument user)
+        public CalorieIntakeRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("CalorieIntake");
-            if (collection.Find(user) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddCalorie(CalorieIntake user,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<CalorieIntake>("CalorieIntake");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -24,15 +29,15 @@ namespace DietTracker_Server.Classes.CalorieIntake
             return "Insert OK";
         }
 
-        public String DeleteCalorie(BsonDocument user)
+        public String DeleteCalorie(CalorieIntake user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("CalorieIntake");
-            if (collection.Find(user) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<CalorieIntake>("CalorieIntake");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

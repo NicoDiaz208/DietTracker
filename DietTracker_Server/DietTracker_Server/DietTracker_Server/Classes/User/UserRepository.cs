@@ -8,15 +8,19 @@ namespace DietTracker_Server.Classes.User
 {
     class UserRepository
     {
-        //Könnte Probleme machen
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
-        
+        MongoClient db;
 
-        public String AddUser(BsonDocument user)
+        public UserRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if(collection.Find(user) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddUser(User user,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<User>("Users");
+            if(collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -25,27 +29,27 @@ namespace DietTracker_Server.Classes.User
             return "Insert OK";
         }
 
-        public String DeleteUser(BsonDocument user)
+        public String DeleteUser(User user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if (collection.Find(user) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<User>("Users");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceUser(BsonDocument oldInfo,BsonDocument newInfo)
+        public String ReplaceUser(User oldInfo, User newInfo, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Users");
-            if (collection.Find(oldInfo) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<User>("Users");
+            if (collection.Find(oldInfo.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldInfo, newInfo);
+            collection.ReplaceOne(oldInfo.ToBsonDocument(), newInfo);
             return "Replace OK";
         }
     }

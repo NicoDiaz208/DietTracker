@@ -4,13 +4,6 @@ using System.Text;
 
 namespace DietTracker_Server.Classes.Food
 {
-    class Food
-    {
-        public string Name { get; set; }
-
-        public Food(string name)
-        {
-            Name = name;
-        }
-    }
+    public record Food(string Name);
+    
 }

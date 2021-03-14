@@ -1,0 +1,8 @@
+[
+{"id":1,"name":"5 Tage abgenommen", "category":"abnehmen", "accept":true},
+{"id":1,"name":"10 Tage abgenommen", "category":"abnehmen", "accept":true},
+{"id":1,"name":"15 Tage abgenommen", "category":"abnehmen", "accept":true},
+{"id":1,"name":"5 Tage zugenommen", "category":"zunehmen", "accept":true},
+{"id":1,"name":"10 Tage zugenommen", "category":"zunehmen", "accept":true},
+{"id":1,"name":"15 Tage zugenommen", "category":"zunehmen", "accept":true}
+]

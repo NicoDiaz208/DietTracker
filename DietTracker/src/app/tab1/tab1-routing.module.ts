@@ -10,7 +10,12 @@ const routes: Routes = [
   {
     path: 'addcalories',
     loadChildren: () => import('./addcalories/addcalories/addcalories.module').then( m => m.AddcaloriesPageModule)
+  },
+  {
+    path: 'achivment/:index',
+    loadChildren: () => import('./achivment/achivment.module').then( m => m.AchivmentPageModule)
   }
+
 ];
 
 @NgModule({

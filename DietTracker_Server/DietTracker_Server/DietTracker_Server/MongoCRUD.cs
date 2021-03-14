@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using DietTracker_Server.Classes.Achievement;
 
 namespace DietTracker_Server
 {
@@ -12,13 +13,13 @@ namespace DietTracker_Server
 
         public MongoCRUD(string database)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient("mongodb+srv://ameldz:Eldin2010@diettracker.ijgzi.mongodb.net/test");
             
             db = client.GetDatabase(database);
         }
-        public void insertRecord<T>(string table, T record)
+        public void insertRecord(string table, Achievement record)
         {
-            var collection = db.GetCollection<T>(table);
+            var collection = db.GetCollection<Achievement>(table);
             collection.InsertOne(record);
         }
     }

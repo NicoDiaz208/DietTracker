@@ -9,14 +9,19 @@ namespace DietTracker_Server.Classes.Activity
     class ActivityRepository
     {
 
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddActivity(BsonDocument user)
+        public ActivityRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Acivity");
-            if (collection.Find(user) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddActivity(Activity user,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Activity>("Acivity");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -25,15 +30,15 @@ namespace DietTracker_Server.Classes.Activity
             return "Insert OK";
         }
 
-        public String DeletedActivity(BsonDocument user)
+        public String DeletedActivity(Activity user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Acivity");
-            if (collection.Find(user) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Activity>("Acivity");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

@@ -8,14 +8,19 @@ namespace DietTracker_Server.Classes.WaterIntake
 {
     class DailyProgressRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddWaterIntake(BsonDocument user)
+        public DailyProgressRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("WaterIntake");
-            if (collection.Find(user) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddWaterIntake(WaterIntake user,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<WaterIntake>("WaterIntake");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -24,15 +29,15 @@ namespace DietTracker_Server.Classes.WaterIntake
             return "Insert OK";
         }
 
-        public String DeleteWaterIntake(BsonDocument user)
+        public String DeleteWaterIntake(WaterIntake user,string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("WaterIntake");
-            if (collection.Find(user) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<WaterIntake>("WaterIntake");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

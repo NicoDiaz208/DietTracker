@@ -8,14 +8,19 @@ namespace DietTracker_Server.Classes.DailyProgress
 {
     class DailyProgressRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddDailyProgress(BsonDocument dailyP)
+        public DailyProgressRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(dailyP) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddDailyProgress(DailyProgress dailyP,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(dailyP.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -24,27 +29,27 @@ namespace DietTracker_Server.Classes.DailyProgress
             return "Insert OK";
         }
 
-        public String DeleteDailyProgress(BsonDocument dailyP)
+        public String DeleteDailyProgress(DailyProgress dailyP, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(dailyP) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(dailyP.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(dailyP);
+            collection.DeleteOne(dailyP.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceDailyProgress(BsonDocument oldDP,BsonDocument newDP)
+        public String ReplaceDailyProgress(DailyProgress oldDP, DailyProgress newDP, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("DailyProgress");
-            if (collection.Find(oldDP) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<DailyProgress>("DailyProgress");
+            if (collection.Find(oldDP.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldDP, newDP);
+            collection.ReplaceOne(oldDP.ToBsonDocument(), newDP);
             return "Replace OK";
         }
     }

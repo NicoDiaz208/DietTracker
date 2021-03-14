@@ -6,16 +6,21 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.Sleep
 {
-    class DailyProgressRepository
+    class SleepRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddSleep(BsonDocument user)
+        public SleepRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Sleep");
-            if (collection.Find(user) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddSleep(Sleep user,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Sleep>("Sleep");
+            if (collection.Find(user.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -24,15 +29,15 @@ namespace DietTracker_Server.Classes.Sleep
             return "Insert OK";
         }
 
-        public String DeleteSleep(BsonDocument user)
+        public String DeleteSleep(Sleep user, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("Sleep");
-            if (collection.Find(user) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<Sleep>("Sleep");
+            if (collection.Find(user.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(user);
+            collection.DeleteOne(user.ToBsonDocument());
             return "Delete OK";
         }
     }

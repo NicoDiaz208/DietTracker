@@ -4,15 +4,6 @@ using System.Text;
 
 namespace DietTracker_Server.Classes.CalorieIntake
 {
-    class CalorieIntake
-    {
-        public double Current { get; set; }
-        public double Now { get; set; }
-
-        public CalorieIntake(double current, double now)
-        {
-            Current = current;
-            Now = now;
-        }
-    }
+    public record CalorieIntake(double Current, double Now);
+    
 }

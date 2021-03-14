@@ -6,16 +6,21 @@ using MongoDB.Bson;
 
 namespace DietTracker_Server.Classes.NutritionFacts
 {
-    class DailyProgressRepository
+    class NutritionFactRepository
     {
-        MongoClient db = new MongoClient("mongodb://localhost:27017");
+        MongoClient db;
 
-
-        public String AddNF(BsonDocument nf)
+        public NutritionFactRepository(string connectionString)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(nf) != null)
+            db = new MongoClient(connectionString);
+        }
+
+
+        public String AddNF(NutritionFacts nf,string Database)
+        {
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(nf.ToBsonDocument()) != null)
             {
                 return "Exestiert bereits";
             }
@@ -24,27 +29,27 @@ namespace DietTracker_Server.Classes.NutritionFacts
             return "Insert OK";
         }
 
-        public String DeleteNF(BsonDocument nf)
+        public String DeleteNF(NutritionFacts nf, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(nf) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(nf.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.DeleteOne(nf);
+            collection.DeleteOne(nf.ToBsonDocument());
             return "Delete OK";
         }
 
-        public String ReplaceNF(BsonDocument oldNF,BsonDocument newNF)
+        public String ReplaceNF(NutritionFacts oldNF, NutritionFacts newNF, string Database)
         {
-            var database = db.GetDatabase("TestDietTracker");
-            var collection = database.GetCollection<BsonDocument>("NutritionFacts");
-            if (collection.Find(oldNF) == null)
+            var database = db.GetDatabase(Database);
+            var collection = database.GetCollection<NutritionFacts>("NutritionFacts");
+            if (collection.Find(oldNF.ToBsonDocument()) == null)
             {
                 return "Exestiert nicht";
             }
-            collection.ReplaceOne(oldNF, newNF);
+            collection.ReplaceOne(oldNF.ToBsonDocument(), newNF);
             return "Replace OK";
         }
     }

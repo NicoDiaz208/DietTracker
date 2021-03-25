@@ -1,0 +1,15 @@
+GET https://localhost:5001/api/achievements
+
+###
+POST https://localhost:5001/api/achievements
+Content-Type: application/json
+
+{
+    "name": "Biking",
+    "now": 20,
+    "goal": 30
+}
+
+###
+GET https://localhost:5001/api/achievements/605ca756b00e93f470cedda1
+

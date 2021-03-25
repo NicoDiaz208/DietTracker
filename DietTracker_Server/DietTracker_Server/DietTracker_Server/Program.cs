@@ -4,6 +4,7 @@ using DietTracker_Server.Classes.User;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using DietTracker_Server.Classes.Achievement;
+using MongoDB.Bson;
 
 namespace DietTracker_Server
 {
@@ -12,11 +13,11 @@ namespace DietTracker_Server
         static void Main(string[] args)
         {
             MongoCRUD db = new MongoCRUD("DietTracker");
-            AchievmentRepository ar = new AchievmentRepository("mongodb+srv://ameldz:Eldin2010@diettracker.ijgzi.mongodb.net/test");
-            Achievement a = new Achievement("Running", 1, 2);
+            AchievmentRepository ar = new AchievmentRepository("mongodb://localhost:27017");
+            Achievement a = new Achievement(ObjectId.Empty, "Running", 1, 2);
             ar.AddAchievement(a, "DietTracker");
-            
 
+            ar.DeleteAchievement(a, "DietTracker");
 
         }
     }

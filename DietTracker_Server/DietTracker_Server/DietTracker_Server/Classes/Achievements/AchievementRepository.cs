@@ -31,11 +31,9 @@ namespace DietTracker_Server.Classes.Achievement
         {
             var database = db.GetDatabase(Database);
             var collection = database.GetCollection<Achievement>("Achievement");
-            if (collection.Find(user.ToBsonDocument()) == null)
-            {
-                return "Exestiert nicht";
-            }
-            collection.DeleteOne(user.ToBsonDocument());
+
+            collection.DeleteOne(Builders<Achievement>.Filter.Eq(a => a.Id, user.Id));
+
             return "Delete OK";
         }
     }

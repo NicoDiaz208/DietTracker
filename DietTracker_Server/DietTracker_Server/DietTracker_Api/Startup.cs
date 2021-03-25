@@ -1,4 +1,5 @@
 using DietTracker_Api.Services;
+using DietTracker_DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,8 @@ namespace DietTracker_Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ISampleRepo, SampleRepo>();
+            services.AddSingleton(new MongoClient(Configuration["MongoConnectionString"]));
+            services.AddSingleton<CollectionFactory>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

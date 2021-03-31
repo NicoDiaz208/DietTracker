@@ -1,4 +1,4 @@
-/*
+
 import { User } from './user';
 
 describe('User', () => {
@@ -6,4 +6,3 @@ describe('User', () => {
     expect(new User()).toBeTruthy();
   });
 });
-*/

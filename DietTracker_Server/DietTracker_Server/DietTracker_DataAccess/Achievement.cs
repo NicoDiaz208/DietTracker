@@ -3,7 +3,7 @@ using System;
 
 namespace DietTracker_DataAccess
 {
-    public record Model(
+    public record Achievement(
         ObjectId Id, 
         string Name,
         double Now,

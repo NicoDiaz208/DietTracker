@@ -12,11 +12,11 @@ namespace DietTracker_Api.Controller
     [ApiController]
     public class AchievementsController : ControllerBase
     {
-        private readonly IMongoCollection<Model> achievementCollection;
+        private readonly IMongoCollection<Achievement> achievementCollection;
 
         public AchievementsController(CollectionFactory cf)
         {
-            achievementCollection = cf.GetCollection<Model>();
+            achievementCollection = cf.GetCollection<Achievement>();
         }
 
         public record AchievementCreationDto(
@@ -53,7 +53,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<AchievementDto>> Add(AchievementCreationDto item)
         {
-            var na = new Model(ObjectId.Empty, item.Name, item.Now, item.Goal);
+            var na = new Achievement(ObjectId.Empty, item.Name, item.Now, item.Goal);
             await achievementCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleAchievement), new { id = na.Id },
                 new AchievementDto(na.Id.ToString(), na.Name, na.Now, na.Goal));

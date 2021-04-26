@@ -42,6 +42,7 @@ namespace DietTracker_Api.Controller
         {
             var dbResult = await activityCollection.GetAll();
             var result = dbResult.Select(a => new ActivityDto(a.Id.ToString(), a.Steps, a.AktiveTime, a.GoalTime, a.BurnedCalories, a.Distance));
+            
             return Ok(result);
         }
 
@@ -65,7 +66,6 @@ namespace DietTracker_Api.Controller
             await activityCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleActivity), new { Id = na.Id },
                 new ActivityDto(na.Id.ToString(), na.Steps, na.AktiveTime, na.GoalTime, na.BurnedCalories, na.Distance));
-
         }
     }
 }

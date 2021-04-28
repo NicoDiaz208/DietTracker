@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content class="flex">
+  <div *ngIf='user'>
     <ion-avatar class="image-center">
       <img src="../../assets/Recipes/TestPerson.jpg">
     </ion-avatar>
@@ -121,5 +122,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    
+    
+  </div>
   </ion-content>
-  
+  <app-navigation-bar> </app-navigation-bar>

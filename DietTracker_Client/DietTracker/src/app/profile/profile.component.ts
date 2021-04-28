@@ -7,7 +7,7 @@ import { User } from './user';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  private user:User;
+  public user:User;
   constructor() { }
 
   ngOnInit() {}

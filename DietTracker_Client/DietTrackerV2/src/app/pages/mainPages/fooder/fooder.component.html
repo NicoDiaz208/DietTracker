@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Persönliches</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-slides>
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Subtitle</ion-card-subtitle>
+            <ion-card-title>Rezept</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="flex">
+            <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 60%; height: 60%;" ></ion-img>
+            </div>
+            <ion-list>
+              <ion-item>
+                <ion-title>
+                  Test1
+                </ion-title>
+              </ion-item>
+              <ion-item>
+                <ion-title>
+                  Test2
+                </ion-title>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+</body>

@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Erfolge</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<br>
+
+<div class="ion-text-center">Username</div>
+<ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../../assets/Recipes/restaurant.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Kalorien Eingabe</h2>
+          <p>0/3768</p>
+        </ion-label>
+        <ion-button routerLink="./addcalories" slot="end">add</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../../assets/Recipes/laufen.jpg">
+        </ion-avatar>
+        <ion-label>
+          <h2>Verbrannte Kalorien</h2>
+          <ion-input placeholder="Enter Input"></ion-input>
+        </ion-label>
+        <ion-button slot="end">add</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../../assets/Recipes/water-glass.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Wasser</h2>
+          <ion-button (click)="plus()">+</ion-button>
+          <ion-button (click)="minus()">-</ion-button>
+        </ion-label>
+        <ion-text>{{watercount}} Liter</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../../assets/Recipes/sleep.jpg">
+        </ion-avatar>
+        <ion-label>
+          <h2>Schlafen</h2>
+          <ion-button (click)="plusS()">+</ion-button>
+          <ion-button (click)="minusS()">-</ion-button>
+        </ion-label>
+        <ion-text>{{sleepcount}} Stunden</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../../assets/Recipes/herausfoderung.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Achievements</h2>
+
+        </ion-label>
+        <ion-button [routerLink]="['./achivment/'+1]" slot="end">GoTo</ion-button>
+      </ion-item>
+    </ion-list>
+</ion-content>

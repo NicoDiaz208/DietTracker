@@ -1,0 +1,7 @@
+{
+  "name": "DietTrackerV2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Recipe} from '../../classes/recipe';
 @Component({
@@ -21,7 +21,7 @@ export class VeganComponent implements OnInit
 
   ngOnInit() {
     try{
-      this.http.get('assets/recipes.json')
+      this.http.get('../../assets/recipes.json')
       .subscribe(data=> {this.recipes = (data as Recipe[])
         .filter(x=>x.category === this.category);
         this.recipes = (data as Recipe[]).filter(x=>x.category === this.category);
@@ -30,7 +30,7 @@ export class VeganComponent implements OnInit
     catch{}
   }
 
-  Sort(mode: string){
+  sort(mode: string){
     switch (mode){
       case 'A-Z':
           this.recipes.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));

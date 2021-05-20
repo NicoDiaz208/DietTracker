@@ -1,9 +1,37 @@
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs';
+import { Achievment} from '../classes/achievement';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AchievementService {
+  public achievments: Achievment[];
+  public httpClient: HttpClient;
 
-  constructor() { }
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+  constructor( httpClient: HttpClient) {
+    this.httpClient = httpClient;
+  }
+
+  getAll(): Observable<Achievment[]> {
+    return this.httpClient.get<Achievment[]>(`${environment.apiBase}/api/activities`);
+  }
+
+  addAchievement(achievment: Achievment){
+    // eslint-disable-next-line no-var
+    var json = JSON.stringify(achievment);
+
+    return this.httpClient.post('https://localhost:5001/api/Achievements', json, {headers: this.headers});
+  }
+
+  getAchievementByID(id: string){
+    return this.httpClient.get<Achievment>('https://localhost:5001/api/Achievements/' + id);
+  }
+  // getById
+  // add
+  // delete
+  // ...
 }

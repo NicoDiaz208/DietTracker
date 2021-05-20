@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AchivementComponent } from './achivement.component';
+import { AchievementComponent } from './achievement.component';
 
 describe('AchivementComponent', () => {
-  let component: AchivementComponent;
-  let fixture: ComponentFixture<AchivementComponent>;
+  let component: AchievementComponent;
+  let fixture: ComponentFixture<AchievementComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AchivementComponent ],
+      declarations: [ AchievementComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AchivementComponent);
+    fixture = TestBed.createComponent(AchievementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

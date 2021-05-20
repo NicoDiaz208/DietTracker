@@ -29,7 +29,7 @@ namespace DietTracker_Api.Controller
            );
 
        public record ActivityDto(
-           string id,
+           string Id,
            int Steps, 
            double AktiveTime, 
            double GoalTime, 

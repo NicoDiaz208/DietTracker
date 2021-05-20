@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietTracker_Server", "DietTracker_Server\DietTracker_Server.csproj", "{A2C46332-BB03-4B66-B007-605635BAAB26}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietTracker_Api", "DietTracker_Api\DietTracker_Api.csproj", "{0B015C58-2AD8-42CF-AE8A-DFFDAA433DCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietTracker_DataAccess", "DietTracker_DataAccess\DietTracker_DataAccess.csproj", "{B5BBD31B-7C80-4695-94A8-1F31B330F80E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DietTracker_DataAccess", "DietTracker_DataAccess\DietTracker_DataAccess.csproj", "{B5BBD31B-7C80-4695-94A8-1F31B330F80E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A2C46332-BB03-4B66-B007-605635BAAB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2C46332-BB03-4B66-B007-605635BAAB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2C46332-BB03-4B66-B007-605635BAAB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2C46332-BB03-4B66-B007-605635BAAB26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B015C58-2AD8-42CF-AE8A-DFFDAA433DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B015C58-2AD8-42CF-AE8A-DFFDAA433DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B015C58-2AD8-42CF-AE8A-DFFDAA433DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU

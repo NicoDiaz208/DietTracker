@@ -21,12 +21,12 @@ namespace DietTracker_Api.Controller
         }
 
         public record FoodCreationDto(
-            string name
+            string Name
             );
 
         public record FoodDto(
-            string id,
-            string name
+            string Id,
+            string Name
             );
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<FoodDto>> Add(FoodCreationDto foodDto)
         {
-            var na = new Food(ObjectId.Empty, foodDto.name);
+            var na = new Food(ObjectId.Empty, foodDto.Name);
             await foodCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleFood), new { Id = na.Id },
                 new FoodDto(na.Id.ToString(), na.Name));

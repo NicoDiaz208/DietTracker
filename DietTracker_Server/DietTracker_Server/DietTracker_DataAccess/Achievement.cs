@@ -12,7 +12,7 @@ namespace DietTracker_DataAccess
     public record Activity(
         ObjectId Id,
         int Steps,
-        double AktiveTime,
+        double ActiveTime,
         double GoalTime,
         double BurnedCalories,
         double Distance) : IHaveId;
@@ -46,7 +46,7 @@ namespace DietTracker_DataAccess
         string Name,
         double PrepareTime,
         double Difficulty,
-        string Kategorie) : IHaveId;
+        string Category) : IHaveId;
 
     public record Sleep(
         ObjectId Id,
@@ -56,12 +56,12 @@ namespace DietTracker_DataAccess
     public record User(
         ObjectId Id,
         string Name,
-        DateTime DateofBirth,
+        DateTime DateOfBirth,
         string Gender,
         double GoalWeight,
         int Height,
         string Email,
-        string Phonenumber,
+        string PhoneNumber,
         int ActivityLevel) : IHaveId;
 
     public record WaterIntake(

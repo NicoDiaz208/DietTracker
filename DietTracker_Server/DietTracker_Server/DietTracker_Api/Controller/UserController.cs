@@ -22,30 +22,30 @@ namespace DietTracker_Api.Controller
 
         public record UserCreationDto(
             string Name,
-            DateTime DateofBirth,
+            DateTime DateOfBirth,
             string Gender,
             double GoalWeight,
             int Height,
             string Email,
-            string Phonenumber,
+            string PhoneNumber,
             int ActivityLevel);
 
         public record UserDto(
             string Id,
             string Name,
-            DateTime DateofBirth,
+            DateTime DateOfBirth,
             string Gender,
             double GoalWeight,
             int Height,
             string Email,
-            string Phonenumber,
+            string PhoneNumber,
             int ActivityLevel);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
             var dbResult = await userCollection.GetAll();
-            var result = dbResult.Select(a => new UserDto(a.Id.ToString(), a.Name, a.DateofBirth, a.Gender, a.GoalWeight, a.Height,a.Email, a.Phonenumber, a.ActivityLevel));
+            var result = dbResult.Select(a => new UserDto(a.Id.ToString(), a.Name, a.DateOfBirth, a.Gender, a.GoalWeight, a.Height,a.Email, a.PhoneNumber, a.ActivityLevel));
             return Ok(result);
         }
 
@@ -58,16 +58,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new UserDto(item.Id.ToString(), item.Name, item.DateofBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.Phonenumber, item.ActivityLevel);
+            return new UserDto(item.Id.ToString(), item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.ActivityLevel);
         }
 
         [HttpPost]
         public async Task<ActionResult<UserDto>> Add(UserCreationDto item)
         {
-            var na = new User(ObjectId.Empty, item.Name, item.DateofBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.Phonenumber, item.ActivityLevel);
+            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.ActivityLevel);
             await userCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleUser), new { id = na.Id },
-                new UserDto(na.Id.ToString(), na.Name, na.DateofBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.Phonenumber, na.ActivityLevel));
+                new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.ActivityLevel));
         }
     }
 }

@@ -21,17 +21,17 @@ namespace DietTracker_Api.Controller
         }
 
         public record RecipeCreationDto(
-            string Name, double PrepareTime, double Difficulty, string Kategorie);
+            string Name, double PrepareTime, double Difficulty, string Category);
 
         public record RecipeDto(
             string Id,
-            string Name, double PrepareTime, double Difficulty, string Kategorie);
+            string Name, double PrepareTime, double Difficulty, string Category);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDto>>> GetAll()
         {
             var dbResult = await recipeCollection.GetAll();
-            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name,a.PrepareTime,a.Difficulty,a.Kategorie));
+            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name,a.PrepareTime,a.Difficulty,a.Category));
             return Ok(result);
         }
 
@@ -44,16 +44,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new RecipeDto(item.Id.ToString(), item.Name, item.PrepareTime, item.Difficulty, item.Kategorie);
+            return new RecipeDto(item.Id.ToString(), item.Name, item.PrepareTime, item.Difficulty, item.Category);
         }
 
         [HttpPost]
         public async Task<ActionResult<RecipeDto>> Add(RecipeCreationDto item)
         {
-            var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Kategorie);
+            var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Category);
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
-                new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Kategorie));
+                new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category));
         }
     }
 }

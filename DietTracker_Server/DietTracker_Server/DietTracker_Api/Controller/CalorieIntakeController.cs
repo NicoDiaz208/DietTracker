@@ -21,14 +21,14 @@ namespace DietTracker_Api.Controller
         }
 
         public record CalorieIntakeCreationDto(
-            double current,
-            double now
+            double Current,
+            double Now
             );
 
         public record CalorieIntakeDto(
-            string id,
-            double current,
-            double now
+            string Id,
+            double Current,
+            double Now
             );
 
         [HttpGet]
@@ -56,7 +56,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<CalorieIntakeDto>> Add(CalorieIntakeCreationDto calorieIntakeCreationDto)
         {
-            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.current, calorieIntakeCreationDto.now);
+            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Now);
             await calorieIntakeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleCalorieIntake), new { Id = na.Id },
                 new CalorieIntakeDto(na.Id.ToString(), na.Current, na.Now));

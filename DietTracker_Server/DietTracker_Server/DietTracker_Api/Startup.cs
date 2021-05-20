@@ -1,4 +1,3 @@
-using DietTracker_Api.Services;
 using DietTracker_DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +28,6 @@ namespace DietTracker_Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ISampleRepo, SampleRepo>();
             services.AddSingleton(new MongoClient(Configuration["MongoConnectionString"]));
             services.AddSingleton<CollectionFactory>();
             services.AddControllers();

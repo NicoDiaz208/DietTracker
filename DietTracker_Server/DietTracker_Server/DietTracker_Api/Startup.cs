@@ -31,6 +31,7 @@ namespace DietTracker_Api
             services.AddSingleton(new MongoClient(Configuration["MongoConnectionString"]));
             services.AddSingleton<CollectionFactory>();
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DietTracker_Api", Version = "v1" });
@@ -53,7 +54,7 @@ namespace DietTracker_Api
 
             app.UseAuthorization();
 
-            app.UseCors();
+            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {

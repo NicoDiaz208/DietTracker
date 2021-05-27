@@ -9,13 +9,14 @@ import { TrackingComponent } from './tracking/tracking.component';
 
 const routes: Routes = [
   {
-    path: 'main-pages', component: MainPagesPage
-  },
-  { path: 'main-pages/fooder', component:FooderComponent},
-  { path: 'main-pages/recipe', component:RecipeComponent},
-  { path: 'main-pages/tracking', component: TrackingComponent},
-  { path: 'main-pages/profile', component: ProfileComponent}
-
+    path: '', component: MainPagesPage,
+    children: [
+      { path: 'fooder', component:FooderComponent},
+      { path: 'recipe', component:RecipeComponent},
+      { path: 'tracking', component: TrackingComponent},
+      { path: 'profile', component: ProfileComponent}
+    ]
+  }
 ];
 
 @NgModule({

@@ -29,5 +29,12 @@ namespace DietTracker_DataAccess
             var cursor = await collection.FindAsync<T>(Builders<T>.Filter.Eq(x => x.Id, id));
             return await cursor.FirstOrDefaultAsync();
         }
+
+        public static async Task<T?> GetByNameAndPassword<T>(this IMongoCollection<T> collection, string name,string password)
+            where T : Login
+        {
+            var cursor = await collection.FindAsync<T>(Builders<T>.Filter.Eq(x => x.Password, password) & (Builders<T>.Filter.Eq(x => x.Username, name)));
+            return await cursor.FirstOrDefaultAsync();
+        }
     }
 }

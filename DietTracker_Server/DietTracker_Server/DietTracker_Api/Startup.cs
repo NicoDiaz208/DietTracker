@@ -31,6 +31,7 @@ namespace DietTracker_Api
             services.AddSingleton(new MongoClient(Configuration["MongoConnectionString"]));
             services.AddSingleton<CollectionFactory>();
             services.AddControllers();
+            services.AddCors();
             
             services.AddSwaggerGen(c =>
             {

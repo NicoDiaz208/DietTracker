@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { WaterIntakeService } from 'src/app/services/api/waterIntake.service';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TrackingComponent implements OnInit {
   private watercount = 0;
   private sleepcount = 0;
-  constructor() {
+  constructor(private waterintakeService: WaterIntakeService) {
 
   }
   ngOnInit(): void {
@@ -17,6 +17,7 @@ export class TrackingComponent implements OnInit {
 
   public plus(){
     this.watercount = this.watercount + 1;
+    this.waterintakeService.apiWaterIntakePost({ goWC:3, goWG:4}).subscribe();
   }
 
   public minus(){

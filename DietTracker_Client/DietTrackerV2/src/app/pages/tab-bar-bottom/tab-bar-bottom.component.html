@@ -1,15 +1,25 @@
+<ion-tabs>
 
-<div class="phone">
-  <input type="radio" name="s" id="s1">
-  <input type="radio" name="s" id="s2" checked="checked">
-  <input type="radio" name="s" id="s3">
-  <label for="s1"><img src="./../../../assets/tabBarIcons/abstract-user-flat-4.svg" alt=""></label>
-  <label for="s2"><img src="./../../../assets/tabBarIcons/recipes.svg" alt=""></label>
-  <label for="s3"><img src="./../../../assets/tabBarIcons/swipe.svg" alt=""></label>
-  <div class="circle"></div>
-  <div class="phone_content">
-    <div class="phone_bottom">
-      <span class="indicator"></span>
-    </div>
-  </div>
-</div>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="fooder">
+      <ion-icon name="leaf-outline"></ion-icon>
+      <ion-label>fooder</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="recipe">
+      <ion-icon name="receipt-outline"></ion-icon>
+      <ion-label>recipe</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tracking">
+      <ion-icon name="calculator-outline"></ion-icon>
+      <ion-label>tracking</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

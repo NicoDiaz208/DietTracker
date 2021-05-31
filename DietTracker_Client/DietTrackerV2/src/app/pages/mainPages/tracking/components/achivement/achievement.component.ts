@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Achievment } from 'src/app/classes/achievement';
-import { AchievementService} from '../../../../../services/achievement.service';
+import { AchievementService} from '../../../../../services/achievement/achievement.service';
 @Component({
   selector: 'app-achivement',
   templateUrl: './achivement.component.html',

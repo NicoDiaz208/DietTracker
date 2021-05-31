@@ -12,6 +12,11 @@ import { MainPagesPage } from './pages/mainPages/main-pages.page';
 import { FooderComponent } from './pages/mainPages/fooder/fooder.component';
 import { ProfileComponent } from './pages/mainPages/profile/profile.component';
 import { RecipeComponent } from './pages/mainPages/recipe/recipe.component';
+import { RecipeService } from './services/api/recipe.service';
+import { WaterIntakeService } from './services/api/waterIntake.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BASE_PATH } from './services/variables';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -28,9 +33,12 @@ import { RecipeComponent } from './pages/mainPages/recipe/recipe.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,WaterIntakeService,
+ {provide: BASE_PATH, useValue:environment.apiBase}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

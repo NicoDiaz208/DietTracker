@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using System;
+using System.Collections.Generic;
 
 namespace DietTracker_DataAccess
 {
@@ -20,7 +21,8 @@ namespace DietTracker_DataAccess
     public record CalorieIntake(
         ObjectId Id,
         double Current,
-        double Now) : IHaveId;
+        double Now,
+        ObjectId ActivityId) : IHaveId;
 
     public record DailyProgress(
         ObjectId Id,
@@ -30,6 +32,7 @@ namespace DietTracker_DataAccess
 
     public record Food(
         ObjectId Id,
+        ObjectId NutritionFactIds,
         string Name) : IHaveId;
 
     public record NutritionFacts(
@@ -46,12 +49,14 @@ namespace DietTracker_DataAccess
         string Name,
         double PrepareTime,
         double Difficulty,
+        List<ObjectId> FoodIds,
         string Category) : IHaveId;
 
     public record Sleep(
         ObjectId Id,
         int HoSG,
-        int HoSC) : IHaveId;
+        int HoSC,
+        ObjectId ActivityId) : IHaveId;
 
     public record User(
         ObjectId Id,
@@ -62,11 +67,15 @@ namespace DietTracker_DataAccess
         int Height,
         string Email,
         string PhoneNumber,
+        List<ObjectId> RecipeIds,
+        List<ObjectId> ActivityIds,
+        ObjectId DailyProgressId,
         int ActivityLevel) : IHaveId;
 
     public record WaterIntake(
         ObjectId Id,
         int GoWG,
+        ObjectId ActivityId,
         int GoWC): IHaveId;
 
     public record Login(

@@ -54,10 +54,26 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<FoodDto>> Add(FoodCreationDto foodDto)
         {
-            var na = new Food(ObjectId.Empty, foodDto.Name);
+            var na = new Food(ObjectId.Empty, ObjectId.Empty, foodDto.Name);
             await foodCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleFood), new { Id = na.Id },
                 new FoodDto(na.Id.ToString(), na.Name));
+        }
+
+        [HttpPost]
+        [Route(nameof(AddNutritionFactToFood))]
+        public async Task<ActionResult<Boolean>> AddNutritionFactToFood(String foodId, String nutritionFactId)
+        {
+            var food = await foodCollection.GetById(foodId);
+            if (food == null) return NotFound(false);
+
+            await foodCollection.DeleteById(food.Id);
+
+            var na = new Food(food.Id, ObjectId.Parse(nutritionFactId), food.Name);
+
+            await foodCollection.InsertOneAsync(na);
+
+            return Ok(true);
         }
 
     }

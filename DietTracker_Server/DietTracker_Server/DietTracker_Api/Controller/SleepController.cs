@@ -50,10 +50,27 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<SleepDto>> Add(SleepCreationDto item)
         {
-            var na = new Sleep(ObjectId.Empty, item.HoSG, item.HoSC);
+            var na = new Sleep(ObjectId.Empty, item.HoSG, item.HoSC, ObjectId.Empty);
             await sleepCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleSleep), new { id = na.Id },
                 new SleepDto(na.Id.ToString(), na.HoSG, na.HoSC));
         }
+
+        [HttpPost]
+        [Route(nameof(AddActivityToSleep))]
+        public async Task<ActionResult<Boolean>> AddActivityToSleep(String sleepId, String activityId)
+        {
+            var sleep = await sleepCollection.GetById(sleepId);
+            if (sleep == null) return NotFound(false);
+
+            await sleepCollection.DeleteById(sleep.Id);
+
+            var na = new Sleep(sleep.Id, sleep.HoSG, sleep.HoSC, ObjectId.Parse(activityId));
+
+            await sleepCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
     }
 }

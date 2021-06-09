@@ -64,10 +64,68 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<UserDto>> Add(UserCreationDto item)
         {
-            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.ActivityLevel);
+            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), ObjectId.Empty, item.ActivityLevel);
             await userCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleUser), new { id = na.Id },
                 new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.ActivityLevel));
         }
+
+        [HttpPost]
+        [Route(nameof(AddDailyProgressToUser))]
+        public async Task<ActionResult<Boolean>> AddDailyProgressToUser(String userId, String dailyProgressId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if(usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, ObjectId.Parse(dailyProgressId), usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddActivityToUser))]
+        public async Task<ActionResult<Boolean>> AddActivityToUser(String userId, String activityId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.ActivityIds;
+            listIds.Add(ObjectId.Parse(activityId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, listIds, usr.DailyProgressId, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddRecipeIdToUser))]
+        public async Task<ActionResult<Boolean>> AddRecipeIdToUser(String userId, String recipeId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.RecipeIds;
+            listIds.Add(ObjectId.Parse(recipeId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, listIds, usr.ActivityIds, usr.DailyProgressId, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        //TODO GetSingleUserByUsername
+
+
     }
 }

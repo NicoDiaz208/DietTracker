@@ -22,13 +22,10 @@ namespace DietTracker_Api.Controller
 
 
         public record LoginDto(
-            string id,
+            string Id,
             string Username,
             string Password
             );
-
-        
-
 
         [HttpGet("{id}", Name = nameof(GetSingleLogin))]
         public async Task<ActionResult<LoginDto>> GetSingleLogin(string id)
@@ -53,8 +50,6 @@ namespace DietTracker_Api.Controller
 
             return new LoginDto(item.Id.ToString(), item.Username, item.Password);
         }
-
-
 
         [HttpPost]
         public async Task<ActionResult<LoginDto>> Add(LoginDto item)

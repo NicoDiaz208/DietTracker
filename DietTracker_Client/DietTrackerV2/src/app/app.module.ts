@@ -17,6 +17,14 @@ import { WaterIntakeService } from './services/api/waterIntake.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from './services/variables';
 import { environment } from 'src/environments/environment';
+import { UserService } from './services/api/user.service';
+import { SleepService } from './services/api/sleep.service';
+import { NutritionFactService } from './services/api/nutritionFact.service';
+import { FoodService } from './services/api/food.service';
+import { DailyProgressService } from './services/api/dailyProgress.service';
+import { CalorieIntakeService } from './services/api/calorieIntake.service';
+import { AchievementsService } from './services/api/achievements.service';
+import { ActivityService } from './services/api/activity.service';
 
 
 @NgModule({
@@ -36,7 +44,16 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,WaterIntakeService,
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
+    WaterIntakeService,
+    UserService,
+    SleepService,
+    NutritionFactService,
+    FoodService,
+    DailyProgressService,
+    CalorieIntakeService,
+    AchievementsService,
+    ActivityService,
  {provide: BASE_PATH, useValue:environment.apiBase}
   ],
   bootstrap: [AppComponent],

@@ -5,6 +5,8 @@ import { FooderComponent } from './pages/mainPages/fooder/fooder.component';
 import { MainPagesPage } from './pages/mainPages/main-pages.page';
 import { ProfileComponent } from './pages/mainPages/profile/profile.component';
 import { RecipeComponent } from './pages/mainPages/recipe/recipe.component';
+import { AchievementComponent } from './pages/mainPages/tracking/components/achivement/achievement.component';
+import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-calories/add-calories.component';
 import { TrackingComponent } from './pages/mainPages/tracking/tracking.component';
 import { SignupComponent } from './pages/signup/signup.component';
 
@@ -17,6 +19,7 @@ const routes: Routes = [
       { path: 'fooder', component: FooderComponent},
       { path: 'recipe', component: RecipeComponent},
       { path: 'tracking', component: TrackingComponent},
+      { path: 'addCalories', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent}
     ]
   },

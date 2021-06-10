@@ -22,7 +22,6 @@ namespace DietTracker_Api.Controller
 
 
         public record LoginDto(
-            string Id,
             string Username,
             string Password
             );
@@ -36,7 +35,7 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new LoginDto(item.Id.ToString(),item.Username,item.Password);
+            return new LoginDto(item.Username,item.Password);
         }
 
         [HttpGet("test")]
@@ -48,7 +47,7 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new LoginDto(item.Id.ToString(), item.Username, item.Password);
+            return new LoginDto( item.Username, item.Password);
         }
 
         [HttpPost]
@@ -57,7 +56,7 @@ namespace DietTracker_Api.Controller
             var na = new Login(ObjectId.Empty, item.Username,item.Password);
             await loginCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleLogin), new { id = na.Id },
-                new LoginDto(na.Id.ToString(), na.Password, na.Username));
+                new LoginDto( na.Password, na.Username));
         }
     }
 }

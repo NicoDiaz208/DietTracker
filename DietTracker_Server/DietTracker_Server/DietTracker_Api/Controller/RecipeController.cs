@@ -93,5 +93,15 @@ namespace DietTracker_Api.Controller
 
             return Ok(true);
         }
+
+        [HttpGet]
+        [Route(nameof(GetAllCategories))]
+        public async Task<ActionResult<List<String>>> GetAllCategories()
+        {
+            var list = await recipeCollection.DistinctAsync<String>("Category", new BsonDocument());
+            return list.ToList();
+        }
+
+
     }
 }

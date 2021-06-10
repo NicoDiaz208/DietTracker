@@ -15,9 +15,12 @@ namespace DietTracker_Api.Controller
     {
         private readonly IMongoCollection<Login> loginCollection;
 
-        public LoginController(CollectionFactory cf)
+        private readonly IMongoCollection<User> userCollection;
+
+        public LoginController(CollectionFactory cf, CollectionFactory cf2)
         {
             loginCollection = cf.GetCollection<Login>();
+            userCollection = cf2.GetCollection<User>();
         }
 
 
@@ -39,15 +42,17 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet("test")]
-        public async Task<ActionResult<LoginDto>> GetSingleLogin(string name,string password)
+        public async Task<ActionResult<String>> GetSingleLogin(string name,string password)
         {
             var item = await loginCollection.GetByNameAndPassword(name, password);
-            if (item == null)
+            var usr = await userCollection.GetUserByUsername(name);
+
+            if (item == null || usr == null)
             {
                 return NotFound();
             }
 
-            return new LoginDto( item.Username, item.Password);
+            return usr.Id.ToString();
         }
 
         [HttpPost]

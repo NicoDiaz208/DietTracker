@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SleepService } from 'src/app/services/api/sleep.service';
 import { WaterIntakeService } from 'src/app/services/api/waterIntake.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
@@ -9,13 +10,19 @@ import { WaterIntakeService } from 'src/app/services/api/waterIntake.service';
 export class TrackingComponent implements OnInit {
   private watercount = 0;
   private sleepcount = 0;
-  constructor(private waterintakeService: WaterIntakeService, private sleepService: SleepService) {
+  constructor(private router: Router,private waterintakeService: WaterIntakeService, private sleepService: SleepService) {
 
   }
   ngOnInit(): void {
 
   }
 
+  navigateAchivement(){
+    this.router.navigate(['/main-pages/achievement']);
+  }
+  navigate(){
+    this.router.navigate(['/main-pages/addCalories']);
+  }
   public plus(){
     this.watercount = this.watercount + 1;
     this.waterintakeService.apiWaterIntakePost({ goWC:3, goWG:4}).subscribe();

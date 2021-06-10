@@ -17,7 +17,7 @@
           <h2>Kalorien Eingabe</h2>
           <p>0/3768</p>
         </ion-label>
-        <ion-button routerLink=".main-pages/addcalories" slot="end">add</ion-button>
+        <ion-button (click)="navigate()" slot="end">add</ion-button>
       </ion-item>
 
       <ion-item>
@@ -63,7 +63,7 @@
           <h2>Achievements</h2>
 
         </ion-label>
-        <ion-button [routerLink]="['./achivment/'+1]" slot="end">GoTo</ion-button>
+        <ion-button (click)="navigateAchivement()"slot="end">GoTo</ion-button>
       </ion-item>
     </ion-list>
 </ion-content>

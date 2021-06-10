@@ -64,7 +64,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<UserDto>> Add(UserCreationDto item)
         {
-            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), ObjectId.Empty, item.ActivityLevel);
+            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), item.ActivityLevel);
             await userCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleUser), new { id = na.Id },
                 new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.ActivityLevel));
@@ -79,7 +79,10 @@ namespace DietTracker_Api.Controller
 
             await userCollection.DeleteById(usr.Id);
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, ObjectId.Parse(dailyProgressId), usr.ActivityLevel);
+            var listIds = usr.DailyProgressId;
+            listIds.Add(ObjectId.Parse(dailyProgressId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, listIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 

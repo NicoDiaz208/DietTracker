@@ -25,6 +25,8 @@ import { DailyProgressService } from './services/api/dailyProgress.service';
 import { CalorieIntakeService } from './services/api/calorieIntake.service';
 import { AchievementsService } from './services/api/achievements.service';
 import { ActivityService } from './services/api/activity.service';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ActivityService } from './services/api/activity.service';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
     WaterIntakeService,

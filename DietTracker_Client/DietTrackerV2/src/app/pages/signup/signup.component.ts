@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { AlertService } from './../../services/alert/alert.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -7,8 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
-
+  signupForm: FormGroup;
+  constructor(
+    private router: Router,
+    private readonly fb: FormBuilder,
+    ) {
+    this.signupForm = this.fb.group({
+      firstName:['', [Validators.required]],
+      lastName:['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,Validators.minLength(8)]]
+    });
+  }
   ngOnInit() {}
 
+
+
+  navigate(){
+    this.router.navigate(['/login']);
+  }
+
+  public sumbmit(): void{
+    const {firstName, lastName,email, password} = this.signupForm.value;
+      console.log('scope is ' + firstName + lastName + email+password);
+  }
 }

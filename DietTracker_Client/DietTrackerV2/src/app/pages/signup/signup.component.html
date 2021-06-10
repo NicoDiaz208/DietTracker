@@ -15,8 +15,8 @@
           <div class="from-group">
               <input type="password" class="form-control" id="password-input" placeholder="enter password" formControlName="password">
           </div>
-          <button type="submit" class="btn btn-primary">login</button>
+          <button (click)="sumbmit()" class="btn btn-primary">login</button>
       </form>
-      <small><a routerLink="/login">Already have an Account?</a></small>
+      <small><a (click)="navigate()">Already have an Account?</a></small>
   </div>
 </div>

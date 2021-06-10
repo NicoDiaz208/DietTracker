@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AchievementComponent } from './achievement.component';
 
-describe('AchivementComponent', () => {
+describe('AchievementComponent', () => {
   let component: AchievementComponent;
   let fixture: ComponentFixture<AchievementComponent>;
 

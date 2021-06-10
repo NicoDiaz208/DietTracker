@@ -124,7 +124,6 @@ namespace DietTracker_Api.Controller
             return Ok(true);
         }
 
-        //TODO GetSingleUserByUsername
         [HttpGet]
         [Route("GetUserByUsername")]
         public async Task<ActionResult<User>> GetSingleUserByUsername(string username)

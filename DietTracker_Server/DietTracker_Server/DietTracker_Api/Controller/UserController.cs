@@ -131,7 +131,7 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet]
-        [Route("GetUserByUsername")]
+        [Route(nameof(GetSingleUserByUsername))]
         public async Task<ActionResult<User>> GetSingleUserByUsername(string username)
         {
             var user = await userCollection.GetUserByUsername(username);
@@ -141,7 +141,7 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet]
-        [Route("GetRecipes")]
+        [Route(nameof(GetAllRecipes))]
         public async Task<ActionResult<List<Recipe>>> GetAllRecipes(string userId)
         {
             var usr = await userCollection.GetById(userId);

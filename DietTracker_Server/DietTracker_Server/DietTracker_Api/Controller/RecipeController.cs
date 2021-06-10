@@ -50,7 +50,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<RecipeDto>> Add(RecipeCreationDto item)
         {
-            var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Category);
+            var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, new List<ObjectId>(), item.Category);
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
                 new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category));
@@ -72,6 +72,26 @@ namespace DietTracker_Api.Controller
             if (res == null) return NotFound();
 
             return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddFoodToRecipe))]
+        public async Task<ActionResult<Boolean>> AddFoodToRecipe(String recipeId, String foodId)
+        {
+            var recipe = await recipeCollection.GetById(recipeId);
+            if (recipe == null) return NotFound(false);
+
+            await recipeCollection.DeleteById(recipe.Id);
+
+            var listIds = recipe.FoodIds;
+            listIds.Add(ObjectId.Parse(foodId));
+
+            var na = new Recipe(recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, listIds, recipe.Category);
+
+
+            await recipeCollection.InsertOneAsync(na);
+
+            return Ok(true);
         }
     }
 }

@@ -52,10 +52,27 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<WaterIntakeDto>> Add(WaterIntakeCreationDto item)
         {
-            var na = new WaterIntake(ObjectId.Empty, item.GoWG, item.GoWC);
+            var na = new WaterIntake(ObjectId.Empty, item.GoWG, ObjectId.Empty, item.GoWC);
             await waterIntakeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleWaterIntake), new { id = na.Id },
                 new WaterIntakeDto(na.Id.ToString(), na.GoWG, na.GoWC));
         }
+
+        [HttpPost]
+        [Route(nameof(AddActivityToWaterIntake))]
+        public async Task<ActionResult<Boolean>> AddActivityToWaterIntake(String waterIntakeId, String activityId)
+        {
+            var waterIntake = await waterIntakeCollection.GetById(waterIntakeId);
+            if (waterIntake == null) return NotFound(false);
+
+            await waterIntakeCollection.DeleteById(waterIntake.Id);
+
+            var na = new WaterIntake(waterIntake.Id, waterIntake.GoWG, ObjectId.Parse(activityId), waterIntake.GoWC);
+
+            await waterIntakeCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
     }
 }

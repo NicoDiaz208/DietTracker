@@ -56,10 +56,26 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<CalorieIntakeDto>> Add(CalorieIntakeCreationDto calorieIntakeCreationDto)
         {
-            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Now);
+            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Now, ObjectId.Empty);
             await calorieIntakeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleCalorieIntake), new { Id = na.Id },
                 new CalorieIntakeDto(na.Id.ToString(), na.Current, na.Now));
+        }
+
+        [HttpPost]
+        [Route(nameof(AddActivityToCaloryIntake))]
+        public async Task<ActionResult<Boolean>> AddActivityToCaloryIntake(String caloryIntakeId, String activityId)
+        {
+            var caloryIntake = await calorieIntakeCollection.GetById(caloryIntakeId);
+            if (caloryIntake == null) return NotFound(false);
+
+            await calorieIntakeCollection.DeleteById(caloryIntake.Id);
+
+            var na = new CalorieIntake(caloryIntake.Id, caloryIntake.Current, caloryIntake.Now, ObjectId.Parse(activityId));
+
+            await calorieIntakeCollection.InsertOneAsync(na);
+
+            return Ok(true);
         }
 
     }

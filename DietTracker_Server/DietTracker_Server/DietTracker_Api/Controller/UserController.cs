@@ -15,9 +15,12 @@ namespace DietTracker_Api.Controller
     {
         private readonly IMongoCollection<User> userCollection;
 
-        public UserController(CollectionFactory cf)
+        private readonly IMongoCollection<Recipe> recipeCollection;
+
+        public UserController(CollectionFactory cf,CollectionFactory rf)
         {
             userCollection = cf.GetCollection<User>();
+            recipeCollection = rf.GetCollection<Recipe>();
         }
 
         public record UserCreationDto(
@@ -137,5 +140,24 @@ namespace DietTracker_Api.Controller
             return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.ActivityLevel));
         }
 
+        [HttpGet]
+        [Route("GetRecipes")]
+        public async Task<ActionResult<List<Recipe>>> GetAllRecipes(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            List<Recipe> reclist = new List<Recipe>();
+
+            foreach (ObjectId i in usr.RecipeIds)
+            {
+                var recipes = await recipeCollection.GetById(i.ToString());
+                if (recipes == null) break;
+                reclist.Add(recipes);
+            }
+
+            return reclist;
+
+        }
     }
 }

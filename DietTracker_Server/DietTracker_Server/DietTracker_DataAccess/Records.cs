@@ -28,7 +28,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         string Name,
         double Now,
-        DateTime date,
+        DateTime Date,
         double Goal) : IHaveId;
 
     public record Food(

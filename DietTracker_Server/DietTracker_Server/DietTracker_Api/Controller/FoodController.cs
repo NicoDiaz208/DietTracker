@@ -56,7 +56,7 @@ namespace DietTracker_Api.Controller
         {
             var na = new Food(ObjectId.Empty, ObjectId.Empty, foodDto.Name);
             await foodCollection.InsertOneAsync(na);
-            return CreatedAtRoute(nameof(GetSingleFood), new { Id = na.Id },
+            return CreatedAtRoute(nameof(GetSingleFood), new { na.Id },
                 new FoodDto(na.Id.ToString(), na.Name));
         }
 

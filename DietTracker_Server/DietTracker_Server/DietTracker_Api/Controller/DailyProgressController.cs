@@ -23,21 +23,21 @@ namespace DietTracker_Api.Controller
         public record DailyProgressCreationDto(
             string Name,
             double Now,
-            DateTime date,
+            DateTime Date,
             double Goal);
 
         public record DailyProgressDto(
             string Id,
             string Name,
             double Now,
-            DateTime date,
+            DateTime Date,
             double Goal);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DailyProgressDto>>> GetAll()
         {
             var dbResult = await dailyProgressCollection.GetAll();
-            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(), a.Name, a.Now,a.date, a.Goal));
+            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(), a.Name, a.Now,a.Date, a.Goal));
             return Ok(result);
         }
 
@@ -50,16 +50,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new DailyProgressDto(item.Id.ToString(), item.Name, item.Now,item.date, item.Goal);
+            return new DailyProgressDto(item.Id.ToString(), item.Name, item.Now,item.Date, item.Goal);
         }
 
         [HttpPost]
         public async Task<ActionResult<DailyProgressDto>> Add(DailyProgressCreationDto item)
         {
-            var na = new DailyProgress(ObjectId.Empty, item.Name, item.Now,item.date, item.Goal);
+            var na = new DailyProgress(ObjectId.Empty, item.Name, item.Now,item.Date, item.Goal);
             await dailyProgressCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
-                new DailyProgressDto(na.Id.ToString(), na.Name, na.Now,na.date, na.Goal));
+                new DailyProgressDto(na.Id.ToString(), na.Name, na.Now,na.Date, na.Goal));
         }
     }
 }

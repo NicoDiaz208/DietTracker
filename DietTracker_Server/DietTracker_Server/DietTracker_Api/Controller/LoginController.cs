@@ -41,7 +41,7 @@ namespace DietTracker_Api.Controller
             return new LoginDto(item.Username,item.Password);
         }
 
-        [HttpGet("test")]
+        [HttpGet(nameof(GetSingleLogin))]
         public async Task<ActionResult<String>> GetSingleLogin(string name,string password)
         {
             var item = await loginCollection.GetByNameAndPassword(name, password);

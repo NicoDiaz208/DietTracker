@@ -11,7 +11,7 @@ namespace DietTracker_Api.Controller
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public partial class UserController : ControllerBase
     {
         private readonly IMongoCollection<User> userCollection;
 

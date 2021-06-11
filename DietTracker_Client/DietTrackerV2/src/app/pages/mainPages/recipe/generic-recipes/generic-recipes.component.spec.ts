@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { VeganComponent } from './vegan.component';
+import { GenericRecipesComponent } from './generic-recipes.component';
 
-describe('VeganComponent', () => {
-  let component: VeganComponent;
-  let fixture: ComponentFixture<VeganComponent>;
+describe('GenericRecipesComponent', () => {
+  let component: GenericRecipesComponent;
+  let fixture: ComponentFixture<GenericRecipesComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ VeganComponent ],
+      declarations: [ GenericRecipesComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(VeganComponent);
+    fixture = TestBed.createComponent(GenericRecipesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

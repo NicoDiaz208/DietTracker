@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { User } from '../model/user';
 import { UserCreationDto } from '../model/userCreationDto';
 import { UserDto } from '../model/userDto';
 
@@ -59,6 +60,159 @@ export class UserService {
     /**
      * 
      * 
+     * @param userId 
+     * @param activityId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddActivityToUserPost(userId?: string, activityId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddActivityToUserPost(userId?: string, activityId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddActivityToUserPost(userId?: string, activityId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddActivityToUserPost(userId?: string, activityId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (activityId !== undefined && activityId !== null) {
+            queryParameters = queryParameters.set('activityId', <any>activityId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddActivityToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param dailyProgressId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddDailyProgressToUserPost(userId?: string, dailyProgressId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddDailyProgressToUserPost(userId?: string, dailyProgressId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddDailyProgressToUserPost(userId?: string, dailyProgressId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddDailyProgressToUserPost(userId?: string, dailyProgressId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (dailyProgressId !== undefined && dailyProgressId !== null) {
+            queryParameters = queryParameters.set('dailyProgressId', <any>dailyProgressId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddDailyProgressToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param recipeId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddRecipeIdToUserPost(userId?: string, recipeId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddRecipeIdToUserPost(userId?: string, recipeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddRecipeIdToUserPost(userId?: string, recipeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddRecipeIdToUserPost(userId?: string, recipeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (recipeId !== undefined && recipeId !== null) {
+            queryParameters = queryParameters.set('recipeId', <any>recipeId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddRecipeIdToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -86,6 +240,52 @@ export class UserService {
 
         return this.httpClient.request<Array<UserDto>>('get',`${this.basePath}/api/User`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param username 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetUserByUsernameGet(username?: string, observe?: 'body', reportProgress?: boolean): Observable<User>;
+    public apiUserGetUserByUsernameGet(username?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
+    public apiUserGetUserByUsernameGet(username?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
+    public apiUserGetUserByUsernameGet(username?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (username !== undefined && username !== null) {
+            queryParameters = queryParameters.set('username', <any>username);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<User>('get',`${this.basePath}/api/User/GetUserByUsername`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

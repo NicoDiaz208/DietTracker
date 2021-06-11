@@ -59,6 +59,57 @@ export class SleepService {
     /**
      * 
      * 
+     * @param sleepId 
+     * @param activityId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiSleepAddActivityToSleepPost(sleepId?: string, activityId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiSleepAddActivityToSleepPost(sleepId?: string, activityId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiSleepAddActivityToSleepPost(sleepId?: string, activityId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiSleepAddActivityToSleepPost(sleepId?: string, activityId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (sleepId !== undefined && sleepId !== null) {
+            queryParameters = queryParameters.set('sleepId', <any>sleepId);
+        }
+        if (activityId !== undefined && activityId !== null) {
+            queryParameters = queryParameters.set('activityId', <any>activityId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/Sleep/AddActivityToSleep`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

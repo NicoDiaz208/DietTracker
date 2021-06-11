@@ -9,11 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ObjectId } from './objectId';
 
-export interface CalorieIntake { 
-    id?: ObjectId;
-    current?: number;
-    now?: number;
-    activityId?: ObjectId;
+export interface LoginDto { 
+    id?: string;
+    username?: string;
+    password?: string;
 }

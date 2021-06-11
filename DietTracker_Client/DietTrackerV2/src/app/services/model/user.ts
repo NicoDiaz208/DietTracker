@@ -11,9 +11,17 @@
  */
 import { ObjectId } from './objectId';
 
-export interface CalorieIntake { 
+export interface User { 
     id?: ObjectId;
-    current?: number;
-    now?: number;
-    activityId?: ObjectId;
+    name?: string;
+    dateOfBirth?: Date;
+    gender?: string;
+    goalWeight?: number;
+    height?: number;
+    email?: string;
+    phoneNumber?: string;
+    recipeIds?: Array<ObjectId>;
+    activityIds?: Array<ObjectId>;
+    dailyProgressId?: ObjectId;
+    activityLevel?: number;
 }

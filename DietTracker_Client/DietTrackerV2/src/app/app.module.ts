@@ -27,6 +27,7 @@ import { AchievementsService } from './services/api/achievements.service';
 import { ActivityService } from './services/api/activity.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
+import { SignupComponent } from './pages/signup/signup.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     FooderComponent,
     ProfileComponent,
     RecipeComponent,
-    TabBarBottomComponent
+    TabBarBottomComponent,
+    SignupComponent,
   ],
   entryComponents: [],
   imports: [

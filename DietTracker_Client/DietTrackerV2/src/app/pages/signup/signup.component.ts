@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { FormGroup,FormBuilder,Validators, FormControl } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -11,17 +11,18 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  signupForm: FormGroup;
+  public signupForm: FormGroup;
   constructor(
     private router: Router,
     private readonly fb: FormBuilder,
     ) {
     this.signupForm = this.fb.group({
-      firstName:['', [Validators.required]],
+      firstName:['asdf', [Validators.required]],
       lastName:['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,Validators.minLength(8)]]
     });
+    this.signupForm.controls.firstName.valueChanges.subscribe(x => console.log(x));
   }
   ngOnInit() {}
 

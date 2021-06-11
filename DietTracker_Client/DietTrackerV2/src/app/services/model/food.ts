@@ -13,5 +13,6 @@ import { ObjectId } from './objectId';
 
 export interface Food { 
     id?: ObjectId;
+    nutritionFactIds?: ObjectId;
     name?: string;
 }

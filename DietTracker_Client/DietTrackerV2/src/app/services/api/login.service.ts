@@ -17,15 +17,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { WaterIntakeCreationDto } from '../model/waterIntakeCreationDto';
-import { WaterIntakeDto } from '../model/waterIntakeDto';
+import { LoginDto } from '../model/loginDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class WaterIntakeService {
+export class LoginService {
 
     protected basePath = '/';
     public defaultHeaders = new HttpHeaders();
@@ -59,103 +58,14 @@ export class WaterIntakeService {
     /**
      * 
      * 
-     * @param waterIntakeId 
-     * @param activityId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiWaterIntakeAddActivityToWaterIntakePost(waterIntakeId?: string, activityId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public apiWaterIntakeAddActivityToWaterIntakePost(waterIntakeId?: string, activityId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public apiWaterIntakeAddActivityToWaterIntakePost(waterIntakeId?: string, activityId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public apiWaterIntakeAddActivityToWaterIntakePost(waterIntakeId?: string, activityId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (waterIntakeId !== undefined && waterIntakeId !== null) {
-            queryParameters = queryParameters.set('waterIntakeId', <any>waterIntakeId);
-        }
-        if (activityId !== undefined && activityId !== null) {
-            queryParameters = queryParameters.set('activityId', <any>activityId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<boolean>('post',`${this.basePath}/api/WaterIntake/AddActivityToWaterIntake`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiWaterIntakeGet(observe?: 'body', reportProgress?: boolean): Observable<Array<WaterIntakeDto>>;
-    public apiWaterIntakeGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<WaterIntakeDto>>>;
-    public apiWaterIntakeGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<WaterIntakeDto>>>;
-    public apiWaterIntakeGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<WaterIntakeDto>>('get',`${this.basePath}/api/WaterIntake`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiWaterIntakePost(body?: WaterIntakeCreationDto, observe?: 'body', reportProgress?: boolean): Observable<WaterIntakeDto>;
-    public apiWaterIntakePost(body?: WaterIntakeCreationDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterIntakeDto>>;
-    public apiWaterIntakePost(body?: WaterIntakeCreationDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterIntakeDto>>;
-    public apiWaterIntakePost(body?: WaterIntakeCreationDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiLoginPost(body?: LoginDto, observe?: 'body', reportProgress?: boolean): Observable<LoginDto>;
+    public apiLoginPost(body?: LoginDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LoginDto>>;
+    public apiLoginPost(body?: LoginDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LoginDto>>;
+    public apiLoginPost(body?: LoginDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -182,7 +92,7 @@ export class WaterIntakeService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<WaterIntakeDto>('post',`${this.basePath}/api/WaterIntake`,
+        return this.httpClient.request<LoginDto>('post',`${this.basePath}/api/Login`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -196,17 +106,24 @@ export class WaterIntakeService {
     /**
      * 
      * 
-     * @param id 
+     * @param name 
+     * @param password 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSingleWaterIntake(id: string, observe?: 'body', reportProgress?: boolean): Observable<WaterIntakeDto>;
-    public getSingleWaterIntake(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterIntakeDto>>;
-    public getSingleWaterIntake(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterIntakeDto>>;
-    public getSingleWaterIntake(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiLoginTestGet(name?: string, password?: string, observe?: 'body', reportProgress?: boolean): Observable<LoginDto>;
+    public apiLoginTestGet(name?: string, password?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LoginDto>>;
+    public apiLoginTestGet(name?: string, password?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LoginDto>>;
+    public apiLoginTestGet(name?: string, password?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getSingleWaterIntake.');
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
+        }
+        if (password !== undefined && password !== null) {
+            queryParameters = queryParameters.set('password', <any>password);
         }
 
         let headers = this.defaultHeaders;
@@ -226,7 +143,51 @@ export class WaterIntakeService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<WaterIntakeDto>('get',`${this.basePath}/api/WaterIntake/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<LoginDto>('get',`${this.basePath}/api/Login/test`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSingleLogin(id: string, observe?: 'body', reportProgress?: boolean): Observable<LoginDto>;
+    public getSingleLogin(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LoginDto>>;
+    public getSingleLogin(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LoginDto>>;
+    public getSingleLogin(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getSingleLogin.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<LoginDto>('get',`${this.basePath}/api/Login/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

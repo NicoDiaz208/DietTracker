@@ -60,6 +60,57 @@ export class FoodService {
     /**
      * 
      * 
+     * @param foodId 
+     * @param nutritionFactId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiFoodAddNutritionFactToFoodPost(foodId?: string, nutritionFactId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiFoodAddNutritionFactToFoodPost(foodId?: string, nutritionFactId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiFoodAddNutritionFactToFoodPost(foodId?: string, nutritionFactId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiFoodAddNutritionFactToFoodPost(foodId?: string, nutritionFactId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (foodId !== undefined && foodId !== null) {
+            queryParameters = queryParameters.set('foodId', <any>foodId);
+        }
+        if (nutritionFactId !== undefined && nutritionFactId !== null) {
+            queryParameters = queryParameters.set('nutritionFactId', <any>nutritionFactId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/Food/AddNutritionFactToFood`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

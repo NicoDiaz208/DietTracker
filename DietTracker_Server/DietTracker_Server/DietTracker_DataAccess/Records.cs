@@ -22,7 +22,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         double Goal,
         double Current,
-        ObjectId ActivityId) : IHaveId;
+        DateTime Date) : IHaveId;
 
     public record DailyProgress(
         ObjectId Id,
@@ -70,7 +70,8 @@ namespace DietTracker_DataAccess
         string PhoneNumber,
         List<ObjectId> RecipeIds,
         List<ObjectId> ActivityIds,
-        List<ObjectId> DailyProgressId,
+        List<ObjectId> DailyProgressIds,
+        List<ObjectId> CalorieIntakeIds,
         int ActivityLevel) : IHaveId;
 
     public record WaterIntake(

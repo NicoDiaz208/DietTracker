@@ -21,12 +21,15 @@ namespace DietTracker_Api.Controller
 
         private readonly IMongoCollection<Activity> activityCollection;
 
-        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac)
+        private readonly IMongoCollection<CalorieIntake> calorieIntakeCollection;
+
+        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac, CollectionFactory ci)
         {
             userCollection = cf.GetCollection<User>();
             recipeCollection = rf.GetCollection<Recipe>();
             dailyProgressCollection = dp.GetCollection<DailyProgress>();
             activityCollection = ac.GetCollection<Activity>();
+            calorieIntakeCollection = ci.GetCollection<CalorieIntake>();
         }
 
         public record UserCreationDto(
@@ -73,7 +76,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<UserDto>> Add(UserCreationDto item)
         {
-            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), item.ActivityLevel);
+            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), item.ActivityLevel);
             await userCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleUser), new { id = na.Id },
                 new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.ActivityLevel));
@@ -88,10 +91,10 @@ namespace DietTracker_Api.Controller
 
             await userCollection.DeleteById(usr.Id);
 
-            var listIds = usr.DailyProgressId;
+            var listIds = usr.DailyProgressIds;
             listIds.Add(ObjectId.Parse(dailyProgressId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, listIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, listIds, usr.CalorieIntakeIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -110,7 +113,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.ActivityIds;
             listIds.Add(ObjectId.Parse(activityId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, listIds, usr.DailyProgressId, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, listIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -129,7 +132,26 @@ namespace DietTracker_Api.Controller
             var listIds = usr.RecipeIds;
             listIds.Add(ObjectId.Parse(recipeId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, listIds, usr.ActivityIds, usr.DailyProgressId, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, listIds, usr.ActivityIds, usr.DailyProgressIds,usr.CalorieIntakeIds, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddCalorieIntakeToUser))]
+        public async Task<ActionResult<Boolean>> AddCalorieIntakeToUser(String userId, String calorieIntakeId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.CalorieIntakeIds;
+            listIds.Add(ObjectId.Parse(calorieIntakeId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, listIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -175,7 +197,7 @@ namespace DietTracker_Api.Controller
 
             List<DailyProgress> dpList = new();
 
-            foreach(var id in usr.DailyProgressId) {
+            foreach(var id in usr.DailyProgressIds) {
                 var cur = await dailyProgressCollection.GetById(id.ToString());
                 if (cur == null) continue;
                 dpList.Add(cur);
@@ -185,11 +207,11 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet]
-        [Route(nameof(GetAllActivitys))]
-        public async Task<ActionResult<List<Activity>>> GetAllActivitys(string userId)
+        [Route(nameof(GetAllActivities))]
+        public async Task<ActionResult<List<Activity>>> GetAllActivities(string userId)
         {
             var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound(false);
+            if (usr == null) return NotFound();
 
             List<Activity> aclist = new();
 
@@ -202,6 +224,36 @@ namespace DietTracker_Api.Controller
 
             return aclist;
 
+        }
+
+        [HttpGet]
+        [Route(nameof(GetAllCalorieIntake))]
+        public async Task<ActionResult<List<CalorieIntake>>> GetAllCalorieIntake(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            List<CalorieIntake> dpList = new();
+
+            foreach (var id in usr.CalorieIntakeIds)
+            {
+                var cur = await calorieIntakeCollection.GetById(id.ToString());
+                if (cur == null) continue;
+                dpList.Add(cur);
+            }
+
+            return dpList;
+        }
+
+        //TBD  muss noch fertig gemacht werden - NicoDiaz
+        [HttpPost]
+        [Route(nameof(CalculateDailyProgress))]
+        public async Task<ActionResult<String>> CalculateDailyProgress(string userId)
+        {
+            var activities = await this.GetAllActivities(userId);
+            var calorieIntake = await this.GetAllCalorieIntake(userId);
+
+            return "";
         }
 
 

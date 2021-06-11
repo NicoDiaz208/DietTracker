@@ -21,21 +21,21 @@ namespace DietTracker_Api.Controller
         }
 
         public record CalorieIntakeCreationDto(
-            double Current,
-            double Now
+            double Expected,
+            double Current
             );
 
         public record CalorieIntakeDto(
             string Id,
-            double Current,
-            double Now
+            double Expected,
+            double Current
             );
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CalorieIntake>>> GetAll()
         {
             var dbResult = await calorieIntakeCollection.GetAll();
-            var result = dbResult.Select(a => new CalorieIntakeDto(a.Id.ToString(), a.Current, a.Now));
+            var result = dbResult.Select(a => new CalorieIntakeDto(a.Id.ToString(),a.Expected, a.Current));
 
             return Ok(result);
         }
@@ -50,16 +50,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new CalorieIntakeDto(result.Id.ToString(), result.Current, result.Now);
+            return new CalorieIntakeDto(result.Id.ToString(), result.Expected, result.Current);
         }
 
         [HttpPost]
         public async Task<ActionResult<CalorieIntakeDto>> Add(CalorieIntakeCreationDto calorieIntakeCreationDto)
         {
-            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Now, ObjectId.Empty);
+            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Expected, calorieIntakeCreationDto.Current, ObjectId.Empty);
             await calorieIntakeCollection.InsertOneAsync(na);
-            return CreatedAtRoute(nameof(GetSingleCalorieIntake), new { Id = na.Id },
-                new CalorieIntakeDto(na.Id.ToString(), na.Current, na.Now));
+            return CreatedAtRoute(nameof(GetSingleCalorieIntake), new { na.Id },
+                new CalorieIntakeDto(na.Id.ToString(), na.Expected, na.Current));
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace DietTracker_Api.Controller
 
             await calorieIntakeCollection.DeleteById(caloryIntake.Id);
 
-            var na = new CalorieIntake(caloryIntake.Id, caloryIntake.Current, caloryIntake.Now, ObjectId.Parse(activityId));
+            var na = new CalorieIntake(caloryIntake.Id, caloryIntake.Expected, caloryIntake.Current, ObjectId.Parse(activityId));
 
             await calorieIntakeCollection.InsertOneAsync(na);
 

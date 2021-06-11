@@ -20,8 +20,8 @@ namespace DietTracker_DataAccess
 
     public record CalorieIntake(
         ObjectId Id,
+        double Expected,
         double Current,
-        double Now,
         ObjectId ActivityId) : IHaveId;
 
     public record DailyProgress(

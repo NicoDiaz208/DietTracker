@@ -19,11 +19,14 @@ namespace DietTracker_Api.Controller
 
         private readonly IMongoCollection<DailyProgress> dailyProgressCollection;
 
-        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp)
+        private readonly IMongoCollection<Activity> activityCollection;
+
+        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac)
         {
             userCollection = cf.GetCollection<User>();
             recipeCollection = rf.GetCollection<Recipe>();
             dailyProgressCollection = dp.GetCollection<DailyProgress>();
+            activityCollection = ac.GetCollection<Activity>();
         }
 
         public record UserCreationDto(
@@ -179,6 +182,26 @@ namespace DietTracker_Api.Controller
             }
 
             return dpList;
+        }
+
+        [HttpGet]
+        [Route(nameof(GetAllActivitys))]
+        public async Task<ActionResult<List<Activity>>> GetAllActivitys(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            List<Activity> aclist = new();
+
+            foreach (ObjectId i in usr.ActivityIds)
+            {
+                var activity = await activityCollection.GetById(i.ToString());
+                if (activity == null) break;
+                aclist.Add(activity);
+            }
+
+            return aclist;
+
         }
 
 

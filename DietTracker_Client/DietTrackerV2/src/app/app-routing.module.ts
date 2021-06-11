@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FooderComponent } from './pages/mainPages/fooder/fooder.component';
 import { MainPagesPage } from './pages/mainPages/main-pages.page';
 import { ProfileComponent } from './pages/mainPages/profile/profile.component';
+import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipes/generic-recipes.component';
 import { RecipeComponent } from './pages/mainPages/recipe/recipe.component';
 import { AchievementComponent } from './pages/mainPages/tracking/components/achievement/achievement.component';
 import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-calories/add-calories.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
     children: [
       { path: 'fooder', component: FooderComponent},
       { path: 'recipe', component: RecipeComponent},
+      { path: 'recipe/:category', component: GenericRecipesComponent},
       { path: 'tracking', component: TrackingComponent},
       { path: 'addCalories', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent},

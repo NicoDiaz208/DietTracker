@@ -40,6 +40,7 @@ import { SignupComponent } from './pages/signup/signup.component';
     RecipeComponent,
     TabBarBottomComponent,
     SignupComponent,
+    RecipeComponent,
   ],
   entryComponents: [],
   imports: [

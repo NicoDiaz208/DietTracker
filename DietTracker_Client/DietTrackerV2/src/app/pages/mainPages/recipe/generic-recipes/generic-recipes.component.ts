@@ -12,7 +12,7 @@ import { RecipeDto } from 'src/app/services/model/recipeDto';
 export class GenericRecipesComponent implements OnInit {
 
   allRecipes: Array<Recipe>;
-  recipes: Array<RecipeDto>;
+  public recipes: Array<RecipeDto>;
   @Input() category: string = 'Vegan';
   strFilter: string = '';
 

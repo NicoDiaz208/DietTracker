@@ -11,7 +11,6 @@
  */
 
 export interface DailyProgressCreationDto { 
-    name?: string;
     now?: number;
-    goal?: number;
+    date?: Date;
 }

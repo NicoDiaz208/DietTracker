@@ -11,6 +11,13 @@
  */
 
 export interface CalorieIntakeCreationDto { 
-    current?: number;
-    now?: number;
+    calorieGoal?: number;
+    calorieCurrent?: number;
+    fatGoal?: number;
+    fatCurrent?: number;
+    proteinGoal?: number;
+    proteinCurrent?: number;
+    carbohydratesGoal?: number;
+    carbohydratesCurrent?: number;
+    date?: Date;
 }

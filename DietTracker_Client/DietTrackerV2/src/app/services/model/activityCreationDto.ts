@@ -15,5 +15,7 @@ export interface ActivityCreationDto {
     activeTime?: number;
     goalTime?: number;
     burnedCalories?: number;
+    isDone?: boolean;
+    date?: Date;
     distance?: number;
 }

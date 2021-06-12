@@ -9,8 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
 
-export interface LoginDto { 
-    username?: string;
-    password?: string;
+export interface Recipe { 
+    id?: ObjectId;
+    name?: string;
+    prepareTime?: number;
+    difficulty?: number;
+    foodIds?: Array<ObjectId>;
+    category?: string;
 }

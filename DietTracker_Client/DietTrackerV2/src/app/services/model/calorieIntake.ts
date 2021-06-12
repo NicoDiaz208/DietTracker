@@ -13,7 +13,13 @@ import { ObjectId } from './objectId';
 
 export interface CalorieIntake { 
     id?: ObjectId;
-    current?: number;
-    now?: number;
-    activityId?: ObjectId;
+    calorieGoal?: number;
+    calorieCurrent?: number;
+    fatGoal?: number;
+    fatCurrent?: number;
+    proteinGoal?: number;
+    proteinCurrent?: number;
+    carbohydratesGoal?: number;
+    carbohydratesCurrent?: number;
+    date?: Date;
 }

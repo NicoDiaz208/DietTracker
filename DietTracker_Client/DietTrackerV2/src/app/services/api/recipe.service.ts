@@ -148,6 +148,82 @@ export class RecipeService {
     /**
      * 
      * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeGetAllCategoriesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public apiRecipeGetAllCategoriesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public apiRecipeGetAllCategoriesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public apiRecipeGetAllCategoriesGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<string>>('get',`${this.basePath}/api/Recipe/GetAllCategories`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeGetRandomGet(observe?: 'body', reportProgress?: boolean): Observable<RecipeDto>;
+    public apiRecipeGetRandomGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RecipeDto>>;
+    public apiRecipeGetRandomGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RecipeDto>>;
+    public apiRecipeGetRandomGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<RecipeDto>('get',`${this.basePath}/api/Recipe/GetRandom`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -196,6 +272,62 @@ export class RecipeService {
     /**
      * 
      * 
+     * @param body 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeReplacePost(body?: RecipeDto, id?: string, observe?: 'body', reportProgress?: boolean): Observable<RecipeDto>;
+    public apiRecipeReplacePost(body?: RecipeDto, id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RecipeDto>>;
+    public apiRecipeReplacePost(body?: RecipeDto, id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RecipeDto>>;
+    public apiRecipeReplacePost(body?: RecipeDto, id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<RecipeDto>('post',`${this.basePath}/api/Recipe/Replace`,
+            {
+                body: body,
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -227,44 +359,6 @@ export class RecipeService {
         ];
 
         return this.httpClient.request<RecipeDto>('get',`${this.basePath}/api/Recipe/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public randomRecipeGet(observe?: 'body', reportProgress?: boolean): Observable<RecipeDto>;
-    public randomRecipeGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RecipeDto>>;
-    public randomRecipeGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RecipeDto>>;
-    public randomRecipeGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<RecipeDto>('get',`${this.basePath}/RandomRecipe`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

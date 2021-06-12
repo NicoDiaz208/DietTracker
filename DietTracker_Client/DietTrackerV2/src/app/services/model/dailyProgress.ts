@@ -9,8 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
 
-export interface LoginDto { 
-    username?: string;
-    password?: string;
+export interface DailyProgress { 
+    id?: ObjectId;
+    now?: number;
+    date?: Date;
 }

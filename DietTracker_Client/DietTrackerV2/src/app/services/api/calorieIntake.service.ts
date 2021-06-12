@@ -60,57 +60,6 @@ export class CalorieIntakeService {
     /**
      * 
      * 
-     * @param caloryIntakeId 
-     * @param activityId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiCalorieIntakeAddActivityToCaloryIntakePost(caloryIntakeId?: string, activityId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public apiCalorieIntakeAddActivityToCaloryIntakePost(caloryIntakeId?: string, activityId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public apiCalorieIntakeAddActivityToCaloryIntakePost(caloryIntakeId?: string, activityId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public apiCalorieIntakeAddActivityToCaloryIntakePost(caloryIntakeId?: string, activityId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (caloryIntakeId !== undefined && caloryIntakeId !== null) {
-            queryParameters = queryParameters.set('caloryIntakeId', <any>caloryIntakeId);
-        }
-        if (activityId !== undefined && activityId !== null) {
-            queryParameters = queryParameters.set('activityId', <any>activityId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<boolean>('post',`${this.basePath}/api/CalorieIntake/AddActivityToCaloryIntake`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -186,6 +135,62 @@ export class CalorieIntakeService {
         return this.httpClient.request<CalorieIntakeDto>('post',`${this.basePath}/api/CalorieIntake`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param body 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiCalorieIntakeReplacePost(body?: CalorieIntakeCreationDto, id?: string, observe?: 'body', reportProgress?: boolean): Observable<CalorieIntakeDto>;
+    public apiCalorieIntakeReplacePost(body?: CalorieIntakeCreationDto, id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CalorieIntakeDto>>;
+    public apiCalorieIntakeReplacePost(body?: CalorieIntakeCreationDto, id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CalorieIntakeDto>>;
+    public apiCalorieIntakeReplacePost(body?: CalorieIntakeCreationDto, id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<CalorieIntakeDto>('post',`${this.basePath}/api/CalorieIntake/Replace`,
+            {
+                body: body,
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

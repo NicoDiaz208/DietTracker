@@ -16,5 +16,7 @@ export interface ActivityDto {
     activeTime?: number;
     goalTime?: number;
     burnedCalories?: number;
+    isDone?: boolean;
+    date?: Date;
     distance?: number;
 }

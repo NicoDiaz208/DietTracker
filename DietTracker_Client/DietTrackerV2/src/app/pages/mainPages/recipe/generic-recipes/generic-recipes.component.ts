@@ -21,7 +21,7 @@ export class GenericRecipesComponent implements OnInit {
    }
 
   ngOnInit() {
-      this.restService.apiRecipeGet().subscribe(data => (this.recipes = (data as RecipeDto[]).filter(x=> x.category === this.category)));
+      this.restService.apiRecipeGet().subscribe(data => {this.recipes = (data	as RecipeDto[])});
       /*
       .subscribe(data=> {this.recipes = (data as Recipe[])
         .filter(x=>x.category === this.category);

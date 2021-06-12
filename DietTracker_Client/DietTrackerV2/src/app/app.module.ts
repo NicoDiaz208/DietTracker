@@ -61,6 +61,7 @@ import { SignupComponent } from './pages/signup/signup.component';
     CalorieIntakeService,
     AchievementsService,
     ActivityService,
+    RecipeService,
  {provide: BASE_PATH, useValue:environment.apiBase}
   ],
   bootstrap: [AppComponent],

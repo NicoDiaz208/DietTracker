@@ -58,6 +58,57 @@ export class LoginService {
     /**
      * 
      * 
+     * @param name 
+     * @param password 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiLoginGetSingleLoginGet(name?: string, password?: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiLoginGetSingleLoginGet(name?: string, password?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiLoginGetSingleLoginGet(name?: string, password?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public apiLoginGetSingleLoginGet(name?: string, password?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
+        }
+        if (password !== undefined && password !== null) {
+            queryParameters = queryParameters.set('password', <any>password);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<string>('get',`${this.basePath}/api/Login/GetSingleLogin`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -95,57 +146,6 @@ export class LoginService {
         return this.httpClient.request<LoginDto>('post',`${this.basePath}/api/Login`,
             {
                 body: body,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param name 
-     * @param password 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiLoginTestGet(name?: string, password?: string, observe?: 'body', reportProgress?: boolean): Observable<LoginDto>;
-    public apiLoginTestGet(name?: string, password?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LoginDto>>;
-    public apiLoginTestGet(name?: string, password?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LoginDto>>;
-    public apiLoginTestGet(name?: string, password?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (password !== undefined && password !== null) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<LoginDto>('get',`${this.basePath}/api/Login/test`,
-            {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -22,6 +22,7 @@ export interface User {
     phoneNumber?: string;
     recipeIds?: Array<ObjectId>;
     activityIds?: Array<ObjectId>;
-    dailyProgressId?: ObjectId;
+    dailyProgressIds?: Array<ObjectId>;
+    calorieIntakeIds?: Array<ObjectId>;
     activityLevel?: number;
 }

@@ -168,10 +168,9 @@ namespace DietTracker_Api.Controller
             return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.ActivityLevel));
         }
 
-        //TBD  muss noch fertig gemacht werden - NicoDiaz
         [HttpPost]
         [Route(nameof(CalculateDailyProgress))]
-        public async Task<ActionResult<String>> CalculateDailyProgress(string userId)
+        public async Task<ActionResult<String>> CalculateDailyProgress(string userId, DateTime date)
         {
             var usr = await userCollection.GetById(userId);
             if (usr == null) return NotFound();
@@ -183,19 +182,19 @@ namespace DietTracker_Api.Controller
                 var cur = await activityCollection.GetById(i.ToString());
                 if (cur == null) continue;
 
-                if (cur.IsDone == true && isSameDay(cur.Date, DateTime.Now))
+                if (cur.IsDone == true && isSameDay(cur.Date, date))
                 {
                     countIsTrue++;
                     acList.Add(cur);
                 }
-                else if(cur.IsDone == false && isSameDay(cur.Date, DateTime.Now))
+                else if(cur.IsDone == false && isSameDay(cur.Date, date))
                 {
                     acList.Add(cur);
                 }
             }
 
             var acLength = acList.Count;
-            var percentage = 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
+            var percentage = (acLength == 0) ? 0 : 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
 
             DailyProgress? dailyProgress = null;
             foreach(var i in usr.DailyProgressIds)
@@ -203,7 +202,7 @@ namespace DietTracker_Api.Controller
                 var cur = await dailyProgressCollection.GetById(i.ToString());
                 if (cur == null) continue;
 
-                if (isSameDay(cur.Date, DateTime.Now))
+                if (isSameDay(cur.Date, date))
                 {
                     dailyProgress = cur;
                     await dailyProgressCollection.DeleteById(dailyProgress.Id);
@@ -213,16 +212,15 @@ namespace DietTracker_Api.Controller
 
             if(dailyProgress == null)
             {
-                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, DateTime.Now);
+                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, date);
+
                 usr.DailyProgressIds.Add(dailyProgress.Id);
+                await userCollection.ReplaceById(userId, usr);
             }
 
             DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Date);
 
             await dailyProgressCollection.InsertOneAsync(dp);
-
-            await userCollection.DeleteById(usr.Id);
-            await userCollection.InsertOneAsync(usr);
 
             return dailyProgress.Id.ToString();
         }

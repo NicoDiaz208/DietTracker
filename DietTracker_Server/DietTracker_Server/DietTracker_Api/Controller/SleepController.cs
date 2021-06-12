@@ -56,7 +56,15 @@ namespace DietTracker_Api.Controller
                 new SleepDto(na.Id.ToString(), na.HoSG, na.HoSC));
         }
 
-        
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<SleepDto>> Replace(SleepDto item, string id)
+        {
+            var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC, ObjectId.Empty);
+            await sleepCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
+
 
     }
 }

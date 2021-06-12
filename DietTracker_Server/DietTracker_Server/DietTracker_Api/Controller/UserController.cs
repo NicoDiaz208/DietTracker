@@ -197,7 +197,7 @@ namespace DietTracker_Api.Controller
             var acLength = acList.Count;
             var percentage = 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
 
-            DailyProgress dailyProgress = null;
+            DailyProgress? dailyProgress = null;
             foreach(var i in usr.DailyProgressIds)
             {
                 var cur = await dailyProgressCollection.GetById(i.ToString());
@@ -205,19 +205,21 @@ namespace DietTracker_Api.Controller
 
                 if (isSameDay(cur.Date, DateTime.Now))
                 {
-                    Console.WriteLine(cur.Date.ToString()+"is True");
                     dailyProgress = cur;
-                    await dailyProgressCollection.DeleteById(cur.Id);
+                    await dailyProgressCollection.DeleteById(dailyProgress.Id);
+                    break;
                 }
             }
 
             if(dailyProgress == null)
             {
                 dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, DateTime.Now);
+                usr.DailyProgressIds.Add(dailyProgress.Id);
             }
 
-            await dailyProgressCollection.InsertOneAsync(dailyProgress);
-            usr.DailyProgressIds.Add(dailyProgress.Id);
+            DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Date);
+
+            await dailyProgressCollection.InsertOneAsync(dp);
 
             await userCollection.DeleteById(usr.Id);
             await userCollection.InsertOneAsync(usr);

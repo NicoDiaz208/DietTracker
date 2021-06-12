@@ -60,8 +60,13 @@ namespace DietTracker_Api.Controller
         [Route(nameof(Replace))]
         public async Task<ActionResult<SleepDto>> Replace(SleepDto item, string id)
         {
-            var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC, ObjectId.Empty);
-            await sleepCollection.ReplaceById(id, na);
+            var oldSleep = await sleepCollection.GetById(ObjectId.Parse(id));
+            if(oldSleep != null)
+            {
+                var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC, oldSleep.ActivityId);
+                await sleepCollection.ReplaceById(id, na);
+            }
+            
             return Ok(200);
         }
 

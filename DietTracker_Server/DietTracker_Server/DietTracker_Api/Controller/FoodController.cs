@@ -64,8 +64,11 @@ namespace DietTracker_Api.Controller
         [Route(nameof(Replace))]
         public async Task<ActionResult<FoodDto>> Replace(FoodCreationDto foodDto,string id)
         {
-            var na = new Food(ObjectId.Parse(id), ObjectId.Empty, foodDto.Name);
-            await foodCollection.ReplaceById(id,na);
+            var oldFood = await foodCollection.GetById(ObjectId.Parse(id));
+            if(oldFood != null) { 
+                 var na = new Food(ObjectId.Parse(id), oldFood.NutritionFactIds, foodDto.Name);
+                 await foodCollection.ReplaceById(id,na);
+            }
             return Ok(200);
         }
     }

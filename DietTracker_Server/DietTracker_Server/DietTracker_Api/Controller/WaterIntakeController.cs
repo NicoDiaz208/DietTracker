@@ -58,7 +58,19 @@ namespace DietTracker_Api.Controller
                 new WaterIntakeDto(na.Id.ToString(), na.GoWG, na.GoWC));
         }
 
-        
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<WaterIntakeDto>> Replace(WaterIntakeDto item, string id)
+        {
+            var oldWaterIntake = await waterIntakeCollection.GetById(ObjectId.Parse(id));
+            if(oldWaterIntake != null)
+            {
+                var na = new WaterIntake(ObjectId.Parse(id), item.GoWG, oldWaterIntake.ActivityId, item.GoWC);
+                await waterIntakeCollection.ReplaceById(id, na);
+            }
+            
+            return Ok(200);
+        }
 
     }
 }

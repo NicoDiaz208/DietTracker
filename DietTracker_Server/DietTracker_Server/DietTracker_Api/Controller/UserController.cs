@@ -235,6 +235,13 @@ namespace DietTracker_Api.Controller
             return false;
         }
 
-
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<UserDto>> Replace(UserDto usr, string id)
+        {
+            var na = new User(ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, listIds, usr.ActivityLevel);
+            await userCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
     }
 }

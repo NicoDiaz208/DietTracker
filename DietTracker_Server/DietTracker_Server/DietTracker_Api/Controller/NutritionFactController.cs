@@ -54,5 +54,14 @@ namespace DietTracker_Api.Controller
             return CreatedAtRoute(nameof(GetSingleNutritionFact), new { id = na.Id },
                 new NutritionFactDto(na.Id.ToString(), na.Calories, na.Protein, na.TotalCarbohydrates, na.Sugar, na.Fiber, na.Fat));
         }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<NutritionFactDto>> Replace(NutritionFactDto item, string id)
+        {
+            var na = new NutritionFacts(ObjectId.Parse(id), item.Calories, item.Protein, item.TotalCarbohydrates, item.Sugar, item.Fiber, item.Fat);
+            await nutritionFactCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
     }
 }

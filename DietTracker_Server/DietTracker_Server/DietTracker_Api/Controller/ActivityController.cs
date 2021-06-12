@@ -71,5 +71,14 @@ namespace DietTracker_Api.Controller
             return CreatedAtRoute(nameof(GetSingleActivity), new { Id = na.Id },
                 new ActivityDto(na.Id.ToString(), na.Steps, na.ActiveTime, na.GoalTime, na.BurnedCalories, na.IsDone, na.Date , na.Distance));
         }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<ActivityDto>> Replace(ActivityCreationDto activityCreationDto, string id)
+        {
+            var na = new Activity(ObjectId.Parse(id), activityCreationDto.Steps, activityCreationDto.ActiveTime, activityCreationDto.GoalTime, activityCreationDto.BurnedCalories, activityCreationDto.IsDone, activityCreationDto.Date, activityCreationDto.Distance);
+            await activityCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
     }
 }

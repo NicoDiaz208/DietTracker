@@ -13,6 +13,13 @@ namespace DietTracker_DataAccess
             await collection.DeleteOneAsync(Builders<T>.Filter.Eq(a => a.Id, id));
         }
 
+        public static async Task ReplaceById<T>(this IMongoCollection<T> collection, string id, T clas)
+            where T : IHaveId
+        {
+           await collection.ReplaceOneAsync(Builders<T>.Filter.Eq(a => a.Id, ObjectId.Parse(id)), clas);
+        }
+
+
         public static async Task<IEnumerable<T>> GetAll<T>(this IMongoCollection<T> collection)
         {
             var cursor = await collection.FindAsync<T>(Builders<T>.Filter.Empty);

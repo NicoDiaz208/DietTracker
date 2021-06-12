@@ -60,6 +60,13 @@ namespace DietTracker_Api.Controller
                 new FoodDto(na.Id.ToString(), na.Name));
         }
 
-        
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<FoodDto>> Replace(FoodCreationDto foodDto,string id)
+        {
+            var na = new Food(ObjectId.Parse(id), ObjectId.Empty, foodDto.Name);
+            await foodCollection.ReplaceById(id,na);
+            return Ok(200);
+        }
     }
 }

@@ -57,5 +57,14 @@ namespace DietTracker_Api.Controller
             return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
                 new DailyProgressDto(na.Id.ToString(), na.Now,na.Date));
         }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<DailyProgressDto>> Replace(DailyProgressDto item, string id)
+        {
+            var na = new DailyProgress(ObjectId.Parse(id), item.Now, item.Date);
+            await dailyProgressCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
     }
 }

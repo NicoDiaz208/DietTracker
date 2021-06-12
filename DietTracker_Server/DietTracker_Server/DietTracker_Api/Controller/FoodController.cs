@@ -11,7 +11,7 @@ namespace DietTracker_Api.Controller
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class FoodController : ControllerBase
+    public partial class FoodController : ControllerBase
     {
         private readonly IMongoCollection<Food> foodCollection;
 
@@ -61,20 +61,15 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpPost]
-        [Route(nameof(AddNutritionFactToFood))]
-        public async Task<ActionResult<Boolean>> AddNutritionFactToFood(String foodId, String nutritionFactId)
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<FoodDto>> Replace(FoodCreationDto foodDto,string id)
         {
-            var food = await foodCollection.GetById(foodId);
-            if (food == null) return NotFound(false);
-
-            await foodCollection.DeleteById(food.Id);
-
-            var na = new Food(food.Id, ObjectId.Parse(nutritionFactId), food.Name);
-
-            await foodCollection.InsertOneAsync(na);
-
-            return Ok(true);
+            var oldFood = await foodCollection.GetById(ObjectId.Parse(id));
+            if(oldFood != null) { 
+                 var na = new Food(ObjectId.Parse(id), oldFood.NutritionFactIds, foodDto.Name);
+                 await foodCollection.ReplaceById(id,na);
+            }
+            return Ok(200);
         }
-
     }
 }

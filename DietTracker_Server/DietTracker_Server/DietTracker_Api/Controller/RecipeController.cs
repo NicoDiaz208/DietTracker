@@ -11,7 +11,7 @@ namespace DietTracker_Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecipeController : ControllerBase
+    public partial class RecipeController : ControllerBase
     {
         private readonly IMongoCollection<Recipe> recipeCollection;
 
@@ -56,51 +56,19 @@ namespace DietTracker_Api.Controller
                 new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category));
         }
 
-        [HttpGet]
-        [Route("/RandomRecipe")]
-        public async Task<ActionResult<RecipeDto>> GetRandom()
-        {
-            var rand = new Random();
-            var cnt = await recipeCollection.CountDocumentsAsync(new BsonDocument());
-
-            var res = await recipeCollection
-                .Find(new BsonDocument())
-                .Skip(rand.Next(0, Convert.ToInt32(cnt)))
-                .Limit(1)
-                .FirstOrDefaultAsync();
-
-            if (res == null) return NotFound();
-
-            return Ok(res);
-        }
-
         [HttpPost]
-        [Route(nameof(AddFoodToRecipe))]
-        public async Task<ActionResult<Boolean>> AddFoodToRecipe(String recipeId, String foodId)
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<RecipeDto>> Replace(RecipeDto item, string id)
         {
-            var recipe = await recipeCollection.GetById(recipeId);
-            if (recipe == null) return NotFound(false);
-
-            await recipeCollection.DeleteById(recipe.Id);
-
-            var listIds = recipe.FoodIds;
-            listIds.Add(ObjectId.Parse(foodId));
-
-            var na = new Recipe(recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, listIds, recipe.Category);
-
-
-            await recipeCollection.InsertOneAsync(na);
-
-            return Ok(true);
+            var oldRecipe = await recipeCollection.GetById(ObjectId.Parse(id));
+            if (oldRecipe != null)
+            {
+                var na = new Recipe(ObjectId.Parse(id), item.Name, item.PrepareTime, item.Difficulty, oldRecipe.FoodIds, item.Category);
+                await recipeCollection.ReplaceById(id, na);
+            }
+            return Ok(200);
         }
 
-        [HttpGet]
-        [Route(nameof(GetAllCategories))]
-        public async Task<ActionResult<List<String>>> GetAllCategories()
-        {
-            var list = await recipeCollection.DistinctAsync<String>("Category", new BsonDocument());
-            return list.ToList();
-        }
 
 
     }

@@ -21,23 +21,19 @@ namespace DietTracker_Api.Controller
         }
 
         public record DailyProgressCreationDto(
-            string Name,
             double Now,
-            DateTime Date,
-            double Goal);
+            DateTime Date);
 
         public record DailyProgressDto(
             string Id,
-            string Name,
             double Now,
-            DateTime Date,
-            double Goal);
+            DateTime Date);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DailyProgressDto>>> GetAll()
         {
             var dbResult = await dailyProgressCollection.GetAll();
-            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(), a.Name, a.Now,a.Date, a.Goal));
+            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(), a.Now,a.Date));
             return Ok(result);
         }
 
@@ -50,16 +46,25 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new DailyProgressDto(item.Id.ToString(), item.Name, item.Now,item.Date, item.Goal);
+            return new DailyProgressDto(item.Id.ToString(), item.Now,item.Date);
         }
 
         [HttpPost]
         public async Task<ActionResult<DailyProgressDto>> Add(DailyProgressCreationDto item)
         {
-            var na = new DailyProgress(ObjectId.Empty, item.Name, item.Now,item.Date, item.Goal);
+            var na = new DailyProgress(ObjectId.Empty, item.Now,item.Date);
             await dailyProgressCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
-                new DailyProgressDto(na.Id.ToString(), na.Name, na.Now,na.Date, na.Goal));
+                new DailyProgressDto(na.Id.ToString(), na.Now,na.Date));
+        }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<DailyProgressDto>> Replace(DailyProgressDto item, string id)
+        {
+            var na = new DailyProgress(ObjectId.Parse(id), item.Now, item.Date);
+            await dailyProgressCollection.ReplaceById(id, na);
+            return Ok(200);
         }
     }
 }

@@ -168,94 +168,84 @@ namespace DietTracker_Api.Controller
             return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.ActivityLevel));
         }
 
-        [HttpGet]
-        [Route(nameof(GetAllRecipes))]
-        public async Task<ActionResult<List<Recipe>>> GetAllRecipes(string userId)
-        {
-            var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound(false);
-
-            List<Recipe> reclist = new();
-
-            foreach (ObjectId i in usr.RecipeIds)
-            {
-                var recipes = await recipeCollection.GetById(i.ToString());
-                if (recipes == null) break;
-                reclist.Add(recipes);
-            }
-
-            return reclist;
-
-        }
-
-        [HttpGet]
-        [Route(nameof(GetAllDailyProgress))]
-        public async Task<ActionResult<List<DailyProgress>>> GetAllDailyProgress(string userId)
-        {
-            var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound();
-
-            List<DailyProgress> dpList = new();
-
-            foreach(var id in usr.DailyProgressIds) {
-                var cur = await dailyProgressCollection.GetById(id.ToString());
-                if (cur == null) continue;
-                dpList.Add(cur);
-            }
-
-            return dpList;
-        }
-
-        [HttpGet]
-        [Route(nameof(GetAllActivities))]
-        public async Task<ActionResult<List<Activity>>> GetAllActivities(string userId)
-        {
-            var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound();
-
-            List<Activity> aclist = new();
-
-            foreach (ObjectId i in usr.ActivityIds)
-            {
-                var activity = await activityCollection.GetById(i.ToString());
-                if (activity == null) break;
-                aclist.Add(activity);
-            }
-
-            return aclist;
-
-        }
-
-        [HttpGet]
-        [Route(nameof(GetAllCalorieIntake))]
-        public async Task<ActionResult<List<CalorieIntake>>> GetAllCalorieIntake(string userId)
-        {
-            var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound();
-
-            List<CalorieIntake> dpList = new();
-
-            foreach (var id in usr.CalorieIntakeIds)
-            {
-                var cur = await calorieIntakeCollection.GetById(id.ToString());
-                if (cur == null) continue;
-                dpList.Add(cur);
-            }
-
-            return dpList;
-        }
-
-        //TBD  muss noch fertig gemacht werden - NicoDiaz
         [HttpPost]
         [Route(nameof(CalculateDailyProgress))]
-        public async Task<ActionResult<String>> CalculateDailyProgress(string userId)
+        public async Task<ActionResult<String>> CalculateDailyProgress(string userId, DateTime date)
         {
-            var activities = await this.GetAllActivities(userId);
-            var calorieIntake = await this.GetAllCalorieIntake(userId);
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
 
-            return "";
+            var acList = new List<Activity>();
+            var countIsTrue = 0;                //Counts all IsDone from Activities which are TRUE
+            foreach (var i in usr.ActivityIds)
+            {
+                var cur = await activityCollection.GetById(i.ToString());
+                if (cur == null) continue;
+
+                if (cur.IsDone == true && isSameDay(cur.Date, date))
+                {
+                    countIsTrue++;
+                    acList.Add(cur);
+                }
+                else if(cur.IsDone == false && isSameDay(cur.Date, date))
+                {
+                    acList.Add(cur);
+                }
+            }
+
+            var acLength = acList.Count;
+            var percentage = (acLength == 0) ? 0 : 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
+
+            DailyProgress? dailyProgress = null;
+            foreach(var i in usr.DailyProgressIds)
+            {
+                var cur = await dailyProgressCollection.GetById(i.ToString());
+                if (cur == null) continue;
+
+                if (isSameDay(cur.Date, date))
+                {
+                    dailyProgress = cur;
+                    await dailyProgressCollection.DeleteById(dailyProgress.Id);
+                    break;
+                }
+            }
+
+            if(dailyProgress == null)
+            {
+                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, date);
+
+                usr.DailyProgressIds.Add(dailyProgress.Id);
+                await userCollection.ReplaceById(userId, usr);
+            }
+
+            DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Date);
+
+            await dailyProgressCollection.InsertOneAsync(dp);
+
+            return dailyProgress.Id.ToString();
         }
 
+        private bool isSameDay(DateTime a, DateTime b)
+        {
+            var aStr = a.ToString().Substring(0, 10);
+            var bStr = b.ToString().Substring(0,10);
 
+            if (aStr == bStr) return true;
+           
+            return false;
+        }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<UserDto>> Replace(UserDto usr, string id)
+        {
+            var oldusr = await userCollection.GetById(ObjectId.Parse(id));
+            if (oldusr != null)
+            {
+                var na = new User(ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, oldusr.RecipeIds, oldusr.ActivityIds, oldusr.DailyProgressIds, oldusr.CalorieIntakeIds, usr.ActivityLevel);
+                await userCollection.ReplaceById(id, na);
+            }
+            return Ok(200);
+        }
     }
 }

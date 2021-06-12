@@ -11,7 +11,7 @@ namespace DietTracker_Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WaterIntakeController : ControllerBase
+    public partial class WaterIntakeController : ControllerBase
     {
         private readonly IMongoCollection<WaterIntake> waterIntakeCollection;
 
@@ -59,19 +59,17 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpPost]
-        [Route(nameof(AddActivityToWaterIntake))]
-        public async Task<ActionResult<Boolean>> AddActivityToWaterIntake(String waterIntakeId, String activityId)
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<WaterIntakeDto>> Replace(WaterIntakeDto item, string id)
         {
-            var waterIntake = await waterIntakeCollection.GetById(waterIntakeId);
-            if (waterIntake == null) return NotFound(false);
-
-            await waterIntakeCollection.DeleteById(waterIntake.Id);
-
-            var na = new WaterIntake(waterIntake.Id, waterIntake.GoWG, ObjectId.Parse(activityId), waterIntake.GoWC);
-
-            await waterIntakeCollection.InsertOneAsync(na);
-
-            return Ok(true);
+            var oldWaterIntake = await waterIntakeCollection.GetById(ObjectId.Parse(id));
+            if(oldWaterIntake != null)
+            {
+                var na = new WaterIntake(ObjectId.Parse(id), item.GoWG, oldWaterIntake.ActivityId, item.GoWC);
+                await waterIntakeCollection.ReplaceById(id, na);
+            }
+            
+            return Ok(200);
         }
 
     }

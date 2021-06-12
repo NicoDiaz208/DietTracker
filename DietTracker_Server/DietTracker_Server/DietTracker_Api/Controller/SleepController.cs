@@ -11,7 +11,7 @@ namespace DietTracker_Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SleepController : ControllerBase
+    public partial class SleepController : ControllerBase
     {
         private readonly IMongoCollection<Sleep> sleepCollection;
 
@@ -57,20 +57,19 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpPost]
-        [Route(nameof(AddActivityToSleep))]
-        public async Task<ActionResult<Boolean>> AddActivityToSleep(String sleepId, String activityId)
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<SleepDto>> Replace(SleepDto item, string id)
         {
-            var sleep = await sleepCollection.GetById(sleepId);
-            if (sleep == null) return NotFound(false);
-
-            await sleepCollection.DeleteById(sleep.Id);
-
-            var na = new Sleep(sleep.Id, sleep.HoSG, sleep.HoSC, ObjectId.Parse(activityId));
-
-            await sleepCollection.InsertOneAsync(na);
-
-            return Ok(true);
+            var oldSleep = await sleepCollection.GetById(ObjectId.Parse(id));
+            if(oldSleep != null)
+            {
+                var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC, oldSleep.ActivityId);
+                await sleepCollection.ReplaceById(id, na);
+            }
+            
+            return Ok(200);
         }
+
 
     }
 }

@@ -58,5 +58,14 @@ namespace DietTracker_Api.Controller
             return CreatedAtRoute(nameof(GetSingleAchievement), new { id = na.Id },
                 new AchievementDto(na.Id.ToString(), na.Name, na.Now, na.Goal));
         }
+
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<AchievementDto>> Replace(AchievementCreationDto item, string id)
+        {
+            var na = new Achievement(ObjectId.Parse(id), item.Name, item.Now, item.Goal);
+            await achievementCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
     }
 }

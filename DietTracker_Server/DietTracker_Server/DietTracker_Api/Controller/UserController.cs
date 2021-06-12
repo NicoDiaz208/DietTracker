@@ -247,5 +247,28 @@ namespace DietTracker_Api.Controller
             }
             return Ok(200);
         }
+
+        [HttpGet]
+        [Route(nameof(GetCalorieIntakeByDate))]
+        public async Task<ActionResult<String>> GetCalorieIntakeByDate(String userId, DateTime date)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            foreach(var i in usr.CalorieIntakeIds)
+            {
+                var ci = await calorieIntakeCollection.GetById(i);
+                if (ci == null) continue;
+
+                if(isSameDay(date, ci.Date))
+                {
+                    return ci.Id.ToString();
+                }
+            }
+
+            return NotFound();
+
+        }
+
     }
 }

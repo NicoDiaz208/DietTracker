@@ -21,15 +21,27 @@ namespace DietTracker_Api.Controller
         }
 
         public record CalorieIntakeCreationDto(
-            double Goal,
-            double Current,
+            double CalorieGoal,
+            double CalorieCurrent,
+            double FatGoal,
+            double FatCurrent,
+            double ProteinGoal,
+            double ProteinCurrent,
+            double CarbohydratesGoal,
+            double CarbohydratesCurrent,
             DateTime Date
             );
 
         public record CalorieIntakeDto(
             string Id,
-            double Goal,
-            double Current,
+            double CalorieGoal,
+            double CalorieCurrent,
+            double FatGoal,
+            double FatCurrent,
+            double ProteinGoal,
+            double ProteinCurrent,
+            double CarbohydratesGoal,
+            double CarbohydratesCurrent,
             DateTime Date
             );
 
@@ -37,7 +49,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<IEnumerable<CalorieIntake>>> GetAll()
         {
             var dbResult = await calorieIntakeCollection.GetAll();
-            var result = dbResult.Select(a => new CalorieIntakeDto(a.Id.ToString(),a.Goal, a.Current, a.Date));
+            var result = dbResult.Select(a => new CalorieIntakeDto(a.Id.ToString(),a.CalorieGoal, a.CalorieCurrent, a.FatGoal, a.FatCurrent, a.ProteinGoal, a.ProteinCurrent, a.CarbohydratesGoal, a.CarbohydratesCurrent, a.Date));
 
             return Ok(result);
         }
@@ -52,23 +64,23 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new CalorieIntakeDto(result.Id.ToString(), result.Goal, result.Current, result.Date);
+            return new CalorieIntakeDto(result.Id.ToString(), result.CalorieGoal, result.CalorieCurrent, result.FatGoal, result.FatCurrent, result.ProteinGoal, result.ProteinCurrent, result.CarbohydratesGoal, result.CarbohydratesCurrent, result.Date);
         }
 
         [HttpPost]
         public async Task<ActionResult<CalorieIntakeDto>> Add(CalorieIntakeCreationDto calorieIntakeCreationDto)
         {
-            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.Goal, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Date);
+            var na = new CalorieIntake(ObjectId.Empty, calorieIntakeCreationDto.CalorieGoal, calorieIntakeCreationDto.CalorieCurrent, calorieIntakeCreationDto.FatGoal, calorieIntakeCreationDto.FatCurrent, calorieIntakeCreationDto.ProteinGoal, calorieIntakeCreationDto.ProteinCurrent, calorieIntakeCreationDto.CarbohydratesGoal, calorieIntakeCreationDto.CarbohydratesCurrent, calorieIntakeCreationDto.Date);
             await calorieIntakeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleCalorieIntake), new { na.Id },
-                new CalorieIntakeDto(na.Id.ToString(), na.Goal, na.Current, na.Date));
+                new CalorieIntakeDto(na.Id.ToString(), na.CalorieGoal, na.CalorieCurrent, na.FatGoal, na.FatCurrent, na.ProteinGoal, na.ProteinCurrent, na.CarbohydratesGoal, na.CarbohydratesCurrent, na.Date));
         }
 
         [HttpPost]
         [Route(nameof(Replace))]
         public async Task<ActionResult<CalorieIntakeDto>> Replace(CalorieIntakeCreationDto calorieIntakeCreationDto, string id)
         {
-            var na = new CalorieIntake(ObjectId.Parse(id), calorieIntakeCreationDto.Goal, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Date); 
+            var na = new CalorieIntake(ObjectId.Parse(id), calorieIntakeCreationDto.CalorieGoal, calorieIntakeCreationDto.CalorieCurrent, calorieIntakeCreationDto.FatGoal, calorieIntakeCreationDto.FatCurrent, calorieIntakeCreationDto.ProteinGoal, calorieIntakeCreationDto.ProteinCurrent, calorieIntakeCreationDto.CarbohydratesGoal, calorieIntakeCreationDto.CarbohydratesCurrent, calorieIntakeCreationDto.Date); 
             await calorieIntakeCollection.ReplaceById(id, na);
             return Ok(200);
         }

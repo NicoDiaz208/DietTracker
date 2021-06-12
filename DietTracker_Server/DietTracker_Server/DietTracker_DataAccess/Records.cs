@@ -22,8 +22,14 @@ namespace DietTracker_DataAccess
 
     public record CalorieIntake(
         ObjectId Id,
-        double Goal,
-        double Current,
+        double CalorieGoal,
+        double CalorieCurrent,
+        double FatGoal,
+        double FatCurrent,
+        double ProteinGoal,
+        double ProteinCurrent,
+        double CarbohydratesGoal,
+        double CarbohydratesCurrent,
         DateTime Date) : IHaveId;
 
     public record DailyProgress(

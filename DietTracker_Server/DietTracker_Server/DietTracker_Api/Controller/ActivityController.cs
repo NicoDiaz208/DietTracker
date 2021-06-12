@@ -24,7 +24,9 @@ namespace DietTracker_Api.Controller
            int Steps, 
            double ActiveTime, 
            double GoalTime, 
-           double BurnedCalories, 
+           double BurnedCalories,
+           bool IsDone,
+           DateTime Date,
            double Distance
            );
 
@@ -33,7 +35,9 @@ namespace DietTracker_Api.Controller
            int Steps, 
            double ActiveTime, 
            double GoalTime, 
-           double BurnedCalories, 
+           double BurnedCalories,
+           bool IsDone,
+           DateTime Date,
            double Distance
            );
 
@@ -41,7 +45,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<IEnumerable<ActivityDto>>> GetAll()
         {
             var dbResult = await activityCollection.GetAll();
-            var result = dbResult.Select(a => new ActivityDto(a.Id.ToString(), a.Steps, a.ActiveTime, a.GoalTime, a.BurnedCalories, a.Distance));
+            var result = dbResult.Select(a => new ActivityDto(a.Id.ToString(), a.Steps, a.ActiveTime, a.GoalTime, a.BurnedCalories,a.IsDone, a.Date, a.Distance));
             
             return Ok(result);
         }
@@ -56,16 +60,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new ActivityDto(result.Id.ToString(), result.Steps, result.ActiveTime, result.GoalTime, result.BurnedCalories, result.Distance);
+            return new ActivityDto(result.Id.ToString(), result.Steps, result.ActiveTime, result.GoalTime, result.BurnedCalories, result.IsDone, result.Date,result.Distance);
         }
 
         [HttpPost]
         public async Task<ActionResult<ActivityDto>> Add(ActivityCreationDto activityCreationDto)
         {
-            var na = new Activity(ObjectId.Empty, activityCreationDto.Steps, activityCreationDto.ActiveTime, activityCreationDto.GoalTime, activityCreationDto.BurnedCalories, activityCreationDto.Distance);
+            var na = new Activity(ObjectId.Empty, activityCreationDto.Steps, activityCreationDto.ActiveTime, activityCreationDto.GoalTime, activityCreationDto.BurnedCalories,activityCreationDto.IsDone, activityCreationDto.Date, activityCreationDto.Distance);
             await activityCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleActivity), new { Id = na.Id },
-                new ActivityDto(na.Id.ToString(), na.Steps, na.ActiveTime, na.GoalTime, na.BurnedCalories, na.Distance));
+                new ActivityDto(na.Id.ToString(), na.Steps, na.ActiveTime, na.GoalTime, na.BurnedCalories, na.IsDone, na.Date , na.Distance));
         }
     }
 }

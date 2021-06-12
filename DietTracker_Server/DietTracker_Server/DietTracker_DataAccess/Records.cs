@@ -16,6 +16,8 @@ namespace DietTracker_DataAccess
         double ActiveTime,
         double GoalTime,
         double BurnedCalories,
+        bool IsDone,
+        DateTime Date,
         double Distance) : IHaveId;
 
     public record CalorieIntake(
@@ -26,10 +28,8 @@ namespace DietTracker_DataAccess
 
     public record DailyProgress(
         ObjectId Id,
-        string Name,
         double Now,
-        DateTime Date,
-        double Goal) : IHaveId;
+        DateTime Date) : IHaveId;
 
     public record Food(
         ObjectId Id,

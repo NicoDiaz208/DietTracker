@@ -250,10 +250,66 @@ namespace DietTracker_Api.Controller
         [Route(nameof(CalculateDailyProgress))]
         public async Task<ActionResult<String>> CalculateDailyProgress(string userId)
         {
-            var activities = await this.GetAllActivities(userId);
-            var calorieIntake = await this.GetAllCalorieIntake(userId);
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
 
-            return "";
+            var acList = new List<Activity>();
+            var countIsTrue = 0;                //Counts all IsDone from Activities which are TRUE
+            foreach (var i in usr.ActivityIds)
+            {
+                var cur = await activityCollection.GetById(i.ToString());
+                if (cur == null) continue;
+
+                if (cur.IsDone == true && isSameDay(cur.Date, DateTime.Now))
+                {
+                    countIsTrue++;
+                    acList.Add(cur);
+                }
+                else if(cur.IsDone == false && isSameDay(cur.Date, DateTime.Now))
+                {
+                    acList.Add(cur);
+                }
+            }
+
+            var acLength = acList.Count;
+            var percentage = 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
+
+            DailyProgress dailyProgress = null;
+            foreach(var i in usr.DailyProgressIds)
+            {
+                var cur = await dailyProgressCollection.GetById(i.ToString());
+                if (cur == null) continue;
+
+                if (isSameDay(cur.Date, DateTime.Now))
+                {
+                    Console.WriteLine(cur.Date.ToString()+"is True");
+                    dailyProgress = cur;
+                    await dailyProgressCollection.DeleteById(cur.Id);
+                }
+            }
+
+            if(dailyProgress == null)
+            {
+                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, DateTime.Now);
+            }
+
+            await dailyProgressCollection.InsertOneAsync(dailyProgress);
+            usr.DailyProgressIds.Add(dailyProgress.Id);
+
+            await userCollection.DeleteById(usr.Id);
+            await userCollection.InsertOneAsync(usr);
+
+            return dailyProgress.Id.ToString();
+        }
+
+        private bool isSameDay(DateTime a, DateTime b)
+        {
+            var aStr = a.ToString().Substring(0, 10);
+            var bStr = b.ToString().Substring(0,10);
+
+            if (aStr == bStr) return true;
+           
+            return false;
         }
 
 

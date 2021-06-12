@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalorieIntakeService } from 'src/app/services/api/calorieIntake.service';
 
 @Component({
   selector: 'app-add-calories',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-calories.component.scss'],
 })
 export class AddCaloriesComponent implements OnInit {
-
+  b:number;
+  service:CalorieIntakeService;
   constructor() { }
 
   ngOnInit() {}
 
+  public add(calorien:number){
+    this.b = calorien + this.b;
+  }
 }

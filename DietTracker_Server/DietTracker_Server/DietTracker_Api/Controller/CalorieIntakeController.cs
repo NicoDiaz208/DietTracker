@@ -64,5 +64,14 @@ namespace DietTracker_Api.Controller
                 new CalorieIntakeDto(na.Id.ToString(), na.Goal, na.Current, na.Date));
         }
 
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<CalorieIntakeDto>> Replace(CalorieIntakeCreationDto calorieIntakeCreationDto, string id)
+        {
+            var na = new CalorieIntake(ObjectId.Parse(id), calorieIntakeCreationDto.Goal, calorieIntakeCreationDto.Current, calorieIntakeCreationDto.Date); 
+            await calorieIntakeCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
+
     }
 }

@@ -56,7 +56,15 @@ namespace DietTracker_Api.Controller
                 new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category));
         }
 
-        
+        [HttpPost]
+        [Route(nameof(Replace))]
+        public async Task<ActionResult<RecipeDto>> Replace(RecipeDto item, string id)
+        {
+            var na = new Recipe(ObjectId.Parse(id), item.Name, item.PrepareTime, item.Difficulty, new List<ObjectId>(), item.Category);
+            await recipeCollection.ReplaceById(id, na);
+            return Ok(200);
+        }
+
 
 
     }

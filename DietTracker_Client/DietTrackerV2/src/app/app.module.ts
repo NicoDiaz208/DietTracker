@@ -29,6 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
 import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipes/generic-recipes.component';
+import { AchievementComponent } from './pages/mainPages/tracking/components/achievement/achievement.component';
+import { TrackingComponent } from './pages/mainPages/tracking/tracking.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipe
     TabBarBottomComponent,
     SignupComponent,
     RecipeComponent,
-    GenericRecipesComponent
+    GenericRecipesComponent,
+    TrackingComponent
+    //AchievementComponent
   ],
   entryComponents: [],
   imports: [

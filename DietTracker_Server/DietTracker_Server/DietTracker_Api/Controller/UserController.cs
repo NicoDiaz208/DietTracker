@@ -40,6 +40,7 @@ namespace DietTracker_Api.Controller
             int Height,
             string Email,
             string PhoneNumber,
+            double Weight,
             int ActivityLevel);
 
         public record UserDto(
@@ -51,13 +52,14 @@ namespace DietTracker_Api.Controller
             int Height,
             string Email,
             string PhoneNumber,
+            double Weight,
             int ActivityLevel);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
             var dbResult = await userCollection.GetAll();
-            var result = dbResult.Select(a => new UserDto(a.Id.ToString(), a.Name, a.DateOfBirth, a.Gender, a.GoalWeight, a.Height,a.Email, a.PhoneNumber, a.ActivityLevel));
+            var result = dbResult.Select(a => new UserDto(a.Id.ToString(), a.Name, a.DateOfBirth, a.Gender, a.GoalWeight, a.Height,a.Email, a.PhoneNumber, a.Weight, a.ActivityLevel));
             return Ok(result);
         }
 
@@ -70,16 +72,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new UserDto(item.Id.ToString(), item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.ActivityLevel);
+            return new UserDto(item.Id.ToString(), item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.Weight, item.ActivityLevel);
         }
 
         [HttpPost]
         public async Task<ActionResult<UserDto>> Add(UserCreationDto item)
         {
-            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), item.ActivityLevel);
+            var na = new User(ObjectId.Empty, item.Name, item.DateOfBirth, item.Gender, item.GoalWeight, item.Height, item.Email, item.PhoneNumber, item.Weight, new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), new List<ObjectId>(), item.ActivityLevel);
             await userCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleUser), new { id = na.Id },
-                new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.ActivityLevel));
+                new UserDto(na.Id.ToString(), na.Name, na.DateOfBirth, na.Gender, na.GoalWeight, na.Height, na.Email, na.PhoneNumber, na.Weight, na.ActivityLevel));
         }
 
         [HttpPost]
@@ -94,7 +96,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.DailyProgressIds;
             listIds.Add(ObjectId.Parse(dailyProgressId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, listIds, usr.CalorieIntakeIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, listIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -113,7 +115,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.ActivityIds;
             listIds.Add(ObjectId.Parse(activityId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, listIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, listIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -132,7 +134,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.RecipeIds;
             listIds.Add(ObjectId.Parse(recipeId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, listIds, usr.ActivityIds, usr.DailyProgressIds,usr.CalorieIntakeIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, listIds, usr.ActivityIds, usr.DailyProgressIds,usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -151,7 +153,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.CalorieIntakeIds;
             listIds.Add(ObjectId.Parse(calorieIntakeId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, listIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, listIds, usr.WaterIntakeIds, usr.SleepIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -165,7 +167,7 @@ namespace DietTracker_Api.Controller
             var user = await userCollection.GetUserByUsername(username);
             if (user == null) return NotFound();
 
-            return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.ActivityLevel));
+            return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.Weight, user.ActivityLevel));
         }
 
         [HttpPost]
@@ -242,7 +244,7 @@ namespace DietTracker_Api.Controller
             var oldusr = await userCollection.GetById(ObjectId.Parse(id));
             if (oldusr != null)
             {
-                var na = new User(ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, oldusr.RecipeIds, oldusr.ActivityIds, oldusr.DailyProgressIds, oldusr.CalorieIntakeIds, usr.ActivityLevel);
+                var na = new User(ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, oldusr.RecipeIds, oldusr.ActivityIds, oldusr.DailyProgressIds, oldusr.CalorieIntakeIds, oldusr.WaterIntakeIds, oldusr.SleepIds, usr.ActivityLevel);
                 await userCollection.ReplaceById(id, na);
             }
             return Ok(200);

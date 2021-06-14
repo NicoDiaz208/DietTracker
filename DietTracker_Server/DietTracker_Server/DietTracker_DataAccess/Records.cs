@@ -74,10 +74,13 @@ namespace DietTracker_DataAccess
         int Height,
         string Email,
         string PhoneNumber,
+        double Weight,
         List<ObjectId> RecipeIds,
         List<ObjectId> ActivityIds,
         List<ObjectId> DailyProgressIds,
         List<ObjectId> CalorieIntakeIds,
+        List<ObjectId> WaterIntakeIds,
+        List<ObjectId> SleepIds,
         int ActivityLevel) : IHaveId;
 
     public record WaterIntake(

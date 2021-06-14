@@ -18,10 +18,10 @@ export class TrackingComponent implements OnInit {
   }
 
   navigateAchivement(){
-    this.router.navigate(['/main-pages/achievement']);
+    this.router.navigate(['/main-pages/tracking/achievement']);
   }
   navigate(){
-    this.router.navigate(['/main-pages/addCalories']);
+    this.router.navigate(['/main-pages/tracking/addCalories']);
   }
   public plus(){
     this.watercount = this.watercount + 1;

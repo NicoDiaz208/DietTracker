@@ -7,29 +7,14 @@
 <ion-content [fullscreen]="true">
   <ion-content style="width: 80%; left: 10%;">
     <ion-list>
-      <ion-list-header style="font-size: 120%	;">
+      <ion-list-header style="font-size: 120%    ;">
         <ion-title style="font-size: small; padding-left: 0%;">Kategorien</ion-title>
         <ion-searchbar></ion-searchbar>
       </ion-list-header>
-      <ion-item routerLink="./Vegan">
-        <ion-text slot="start">Vegan</ion-text>
-        <ion-badge slot="end" color="primary">4</ion-badge>
-      </ion-item>
-      <ion-item routerLink="./vegetarian">
-        <ion-text >Vegetarian</ion-text>
-        <ion-badge slot="end" color="primary">8</ion-badge>
-      </ion-item>
-      <ion-item routerLink="./lowcarb">
-        <ion-text >Low Carb</ion-text>
-      </ion-item>
-      <ion-item routerLink="./lowfat">
-        <ion-text >Low Fat</ion-text>
-      </ion-item>
-      <ion-item routerLink="./normal">
-        <ion-text >Normal</ion-text>
-      </ion-item>
-      <ion-item routerLink="./highprotine">
-        <ion-text >High Protine</ion-text>
+
+      <ion-item *ngFor="let cat of categories" (click)="nextPage(cat)">
+        <ion-text >{{cat}}</ion-text>
+        <ion-badge slot="end" color="primary">0</ion-badge>
       </ion-item>
     </ion-list>
   </ion-content>

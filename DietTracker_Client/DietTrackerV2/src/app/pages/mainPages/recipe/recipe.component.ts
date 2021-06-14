@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RecipeService } from 'src/app/services/api/recipe.service';
 
 @Component({
   selector: 'app-recipe',
@@ -7,8 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeComponent implements OnInit {
 
-  constructor() { }
+  public categories : String[];
 
-  ngOnInit() {}
+  constructor(private restService:RecipeService, private route:ActivatedRoute, private router : Router) {
+   }
+
+
+   
+   nextPage(cat : String){
+    this.router.navigate(["/main-pages/recipe/" ,cat])
+   }
+
+  ngOnInit() {
+    this.restService.apiRecipeGetAllCategoriesGet().subscribe(data=>this.categories = data);
+  }
 
 }

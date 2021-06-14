@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { CategoryCounter } from '../model/categoryCounter';
 import { RecipeCreationDto } from '../model/recipeCreationDto';
 import { RecipeDto } from '../model/recipeDto';
 
@@ -151,9 +152,9 @@ export class RecipeService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRecipeGetAllCategoriesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public apiRecipeGetAllCategoriesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public apiRecipeGetAllCategoriesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public apiRecipeGetAllCategoriesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<CategoryCounter>>;
+    public apiRecipeGetAllCategoriesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CategoryCounter>>>;
+    public apiRecipeGetAllCategoriesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CategoryCounter>>>;
     public apiRecipeGetAllCategoriesGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -173,7 +174,7 @@ export class RecipeService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<string>>('get',`${this.basePath}/api/Recipe/GetAllCategories`,
+        return this.httpClient.request<Array<CategoryCounter>>('get',`${this.basePath}/api/Recipe/GetAllCategories`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

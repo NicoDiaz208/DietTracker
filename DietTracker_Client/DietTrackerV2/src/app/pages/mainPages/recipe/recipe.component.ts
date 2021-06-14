@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/api/recipe.service';
+import { CategoryCounter } from 'src/app/services/model/categoryCounter';
 
 @Component({
   selector: 'app-recipe',
@@ -9,7 +10,7 @@ import { RecipeService } from 'src/app/services/api/recipe.service';
 })
 export class RecipeComponent implements OnInit {
 
-  public categories : String[];
+  public categories : CategoryCounter[];
 
   constructor(private restService:RecipeService, private route:ActivatedRoute, private router : Router) {
    }
@@ -22,6 +23,7 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit() {
     this.restService.apiRecipeGetAllCategoriesGet().subscribe(data=>this.categories = data);
+    this.restService.apiRecipeGetAllCategoriesGet()
   }
 
 }

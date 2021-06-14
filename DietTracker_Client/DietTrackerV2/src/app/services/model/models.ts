@@ -6,6 +6,7 @@ export * from './activityDto';
 export * from './calorieIntake';
 export * from './calorieIntakeCreationDto';
 export * from './calorieIntakeDto';
+export * from './categoryCounter';
 export * from './dailyProgress';
 export * from './dailyProgressCreationDto';
 export * from './dailyProgressDto';

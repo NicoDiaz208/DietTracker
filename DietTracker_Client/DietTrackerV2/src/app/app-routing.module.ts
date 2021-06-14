@@ -19,7 +19,7 @@ const routes: Routes = [
     children: [
       { path: 'fooder', component: FooderComponent},
       { path: 'recipe', component: RecipeComponent},
-      { path: 'recipe/:category', component: GenericRecipesComponent},
+      { path: 'recipe/generic/:category', component: GenericRecipesComponent},
       { path: 'tracking', component: TrackingComponent},
       { path: 'tracking/addCalories', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent},

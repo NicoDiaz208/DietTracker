@@ -15,9 +15,9 @@ export class RecipeComponent implements OnInit {
    }
 
 
-   
+
    nextPage(cat : String){
-    this.router.navigate(["/main-pages/recipe/" ,cat])
+    this.router.navigate(["/main-pages/recipe/generic" ,cat])
    }
 
   ngOnInit() {

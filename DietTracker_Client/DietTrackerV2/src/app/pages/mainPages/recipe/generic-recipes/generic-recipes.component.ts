@@ -30,4 +30,8 @@ export class GenericRecipesComponent implements OnInit {
 
   }
 
+  filter(){
+    //NOT Implemented!!!
+  }
+
 }

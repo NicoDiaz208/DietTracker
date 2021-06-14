@@ -28,6 +28,7 @@ import { ActivityService } from './services/api/activity.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
+import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipes/generic-recipes.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { SignupComponent } from './pages/signup/signup.component';
     TabBarBottomComponent,
     SignupComponent,
     RecipeComponent,
+    GenericRecipesComponent
   ],
   entryComponents: [],
   imports: [

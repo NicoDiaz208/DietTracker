@@ -56,5 +56,20 @@ namespace DietTracker_Api.Controller
             var list = await recipeCollection.DistinctAsync<String>("Category", new BsonDocument());
             return list.ToList();
         }
+
+        [HttpGet]
+        [Route(nameof(GetAllRecipesByCategory))]
+        public async Task<ActionResult<List<RecipeDto>>> GetAllRecipesByCategory(string category)
+        {
+            var list = await recipeCollection.GetAllRecipesByCategory(category);
+            var res = new List<RecipeDto>();
+            foreach(var i in list)
+            {
+                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category));
+            }
+
+            return res;
+        }
+
     }
 }

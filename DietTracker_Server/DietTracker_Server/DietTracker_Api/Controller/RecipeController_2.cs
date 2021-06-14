@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DietTracker_Api.Controller
 {
-    public partial class RecipeController :  ControllerBase
+    public partial class RecipeController : ControllerBase
     {
         [HttpGet]
         [Route(nameof(GetRandom))]
@@ -49,12 +49,27 @@ namespace DietTracker_Api.Controller
             return Ok(true);
         }
 
+        public record CategoryCounter(
+                String category,
+                int count
+            );
+
         [HttpGet]
         [Route(nameof(GetAllCategories))]
-        public async Task<ActionResult<List<String>>> GetAllCategories()
+        public async Task<ActionResult<List<CategoryCounter>>> GetAllCategories()
         {
             var list = await recipeCollection.DistinctAsync<String>("Category", new BsonDocument());
-            return list.ToList();
+            int cnt = 0;
+            List<CategoryCounter> result = new List<CategoryCounter>();
+
+            foreach (var i in list.ToList())
+            {
+                var current = await recipeCollection.GetAllRecipesByCategory(i);
+                cnt = current.Count();
+                result.Add(new CategoryCounter(i, cnt));
+            }
+
+            return result;
         }
 
         [HttpGet]
@@ -63,6 +78,7 @@ namespace DietTracker_Api.Controller
         {
             var list = await recipeCollection.GetAllRecipesByCategory(category);
             var res = new List<RecipeDto>();
+
             foreach(var i in list)
             {
                 res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category));

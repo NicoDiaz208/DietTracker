@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup,FormBuilder,Validators, FormControl } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { LoginService } from 'src/app/services/api/login.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,12 +18,10 @@ export class SignupComponent implements OnInit {
     private readonly fb: FormBuilder,
     ) {
     this.signupForm = this.fb.group({
-      firstName:['asdf', [Validators.required]],
-      lastName:['', [Validators.required]],
+      username:['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,Validators.minLength(8)]]
     });
-    this.signupForm.controls.firstName.valueChanges.subscribe(x => console.log(x));
   }
   ngOnInit() {}
 
@@ -33,7 +32,8 @@ export class SignupComponent implements OnInit {
   }
 
   public sumbmit(): void{
-    const {firstName, lastName,email, password} = this.signupForm.value;
-      console.log('scope is ' + firstName + lastName + email+password);
+    const {username,email, password} = this.signupForm.value;
+      console.log('scope is ' + username + email + password);
   }
+
 }

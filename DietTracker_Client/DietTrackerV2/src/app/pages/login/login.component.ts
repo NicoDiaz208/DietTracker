@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
     )
   {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required,Validators.minLength(8)]]
     });
   }
@@ -34,12 +36,15 @@ export class LoginComponent implements OnInit {
 
 
 
-  public sumbmit(): void{
+  public submit(): void{
+    console.log(this.loginForm.valid);
     if(this.loginForm.valid){
 
-      const {email, password} = this.loginForm.value;
-       console.log(email + ' '+ password);
+      const {username, password} = this.loginForm.value;
+       console.log(username + ' ' + password);
     }
+    console.log(this.loginForm);
+    console.log(this.loginForm);
   }
 
 

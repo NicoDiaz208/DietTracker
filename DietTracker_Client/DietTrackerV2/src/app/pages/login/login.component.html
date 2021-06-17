@@ -1,11 +1,11 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="form-wrapper text-center">
         <h2 class="text-center">Login</h2>
-        <form [formGroup]="loginForm" (submit)="sumbmit()" novalidate>
-            <div class="from-group">
-                <input type="email" class="form-control" id="email-input" placeholder="enter email" formControlName="email">
+        <form [formGroup]="loginForm" (submit)="submit()" novalidate>
+            <div class="form-group">
+                <input type="text" class="form-control" id="first-name-input" placeholder="enter username" formControlName="username">
             </div>
-            <div class="from-group">
+            <div class="form-group">
                 <input type="password" class="form-control" id="password-input" placeholder="enter password" formControlName="password">
             </div>
             <button type="submit" class="btn btn-primary btsize">login</button>

@@ -57,7 +57,7 @@ import { TrackingComponent } from './pages/mainPages/tracking/tracking.component
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     WaterIntakeService,
     UserService,
     SleepService,

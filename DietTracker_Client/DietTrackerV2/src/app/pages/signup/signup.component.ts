@@ -27,11 +27,16 @@ export class SignupComponent implements OnInit {
 
 
 
+  mainnav(){
+    this.router.navigate(['/main-pages/fooder']);
+  }
   navigate(){
     this.router.navigate(['/login']);
   }
 
+
   public sumbmit(): void{
+    this.mainnav();
     const {username,email, password} = this.signupForm.value;
       console.log('scope is ' + username + email + password);
   }

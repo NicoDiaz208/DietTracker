@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
 
   submitForm() {
+    this.mainnav();
     console.log(this.loginForm.getRawValue());
   }
 
@@ -46,5 +47,8 @@ export class LoginComponent implements OnInit {
 
   navigate(){
     this.router.navigate(['/signup']);
+  }
+  mainnav(){
+    this.router.navigate(['/main-pages/fooder']);
   }
 }

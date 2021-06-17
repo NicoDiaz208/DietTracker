@@ -29,8 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
 import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipes/generic-recipes.component';
-import { AchievementComponent } from './pages/mainPages/tracking/components/achievement/achievement.component';
 import { TrackingComponent } from './pages/mainPages/tracking/tracking.component';
+import { AchievementComponent } from './pages/mainPages/tracking/components/achievement/achievement.component';
 
 
 @NgModule({
@@ -45,8 +45,8 @@ import { TrackingComponent } from './pages/mainPages/tracking/tracking.component
     SignupComponent,
     RecipeComponent,
     GenericRecipesComponent,
-    TrackingComponent
-    //AchievementComponent
+    TrackingComponent,
+    AchievementComponent
   ],
   entryComponents: [],
   imports: [
@@ -57,7 +57,7 @@ import { TrackingComponent } from './pages/mainPages/tracking/tracking.component
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
     WaterIntakeService,
     UserService,
     SleepService,

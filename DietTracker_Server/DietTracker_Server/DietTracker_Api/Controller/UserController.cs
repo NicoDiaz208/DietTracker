@@ -23,13 +23,19 @@ namespace DietTracker_Api.Controller
 
         private readonly IMongoCollection<CalorieIntake> calorieIntakeCollection;
 
-        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac, CollectionFactory ci)
+        private readonly IMongoCollection<Sleep> sleepCollection;
+
+        private readonly IMongoCollection<WaterIntake> waterIntakeCollection;
+
+        public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac, CollectionFactory ci,CollectionFactory sc,CollectionFactory wic)
         {
             userCollection = cf.GetCollection<User>();
             recipeCollection = rf.GetCollection<Recipe>();
             dailyProgressCollection = dp.GetCollection<DailyProgress>();
             activityCollection = ac.GetCollection<Activity>();
             calorieIntakeCollection = ci.GetCollection<CalorieIntake>();
+            sleepCollection = sc.GetCollection<Sleep>();
+            waterIntakeCollection = wic.GetCollection<WaterIntake>();
         }
 
         public record UserCreationDto(

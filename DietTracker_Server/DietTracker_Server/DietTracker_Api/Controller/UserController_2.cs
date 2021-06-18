@@ -89,5 +89,80 @@ namespace DietTracker_Api.Controller
             return dpList;
         }
 
+        [HttpPost]
+        [Route(nameof(AddSleepToUser))]
+        public async Task<ActionResult<Boolean>> AddSleepToUser(String userId, String sleepId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.CalorieIntakeIds;
+            listIds.Add(ObjectId.Parse(sleepId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, listIds, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddWaterIntakeToUser))]
+        public async Task<ActionResult<Boolean>> AddWaterIntakeToUser(String userId, String waterIntakeId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.CalorieIntakeIds;
+            listIds.Add(ObjectId.Parse(waterIntakeId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, listIds, usr.SleepIds, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+        [HttpGet]
+        [Route(nameof(GetAllSleeps))]
+        public async Task<ActionResult<List<Sleep>>> GetAllSleeps(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            List<Sleep> dpList = new();
+
+            foreach (var id in usr.SleepIds)
+            {
+                var cur = await sleepCollection.GetById(id.ToString());
+                if (cur == null) continue;
+                dpList.Add(cur);
+            }
+
+            return dpList;
+        }
+
+        [HttpGet]
+        [Route(nameof(GetAllWaterIntakes))]
+        public async Task<ActionResult<List<WaterIntake>>> GetAllWaterIntakes(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            List<WaterIntake> dpList = new();
+
+            foreach (var id in usr.WaterIntakeIds)
+            {
+                var cur = await waterIntakeCollection.GetById(id.ToString());
+                if (cur == null) continue;
+                dpList.Add(cur);
+            }
+
+            return dpList;
+        }
     }
 }

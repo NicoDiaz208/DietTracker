@@ -31,6 +31,9 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { GenericRecipesComponent } from './pages/mainPages/recipe/generic-recipes/generic-recipes.component';
 import { TrackingComponent } from './pages/mainPages/tracking/tracking.component';
 import { AchievementComponent } from './pages/mainPages/tracking/components/achievement/achievement.component';
+import { LoginService } from './services/api/login.service';
+import { LoginComponent } from './pages/login/login.component';
+import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-calories/add-calories.component';
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { AchievementComponent } from './pages/mainPages/tracking/components/achi
     RecipeComponent,
     GenericRecipesComponent,
     TrackingComponent,
-    AchievementComponent
+    AchievementComponent,
+    LoginComponent,
+    AddCaloriesComponent,
   ],
   entryComponents: [],
   imports: [
@@ -68,6 +73,7 @@ import { AchievementComponent } from './pages/mainPages/tracking/components/achi
     AchievementsService,
     ActivityService,
     RecipeService,
+    LoginService,
  {provide: BASE_PATH, useValue:environment.apiBase}
   ],
   bootstrap: [AppComponent],

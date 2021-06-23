@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { LoginService } from 'src/app/services/api/login.service';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-
+  username = '';
+  password = '';
+  user = '';
   loginForm: FormGroup;
 
   constructor(
+    private loginService: LoginService,
     private readonly fb: FormBuilder,
-    private router: Router,
-    )
+    private router: Router)
   {
     this.loginForm = this.fb.group({
       username:['', [Validators.required]],
@@ -26,26 +29,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
-  submitForm() {
+  async submitForm() {
+    this.user = await this.loginService.apiLoginGetSingleLoginGet(this.username, this.password).toPromise();
+    localStorage.setItem('userId',this.user);     //save Id locally
     this.mainnav();
-    console.log(this.loginForm.getRawValue());
   }
 
   ngOnInit(): void {
   }
 
-  public submit(): void{
-    console.log(this.loginForm.valid);
-    if(this.loginForm.valid){
-      const {username, password} = this.loginForm.value;
-       console.log(username + ' ' + password);
-    }
-    console.log(this.loginForm);
-    console.log(this.loginForm);
-  }
-
-  navigate(){
+  navigateToSignup(){
     this.router.navigate(['/signup']);
   }
   mainnav(){

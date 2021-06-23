@@ -273,8 +273,10 @@ namespace DietTracker_Api.Controller
                     return ci.Id.ToString();
                 }
             }
-
-            return NotFound();
+            var ciNew = new CalorieIntake(ObjectId.Empty, 0, 0, 0, 0, 0, 0, 0, 0, date);
+            calorieIntakeCollection.InsertOne(ciNew);
+            await this.AddCalorieIntakeToUser(userId, ciNew.Id.ToString());
+            return ciNew.Id.ToString();
 
         }
 

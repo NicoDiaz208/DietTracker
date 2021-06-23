@@ -16,7 +16,7 @@ import { RecipeService } from './services/api/recipe.service';
 import { WaterIntakeService } from './services/api/waterIntake.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from './services/variables';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment'
 import { UserService } from './services/api/user.service';
 import { SleepService } from './services/api/sleep.service';
 import { NutritionFactService } from './services/api/nutritionFact.service';

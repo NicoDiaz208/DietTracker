@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AchievementsService } from 'src/app/services/api/achievements.service';
 import { AchievementDto } from 'src/app/services/model/achievementDto';
 
+
 @Component({
   selector: 'app-achievement',
   templateUrl: './achievement.component.html',
@@ -9,7 +10,7 @@ import { AchievementDto } from 'src/app/services/model/achievementDto';
 })
 export class AchievementComponent implements OnInit {
   public achivements: Array<AchievementDto>;
- 
+
   constructor( private restService: AchievementsService) { }
 
   ngOnInit() {

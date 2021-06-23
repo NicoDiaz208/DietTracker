@@ -20,9 +20,12 @@ export interface User {
     height?: number;
     email?: string;
     phoneNumber?: string;
+    weight?: number;
     recipeIds?: Array<ObjectId>;
     activityIds?: Array<ObjectId>;
     dailyProgressIds?: Array<ObjectId>;
     calorieIntakeIds?: Array<ObjectId>;
+    waterIntakeIds?: Array<ObjectId>;
+    sleepIds?: Array<ObjectId>;
     activityLevel?: number;
 }

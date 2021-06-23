@@ -18,5 +18,6 @@ export interface UserCreationDto {
     height?: number;
     email?: string;
     phoneNumber?: string;
+    weight?: number;
     activityLevel?: number;
 }

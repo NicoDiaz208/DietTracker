@@ -9,16 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
 
-export interface UserDto { 
-    id?: string;
-    name?: string;
-    dateOfBirth?: Date;
-    gender?: string;
-    goalWeight?: number;
-    height?: number;
-    email?: string;
-    phoneNumber?: string;
-    weight?: number;
-    activityLevel?: number;
+export interface WaterIntake { 
+    id?: ObjectId;
+    goWG?: number;
+    activityId?: ObjectId;
+    goWC?: number;
 }

@@ -21,9 +21,11 @@ import { Activity } from '../model/activity';
 import { CalorieIntake } from '../model/calorieIntake';
 import { DailyProgress } from '../model/dailyProgress';
 import { Recipe } from '../model/recipe';
+import { Sleep } from '../model/sleep';
 import { User } from '../model/user';
 import { UserCreationDto } from '../model/userCreationDto';
 import { UserDto } from '../model/userDto';
+import { WaterIntake } from '../model/waterIntake';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -255,6 +257,108 @@ export class UserService {
         ];
 
         return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddRecipeIdToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param sleepId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddSleepToUserPost(userId?: string, sleepId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddSleepToUserPost(userId?: string, sleepId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddSleepToUserPost(userId?: string, sleepId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddSleepToUserPost(userId?: string, sleepId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (sleepId !== undefined && sleepId !== null) {
+            queryParameters = queryParameters.set('sleepId', <any>sleepId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddSleepToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param waterIntakeId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddWaterIntakeToUserPost(userId?: string, waterIntakeId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddWaterIntakeToUserPost(userId?: string, waterIntakeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddWaterIntakeToUserPost(userId?: string, waterIntakeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddWaterIntakeToUserPost(userId?: string, waterIntakeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (waterIntakeId !== undefined && waterIntakeId !== null) {
+            queryParameters = queryParameters.set('waterIntakeId', <any>waterIntakeId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddWaterIntakeToUser`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -528,6 +632,98 @@ export class UserService {
         ];
 
         return this.httpClient.request<Array<Recipe>>('get',`${this.basePath}/api/User/GetAllRecipes`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetAllSleepsGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Sleep>>;
+    public apiUserGetAllSleepsGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Sleep>>>;
+    public apiUserGetAllSleepsGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Sleep>>>;
+    public apiUserGetAllSleepsGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Sleep>>('get',`${this.basePath}/api/User/GetAllSleeps`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetAllWaterIntakesGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<WaterIntake>>;
+    public apiUserGetAllWaterIntakesGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<WaterIntake>>>;
+    public apiUserGetAllWaterIntakesGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<WaterIntake>>>;
+    public apiUserGetAllWaterIntakesGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<WaterIntake>>('get',`${this.basePath}/api/User/GetAllWaterIntakes`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

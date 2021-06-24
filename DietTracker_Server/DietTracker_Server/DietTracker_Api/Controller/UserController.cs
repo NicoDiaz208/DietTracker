@@ -282,7 +282,16 @@ namespace DietTracker_Api.Controller
             return ciNew.Id.ToString();
 
         }
+        [HttpGet]
+        [Route(nameof(GetAge))]
+        public async Task<ActionResult<int>> GetAge(String ageid)
+        {
+            var usr = await userCollection.GetById(ageid);
 
+            if (usr == null) return NotFound();
+
+            return DateTime.Now.Year - usr.DateOfBirth.Year;
+        }
         
 
 

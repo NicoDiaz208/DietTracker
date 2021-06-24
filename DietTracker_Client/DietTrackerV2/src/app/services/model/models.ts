@@ -1,3 +1,4 @@
+export * from './achievement';
 export * from './achievementCreationDto';
 export * from './achievementDto';
 export * from './activity';

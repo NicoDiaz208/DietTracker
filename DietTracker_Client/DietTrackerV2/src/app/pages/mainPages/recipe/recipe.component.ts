@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/api/recipe.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { CategoryCounter } from 'src/app/services/model/categoryCounter';
 
 @Component({
@@ -12,7 +13,7 @@ export class RecipeComponent implements OnInit {
 
   public categories : CategoryCounter[];
 
-  constructor(private restService:RecipeService, private route:ActivatedRoute, private router : Router) {
+  constructor(private restService:RecipeService, private userService: UserService,private route:ActivatedRoute, private router : Router) {
    }
 
 

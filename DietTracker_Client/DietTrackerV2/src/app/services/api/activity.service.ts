@@ -97,6 +97,44 @@ export class ActivityService {
     /**
      * 
      * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiActivityInitActivityPost(observe?: 'body', reportProgress?: boolean): Observable<ActivityDto>;
+    public apiActivityInitActivityPost(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActivityDto>>;
+    public apiActivityInitActivityPost(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActivityDto>>;
+    public apiActivityInitActivityPost(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<ActivityDto>('post',`${this.basePath}/api/Activity/InitActivity`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

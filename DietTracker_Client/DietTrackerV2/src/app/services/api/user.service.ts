@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { Achievement } from '../model/achievement';
 import { Activity } from '../model/activity';
 import { CalorieIntake } from '../model/calorieIntake';
 import { DailyProgress } from '../model/dailyProgress';
@@ -62,6 +63,57 @@ export class UserService {
         return false;
     }
 
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param achievementId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserAddAchievementToUserPost(userId?: string, achievementId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserAddAchievementToUserPost(userId?: string, achievementId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserAddAchievementToUserPost(userId?: string, achievementId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserAddAchievementToUserPost(userId?: string, achievementId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (achievementId !== undefined && achievementId !== null) {
+            queryParameters = queryParameters.set('achievementId', <any>achievementId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/User/AddAchievementToUser`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
@@ -450,6 +502,52 @@ export class UserService {
 
         return this.httpClient.request<Array<UserDto>>('get',`${this.basePath}/api/User`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetAllAchievementsGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Achievement>>;
+    public apiUserGetAllAchievementsGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Achievement>>>;
+    public apiUserGetAllAchievementsGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Achievement>>>;
+    public apiUserGetAllAchievementsGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Achievement>>('get',`${this.basePath}/api/User/GetAllAchievements`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

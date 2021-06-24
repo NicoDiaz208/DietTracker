@@ -148,6 +148,44 @@ export class WaterIntakeService {
     /**
      * 
      * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiWaterIntakeInitWaterIntakePost(observe?: 'body', reportProgress?: boolean): Observable<WaterIntakeDto>;
+    public apiWaterIntakeInitWaterIntakePost(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterIntakeDto>>;
+    public apiWaterIntakeInitWaterIntakePost(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterIntakeDto>>;
+    public apiWaterIntakeInitWaterIntakePost(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<WaterIntakeDto>('post',`${this.basePath}/api/WaterIntake/InitWaterIntake`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

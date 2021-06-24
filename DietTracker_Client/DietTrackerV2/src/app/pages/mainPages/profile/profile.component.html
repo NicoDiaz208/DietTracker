@@ -37,13 +37,13 @@
           <ion-col size="6" *ngFor="let progress of progresses | slice:0:5 ; let i= index">
           <ion-card>
             <ion-card-header>
-              <ion-text>{{progress.date}}</ion-text>
+              <ion-text>{{progress.date | date:'dd.mm.yyyy'}}</ion-text>
             </ion-card-header>
             <ion-card-content>
-              <ion-text>{{progress.protein}} and {{progress.calories}} </ion-text>
+              <ion-text>+{{progress.protein}} prot. and +{{progress.calories}} kcal.  </ion-text>
             </ion-card-content>
           </ion-card>
-        </ion-col>
+        </ion-col> 
       </ion-row>
     </ion-grid>
   </ion-content>

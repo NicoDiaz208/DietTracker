@@ -21,7 +21,7 @@
           <h2>Kalorien Eingabe</h2>
           <ion-input placeholder="Enter Input" [(ngModel)]="this.calorieIntake.calorieCurrent"></ion-input>
         </ion-label>
-        <ion-button  (click)="add"slot="end">add</ion-button>
+        <ion-button slot="end">add</ion-button>
       </ion-item>
 
       <ion-item>
@@ -30,7 +30,7 @@
         </ion-avatar>
         <ion-label>
           <h2>Protein Eingabe</h2>
-          <ion-input placeholder="Enter Input"  [(ngModel)]="addItesm.protein"></ion-input>
+          <ion-input placeholder="Enter Input"  [(ngModel)]="this.calorieIntake.proteinCurrent"></ion-input>
         </ion-label>
 
       </ion-item>
@@ -41,7 +41,7 @@
         </ion-avatar>
         <ion-label>
           <h2>Kohlenhydrate</h2>
-          <ion-input placeholder="Enter Input" [(ngModel)]="addItesm.kohlenhydrate"></ion-input>
+          <ion-input placeholder="Enter Input" [(ngModel)]="this.calorieIntake.carbohydratesCurrent"></ion-input>
         </ion-label>
 
       </ion-item>
@@ -52,9 +52,10 @@
         </ion-avatar>
         <ion-label>
           <h2>Fett</h2>
-          <ion-input placeholder="Enter Input" [(ngModel)]="addItesm.fett"></ion-input>
+          <ion-input placeholder="Enter Input" [(ngModel)]="this.calorieIntake.fatCurrent"></ion-input>
         </ion-label>
 
       </ion-item>
     </ion-list>
+    <ion-button (click)="this.update()">Update</ion-button>
 </ion-content>

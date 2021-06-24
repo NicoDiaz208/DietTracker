@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/api/user.service';
 import { ObjectId } from 'src/app/services/model/objectId';
 import { UserDto } from 'src/app/services/model/userDto';
+import { WaterIntakeDto } from 'src/app/services/model/waterIntakeDto';
+import { SleepDto } from 'src/app/services/model/sleepDto';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
@@ -13,7 +15,9 @@ import { UserDto } from 'src/app/services/model/userDto';
 export class TrackingComponent implements OnInit {
   private watercount = 0;
   private sleepcount = 0;
-  private user: UserDto;
+  private user: UserDto = {};
+  private waterIntake: WaterIntakeDto;
+  private sleep: SleepDto;
 
   constructor(private router: Router,private waterintakeService: WaterIntakeService,
     private sleepService: SleepService, private userService: UserService) {
@@ -21,7 +25,6 @@ export class TrackingComponent implements OnInit {
   }
   async ngOnInit(): Promise<void> {
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
-    console.log(this.user.gender);
 
   }
 

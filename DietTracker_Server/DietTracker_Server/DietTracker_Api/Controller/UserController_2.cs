@@ -209,7 +209,7 @@ namespace DietTracker_Api.Controller
             }
             var ciNew = new WaterIntake(ObjectId.Empty, 0, ObjectId.Empty, date, 0);
             waterIntakeCollection.InsertOne(ciNew);
-            await this.AddSleepToUser(userId, ciNew.Id.ToString());
+            await this.AddWaterIntakeToUser(userId, ciNew.Id.ToString());
             return ciNew.Id.ToString();
 
         }

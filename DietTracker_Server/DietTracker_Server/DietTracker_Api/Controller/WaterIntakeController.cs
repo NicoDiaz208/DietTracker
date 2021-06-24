@@ -22,18 +22,20 @@ namespace DietTracker_Api.Controller
 
         public record WaterIntakeCreationDto(
             int GoWG,
-            int GoWC);
+            int GoWC,
+            DateTime Date);
 
         public record WaterIntakeDto(
             string Id,
             int GoWG,
-            int GoWC);
+            int GoWC,
+            DateTime Date);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WaterIntakeDto>>> GetAll()
         {
             var dbResult = await waterIntakeCollection.GetAll();
-            var result = dbResult.Select(a => new WaterIntakeDto(a.Id.ToString(), a.GoWG, a.GoWC));
+            var result = dbResult.Select(a => new WaterIntakeDto(a.Id.ToString(), a.GoWG, a.GoWC, a.Date));
             return Ok(result);
         }
 
@@ -46,16 +48,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new WaterIntakeDto(item.Id.ToString(), item.GoWG, item.GoWC);
+            return new WaterIntakeDto(item.Id.ToString(), item.GoWG, item.GoWC, item.Date);
         }
 
         [HttpPost]
         public async Task<ActionResult<WaterIntakeDto>> Add(WaterIntakeCreationDto item)
         {
-            var na = new WaterIntake(ObjectId.Empty, item.GoWG, ObjectId.Empty, item.GoWC);
+            var na = new WaterIntake(ObjectId.Empty, item.GoWG, ObjectId.Empty,item.Date, item.GoWC);
             await waterIntakeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleWaterIntake), new { id = na.Id },
-                new WaterIntakeDto(na.Id.ToString(), na.GoWG, na.GoWC));
+                new WaterIntakeDto(na.Id.ToString(), na.GoWG, na.GoWC, na.Date));
         }
 
         [HttpPost]
@@ -65,7 +67,7 @@ namespace DietTracker_Api.Controller
             var oldWaterIntake = await waterIntakeCollection.GetById(ObjectId.Parse(id));
             if(oldWaterIntake != null)
             {
-                var na = new WaterIntake(ObjectId.Parse(id), item.GoWG, oldWaterIntake.ActivityId, item.GoWC);
+                var na = new WaterIntake(ObjectId.Parse(id), item.GoWG, oldWaterIntake.ActivityId, item.Date, item.GoWC);
                 await waterIntakeCollection.ReplaceById(id, na);
             }
             

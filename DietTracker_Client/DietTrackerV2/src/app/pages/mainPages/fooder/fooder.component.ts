@@ -23,6 +23,8 @@ export class FooderComponent implements OnInit {
   }
 
   async add(){
+    console.log(this.recipe.id.toString());
+
     await this.userService.apiUserAddRecipeIdToUserPost(localStorage.getItem('userId'), this.recipe.id.toString()).toPromise();
   }
 

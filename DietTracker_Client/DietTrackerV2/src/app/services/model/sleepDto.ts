@@ -14,4 +14,5 @@ export interface SleepDto {
     id?: string;
     hoSG?: number;
     hoSC?: number;
+    date?: Date;
 }

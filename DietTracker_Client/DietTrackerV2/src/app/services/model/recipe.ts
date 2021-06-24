@@ -16,6 +16,7 @@ export interface Recipe {
     name?: string;
     prepareTime?: number;
     difficulty?: number;
+    preparation?: string;
     foodIds?: Array<ObjectId>;
     category?: string;
 }

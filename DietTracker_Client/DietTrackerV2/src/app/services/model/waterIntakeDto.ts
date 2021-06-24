@@ -14,4 +14,5 @@ export interface WaterIntakeDto {
     id?: string;
     goWG?: number;
     goWC?: number;
+    date?: Date;
 }

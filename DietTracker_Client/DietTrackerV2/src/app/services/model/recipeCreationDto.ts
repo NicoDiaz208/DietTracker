@@ -15,4 +15,5 @@ export interface RecipeCreationDto {
     prepareTime?: number;
     difficulty?: number;
     category?: string;
+    preparation?: string;
 }

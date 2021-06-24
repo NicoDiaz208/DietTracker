@@ -13,4 +13,5 @@
 export interface SleepCreationDto { 
     hoSG?: number;
     hoSC?: number;
+    date?: Date;
 }

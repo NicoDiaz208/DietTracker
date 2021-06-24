@@ -15,5 +15,6 @@ export interface Sleep {
     id?: ObjectId;
     hoSG?: number;
     hoSC?: number;
+    date?: Date;
     activityId?: ObjectId;
 }

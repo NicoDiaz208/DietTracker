@@ -13,4 +13,5 @@
 export interface WaterIntakeCreationDto { 
     goWG?: number;
     goWC?: number;
+    date?: Date;
 }

@@ -834,6 +834,108 @@ export class UserService {
     /**
      * 
      * 
+     * @param userId 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetSleepByDateGet(userId?: string, date?: Date, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiUserGetSleepByDateGet(userId?: string, date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiUserGetSleepByDateGet(userId?: string, date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public apiUserGetSleepByDateGet(userId?: string, date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<string>('get',`${this.basePath}/api/User/GetSleepByDate`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetWaterIntakeByDateGet(userId?: string, date?: Date, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiUserGetWaterIntakeByDateGet(userId?: string, date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiUserGetWaterIntakeByDateGet(userId?: string, date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public apiUserGetWaterIntakeByDateGet(userId?: string, date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<string>('get',`${this.basePath}/api/User/GetWaterIntakeByDate`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

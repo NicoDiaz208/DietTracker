@@ -15,5 +15,6 @@ export interface WaterIntake {
     id?: ObjectId;
     goWG?: number;
     activityId?: ObjectId;
+    date?: Date;
     goWC?: number;
 }

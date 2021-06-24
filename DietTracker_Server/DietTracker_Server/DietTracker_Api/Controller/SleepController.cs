@@ -21,17 +21,17 @@ namespace DietTracker_Api.Controller
         }
 
         public record SleepCreationDto(
-            int HoSG, int HoSC);
+            int HoSG, int HoSC,DateTime Date);
 
         public record SleepDto(
             string Id,
-            int HoSG, int HoSC);
+            int HoSG, int HoSC,DateTime Date);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SleepDto>>> GetAll()
         {
             var dbResult = await sleepCollection.GetAll();
-            var result = dbResult.Select(a => new SleepDto (a.Id.ToString(),a.HoSG, a.HoSC));
+            var result = dbResult.Select(a => new SleepDto (a.Id.ToString(),a.HoSG, a.HoSC,a.Date));
             return Ok(result);
         }
 
@@ -44,16 +44,16 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new SleepDto(item.Id.ToString(), item.HoSG, item.HoSC);
+            return new SleepDto(item.Id.ToString(), item.HoSG, item.HoSC,item.Date);
         }
 
         [HttpPost]
         public async Task<ActionResult<SleepDto>> Add(SleepCreationDto item)
         {
-            var na = new Sleep(ObjectId.Empty, item.HoSG, item.HoSC, ObjectId.Empty);
+            var na = new Sleep(ObjectId.Empty, item.HoSG, item.HoSC,item.Date, ObjectId.Empty);
             await sleepCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleSleep), new { id = na.Id },
-                new SleepDto(na.Id.ToString(), na.HoSG, na.HoSC));
+                new SleepDto(na.Id.ToString(), na.HoSG, na.HoSC,na.Date));
         }
 
         [HttpPost]
@@ -63,7 +63,7 @@ namespace DietTracker_Api.Controller
             var oldSleep = await sleepCollection.GetById(ObjectId.Parse(id));
             if(oldSleep != null)
             {
-                var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC, oldSleep.ActivityId);
+                var na = new Sleep(ObjectId.Parse(id), item.HoSG, item.HoSC,item.Date, oldSleep.ActivityId);
                 await sleepCollection.ReplaceById(id, na);
             }
             

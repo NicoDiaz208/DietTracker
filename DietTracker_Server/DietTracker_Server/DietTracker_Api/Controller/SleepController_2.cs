@@ -19,7 +19,7 @@ namespace DietTracker_Api.Controller
 
             await sleepCollection.DeleteById(sleep.Id);
 
-            var na = new Sleep(sleep.Id, sleep.HoSG, sleep.HoSC, ObjectId.Parse(activityId));
+            var na = new Sleep(sleep.Id, sleep.HoSG, sleep.HoSC,sleep.Date, ObjectId.Parse(activityId));
 
             await sleepCollection.InsertOneAsync(na);
 

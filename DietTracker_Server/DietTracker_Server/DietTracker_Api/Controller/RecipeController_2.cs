@@ -41,7 +41,7 @@ namespace DietTracker_Api.Controller
             var listIds = recipe.FoodIds;
             listIds.Add(ObjectId.Parse(foodId));
 
-            var na = new Recipe(recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, listIds, recipe.Category);
+            var na = new Recipe(recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.Category);
 
 
             await recipeCollection.InsertOneAsync(na);
@@ -81,7 +81,7 @@ namespace DietTracker_Api.Controller
 
             foreach(var i in list)
             {
-                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category));
+                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category, i.Preparation));
             }
 
             return res;

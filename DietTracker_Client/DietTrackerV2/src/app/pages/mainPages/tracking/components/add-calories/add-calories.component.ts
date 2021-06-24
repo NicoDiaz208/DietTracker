@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalorieIntakeService } from 'src/app/services/api/calorieIntake.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
+import { CalorieIntakeCreationDto } from 'src/app/services/model/calorieIntakeCreationDto';
 
 @Component({
   selector: 'app-add-calories',
@@ -10,15 +11,33 @@ import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
 })
 export class AddCaloriesComponent implements OnInit {
   b: number;
-  calorieIntake: CalorieIntakeDto;
-  constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService) { }
+  public calorieIntake: CalorieIntakeDto = {};
+  constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService) {
 
-  async ngOnInit() {
-    const ciId = await this.userService.apiUserGetCalorieIntakeByDateGet(localStorage.getItem('clientId'), new Date()).toPromise();
-    this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(ciId).toPromise();
   }
 
-  public add(calorien: number){
-    this.b = calorien + this.b;
+  async ngOnInit() {
+
+    const ciId = await this.userService.apiUserGetCalorieIntakeByDateGet(localStorage.getItem('userId'), new Date()).toPromise();
+    this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(ciId).toPromise();
+
+    console.log(this.calorieIntake.date);
+  }
+
+  async update(){
+    console.log(this.calorieIntake.calorieCurrent);
+    let creation : CalorieIntakeCreationDto = {};
+
+    creation.calorieCurrent = this.calorieIntake.calorieCurrent;
+    creation.carbohydratesCurrent = this.calorieIntake.carbohydratesCurrent;
+    creation.proteinCurrent = this.calorieIntake.proteinCurrent;
+    creation.fatCurrent = this.calorieIntake.fatCurrent;
+    creation.date = this.calorieIntake.date;
+    creation.fatGoal = this.calorieIntake.fatGoal;
+    creation.carbohydratesGoal = this.calorieIntake.carbohydratesGoal;
+    creation.calorieGoal = this.calorieIntake.calorieGoal;
+    creation.proteinGoal = this.calorieIntake.proteinGoal;
+
+    await this.calorieIntakeService.apiCalorieIntakeReplacePost(creation, this.calorieIntake.id).toPromise();
   }
 }

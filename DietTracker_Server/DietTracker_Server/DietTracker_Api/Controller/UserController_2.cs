@@ -146,6 +146,7 @@ namespace DietTracker_Api.Controller
             return dpList;
         }
 
+        
         [HttpGet]
         [Route(nameof(GetAllWaterIntakes))]
         public async Task<ActionResult<List<WaterIntake>>> GetAllWaterIntakes(string userId)
@@ -163,6 +164,54 @@ namespace DietTracker_Api.Controller
             }
 
             return dpList;
+        }
+
+        [HttpGet]
+        [Route(nameof(GetSleepByDate))]
+        public async Task<ActionResult<String>> GetSleepByDate(String userId, DateTime date)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            foreach (var i in usr.SleepIds)
+            {
+                var ci = await sleepCollection.GetById(i);
+                if (ci == null) continue;
+
+                if (isSameDay(date, ci.Date))
+                {
+                    return ci.Id.ToString();
+                }
+            }
+            var ciNew = new Sleep(ObjectId.Empty, 0, 0, date, ObjectId.Empty);
+            sleepCollection.InsertOne(ciNew);
+            await this.AddSleepToUser(userId, ciNew.Id.ToString());
+            return ciNew.Id.ToString();
+
+        }
+
+        [HttpGet]
+        [Route(nameof(GetWaterIntakeByDate))]
+        public async Task<ActionResult<String>> GetWaterIntakeByDate(String userId, DateTime date)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            foreach (var i in usr.WaterIntakeIds)
+            {
+                var ci = await waterIntakeCollection.GetById(i);
+                if (ci == null) continue;
+
+                if (isSameDay(date, ci.Date))
+                {
+                    return ci.Id.ToString();
+                }
+            }
+            var ciNew = new WaterIntake(ObjectId.Empty, 0, ObjectId.Empty, date, 0);
+            waterIntakeCollection.InsertOne(ciNew);
+            await this.AddWaterIntakeToUser(userId, ciNew.Id.ToString());
+            return ciNew.Id.ToString();
+
         }
     }
 }

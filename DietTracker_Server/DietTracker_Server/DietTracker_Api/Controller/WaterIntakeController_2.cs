@@ -19,7 +19,7 @@ namespace DietTracker_Api.Controller
 
             await waterIntakeCollection.DeleteById(waterIntake.Id);
 
-            var na = new WaterIntake(waterIntake.Id, waterIntake.GoWG, ObjectId.Parse(activityId), waterIntake.GoWC);
+            var na = new WaterIntake(waterIntake.Id, waterIntake.GoWG, ObjectId.Parse(activityId), waterIntake.Date, waterIntake.GoWC);
 
             await waterIntakeCollection.InsertOneAsync(na);
 

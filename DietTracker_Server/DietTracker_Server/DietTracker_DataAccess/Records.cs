@@ -56,6 +56,7 @@ namespace DietTracker_DataAccess
         string Name,
         double PrepareTime,
         double Difficulty,
+        string Preparation,
         List<ObjectId> FoodIds,
         string Category) : IHaveId;
 
@@ -63,6 +64,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         int HoSG,
         int HoSC,
+        DateTime Date,
         ObjectId ActivityId) : IHaveId;
 
     public record User(
@@ -87,6 +89,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         int GoWG,
         ObjectId ActivityId,
+        DateTime Date,
         int GoWC): IHaveId;
 
     public record Login(

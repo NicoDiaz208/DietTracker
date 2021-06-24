@@ -61,7 +61,7 @@ namespace DietTracker_Api.Controller
             var na = new Login(ObjectId.Empty, item.Username,item.Password);
             await loginCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleLogin), new { id = na.Id },
-                new LoginDto( na.Password, na.Username));
+                new LoginDto( na.Username, na.Password));
         }
     }
 }

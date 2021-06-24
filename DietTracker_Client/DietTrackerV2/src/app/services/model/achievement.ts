@@ -15,5 +15,6 @@ export interface Achievement {
     id?: ObjectId;
     name?: string;
     now?: number;
+    description?: string;
     goal?: number;
 }

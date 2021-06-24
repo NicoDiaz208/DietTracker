@@ -14,5 +14,6 @@ export interface AchievementDto {
     id?: string;
     name?: string;
     now?: number;
+    description?: string;
     goal?: number;
 }

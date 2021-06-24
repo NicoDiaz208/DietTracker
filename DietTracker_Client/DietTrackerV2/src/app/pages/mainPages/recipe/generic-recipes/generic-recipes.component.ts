@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Recipe } from 'src/app/classes/recipe';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Recipe } from 'src/app/services/model/recipe';
 import { RecipeService } from 'src/app/services/api/recipe.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { RecipeDto } from 'src/app/services/model/recipeDto';
 
 @Component({
@@ -15,20 +16,26 @@ export class GenericRecipesComponent implements OnInit {
   public recipes: Array<RecipeDto>;
   @Input() category: string = 'Vegan';
   strFilter: string = '';
-
-  constructor(private restService: RecipeService, private route:ActivatedRoute) {
+  constructor(private restService: RecipeService, private route:ActivatedRoute, private userService:UserService,
+    private router:Router) {
     this.route.paramMap.subscribe(data => this.category = data.get("category"))
    }
 
-  ngOnInit() {
+  async ngOnInit() {
       //this.restService.apiRecipeGet().subscribe(data => {this.recipes = (data	as RecipeDto[])});
       this.restService.apiRecipeGetAllRecipesByCategoryGet(this.category).subscribe(data => {this.recipes = (data as RecipeDto[])})
+      //this.userRecipes = await this.userService.apiUserGetAllRecipesGet(localStorage.getItem('userId')).toPromise();
+
       /*
       .subscribe(data=> {this.recipes = (data as Recipe[])
         .filter(x=>x.category === this.category);
         this.recipes = (data as Recipe[]).filter(x=>x.category === this.category);
         */
 
+  }
+
+  back(){
+    this.router.navigate(['/main-pages/recipe/'])
   }
 
   filter(){

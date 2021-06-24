@@ -27,5 +27,6 @@ export interface User {
     calorieIntakeIds?: Array<ObjectId>;
     waterIntakeIds?: Array<ObjectId>;
     sleepIds?: Array<ObjectId>;
+    achievementsIds?: Array<ObjectId>;
     activityLevel?: number;
 }

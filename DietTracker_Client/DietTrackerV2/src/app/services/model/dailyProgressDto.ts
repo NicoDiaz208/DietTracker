@@ -12,6 +12,8 @@
 
 export interface DailyProgressDto { 
     id?: string;
+    protein?: number;
+    calories?: number;
     now?: number;
     date?: Date;
 }

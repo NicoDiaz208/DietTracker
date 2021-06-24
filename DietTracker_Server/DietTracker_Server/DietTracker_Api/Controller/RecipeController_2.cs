@@ -13,7 +13,7 @@ namespace DietTracker_Api.Controller
     {
         [HttpGet]
         [Route(nameof(GetRandom))]
-        public async Task<ActionResult<RecipeDto>> GetRandom()
+        public async Task<ActionResult<String>> GetRandom()
         {
             var rand = new Random();
             var cnt = await recipeCollection.CountDocumentsAsync(new BsonDocument());
@@ -26,7 +26,7 @@ namespace DietTracker_Api.Controller
 
             if (res == null) return NotFound();
 
-            return Ok(res);
+            return Ok(res.Id.ToString());
         }
 
         [HttpPost]

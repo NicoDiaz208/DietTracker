@@ -236,9 +236,9 @@ export class RecipeService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRecipeGetRandomGet(observe?: 'body', reportProgress?: boolean): Observable<RecipeDto>;
-    public apiRecipeGetRandomGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RecipeDto>>;
-    public apiRecipeGetRandomGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RecipeDto>>;
+    public apiRecipeGetRandomGet(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiRecipeGetRandomGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiRecipeGetRandomGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public apiRecipeGetRandomGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -258,7 +258,7 @@ export class RecipeService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<RecipeDto>('get',`${this.basePath}/api/Recipe/GetRandom`,
+        return this.httpClient.request<string>('get',`${this.basePath}/api/Recipe/GetRandom`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

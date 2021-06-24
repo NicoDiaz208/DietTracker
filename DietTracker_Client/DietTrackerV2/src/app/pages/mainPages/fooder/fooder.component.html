@@ -11,6 +11,9 @@
           <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 60%; height: 60%;" ></ion-img>
           </div>
           <ion-list>
+            <ion-title *ngIf="this.isAdded">
+              <ion-badge>Added</ion-badge>
+            </ion-title>
             <ion-item>
               <ion-title>
                 {{recipe.category}}
@@ -27,7 +30,7 @@
     </ion-item>
     <ion-item>
       <ion-button (click)="update()">Next</ion-button>
-      <ion-button (click)="add()">Add</ion-button>
+      <ion-button *ngIf="!this.isAdded" (click)="add()">Add</ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

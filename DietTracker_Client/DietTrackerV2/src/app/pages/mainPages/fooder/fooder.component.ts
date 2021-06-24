@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from 'src/app/services/api/recipe.service';
+import { UserService } from 'src/app/services/api/user.service';
+import { RecipeDto } from 'src/app/services/model/recipeDto';
 
 @Component({
   selector: 'app-fooder',
@@ -7,8 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooderComponent implements OnInit {
 
-  constructor() { }
+  public recipe: RecipeDto = {};
 
-  ngOnInit() {}
+  constructor(private recipeService: RecipeService, private userService: UserService) { }
+
+  async ngOnInit() {
+    this.recipe = await this.recipeService.apiRecipeGetRandomGet().toPromise();
+  }
+
+  async update(){
+    this.recipe = await this.recipeService.apiRecipeGetRandomGet().toPromise();
+  }
+
+  async add(){
+    await this.userService.apiUserAddRecipeIdToUserPost(localStorage.getItem('userId'), this.recipe.id.toString()).toPromise();
+  }
 
 }

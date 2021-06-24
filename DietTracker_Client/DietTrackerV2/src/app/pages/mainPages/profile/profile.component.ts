@@ -8,7 +8,7 @@ import{UserService} from '../../../services/api/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(public userService: UserService) { }
+  constructor(private userService: UserService) { }
   user?:UserDto;
 
   ngOnInit() {

@@ -8,6 +8,7 @@ namespace DietTracker_DataAccess
         ObjectId Id, 
         string Name,
         double Now,
+        string Description,
         double Goal) : IHaveId;
 
     public record Activity(

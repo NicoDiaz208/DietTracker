@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit {
   }
 
   async submitForm() {
-    this.user = await this.loginService.apiLoginGetSingleLoginGet(this.username, this.password).toPromise();
+    this.user = await this.loginService.apiLoginGetSingleLoginGet(
+      this.loginForm.get('username').value,
+      this.loginForm.get('password').value).toPromise();
     localStorage.setItem('userId',this.user);     //save Id locally
     this.mainnav();
   }

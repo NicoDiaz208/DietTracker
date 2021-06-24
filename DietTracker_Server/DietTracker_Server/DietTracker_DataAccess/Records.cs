@@ -88,6 +88,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         int GoWG,
         ObjectId ActivityId,
+        DateTime Date,
         int GoWC): IHaveId;
 
     public record Login(

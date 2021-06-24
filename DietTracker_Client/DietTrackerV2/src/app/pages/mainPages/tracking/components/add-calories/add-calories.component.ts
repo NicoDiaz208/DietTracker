@@ -42,6 +42,6 @@ export class AddCaloriesComponent implements OnInit {
 
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(creation, this.calorieIntake.id).toPromise();
 
-    this.router.navigate(['/main-pages/tracking/'])
+    this.router.navigate(['/main-pages/tracking/']);
   }
 }

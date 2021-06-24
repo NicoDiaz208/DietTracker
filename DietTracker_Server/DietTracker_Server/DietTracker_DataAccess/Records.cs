@@ -56,6 +56,7 @@ namespace DietTracker_DataAccess
         string Name,
         double PrepareTime,
         double Difficulty,
+        string Preparation,
         List<ObjectId> FoodIds,
         string Category) : IHaveId;
 

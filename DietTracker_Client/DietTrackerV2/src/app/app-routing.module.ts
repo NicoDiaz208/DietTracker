@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'recipe', component: RecipeComponent},
       { path: 'recipe/generic/:category', component: GenericRecipesComponent},
       { path: 'tracking', component: TrackingComponent},
-      { path: 'tracking/addCalories', component: AddCaloriesComponent},
+      { path: 'tracking/addCalories/:calorieIntakeId', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent},
       { path: 'tracking/achievement', component: AchievementComponent}
     ]

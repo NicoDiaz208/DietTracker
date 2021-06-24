@@ -35,6 +35,8 @@ namespace DietTracker_DataAccess
     public record DailyProgress(
         ObjectId Id,
         double Now,
+        double Protein,
+        double Calories,
         DateTime Date) : IHaveId;
 
     public record Food(

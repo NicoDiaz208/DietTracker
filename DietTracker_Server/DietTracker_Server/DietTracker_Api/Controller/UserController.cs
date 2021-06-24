@@ -220,13 +220,13 @@ namespace DietTracker_Api.Controller
 
             if(dailyProgress == null)
             {
-                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(), percentage, date);
+                dailyProgress = new DailyProgress(ObjectId.GenerateNewId(),  percentage, 0, 0, date);
 
                 usr.DailyProgressIds.Add(dailyProgress.Id);
                 await userCollection.ReplaceById(userId, usr);
             }
 
-            DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Date);
+            DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Protein, dailyProgress.Calories, dailyProgress.Date);
 
             await dailyProgressCollection.InsertOneAsync(dp);
 

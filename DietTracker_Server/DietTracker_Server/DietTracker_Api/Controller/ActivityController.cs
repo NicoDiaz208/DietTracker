@@ -80,5 +80,18 @@ namespace DietTracker_Api.Controller
             await activityCollection.ReplaceById(id, na);
             return Ok(200);
         }
+
+        [HttpPost]
+        [Route(nameof(InitActivity))]
+        public async Task<ActionResult<ActivityDto>> InitActivity()
+        {
+            var na = new Activity(ObjectId.Empty, 5, 10, 20, 600, false, DateTime.Now, 7);
+            await activityCollection.InsertOneAsync(na);
+            na = new Activity(ObjectId.Empty, 500, 110, 210, 40, false, DateTime.Now, 3);
+            await activityCollection.InsertOneAsync(na);
+            na = new Activity(ObjectId.Empty, 50, 100, 200, 6000, false, DateTime.Now, 70);
+            await activityCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
     }
 }

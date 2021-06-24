@@ -70,5 +70,20 @@ namespace DietTracker_Api.Controller
             await dailyProgressCollection.ReplaceById(id, na);
             return Ok(200);
         }
+
+        [HttpPost]
+        [Route(nameof(InitDailyProgress))]
+        public async Task<ActionResult<DailyProgressDto>> InitDailyProgress()
+        {
+            var na = new DailyProgress(ObjectId.Empty, 5, 200, 500, DateTime.Now);
+            await dailyProgressCollection.InsertOneAsync(na);
+            na = new DailyProgress(ObjectId.Empty, 10, 201, 511, DateTime.Now);
+            await dailyProgressCollection.InsertOneAsync(na);
+            na = new DailyProgress(ObjectId.Empty, 3, 233, 530, DateTime.Now);
+            await dailyProgressCollection.InsertOneAsync(na);
+
+            return Ok(200);
+
+        }
     }
 }

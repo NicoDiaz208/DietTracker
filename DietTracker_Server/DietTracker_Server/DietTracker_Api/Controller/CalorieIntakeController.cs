@@ -85,5 +85,17 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+        [HttpPost]
+        [Route(nameof(InitCalorieIntake))]
+        public async Task<ActionResult<CalorieIntakeDto>> InitCalorieIntake()
+        {
+            var na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
+            await calorieIntakeCollection.InsertOneAsync(na);
+            na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
+            await calorieIntakeCollection.InsertOneAsync(na);
+            na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
+            await calorieIntakeCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
     }
 }

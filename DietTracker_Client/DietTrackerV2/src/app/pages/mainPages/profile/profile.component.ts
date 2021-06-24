@@ -3,7 +3,8 @@ import { UserDto } from '../../../services/model/userDto';
 import{UserService} from '../../../services/api/user.service';
 import { User } from 'src/app/services/model/user';
 import { DailyProgressDto } from 'src/app/services/model/dailyProgressDto';
-import { DailyProgress } from 'src/app/classes/daily-progress';
+import { DailyProgress } from 'src/app/services/model/models';
+
 
 @Component({
   selector: 'app-profile',

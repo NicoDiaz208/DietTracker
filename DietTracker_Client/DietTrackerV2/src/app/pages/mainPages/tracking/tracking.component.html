@@ -15,7 +15,7 @@
         </ion-avatar>
         <ion-label>
           <h2>Kalorien Eingabe</h2>
-          <p>0/3768</p>
+          <p>{{this.calorieIntake.calorieCurrent}} / {{this.calorieIntake.calorieGoal}}</p>
         </ion-label>
         <ion-button (click)="navigate()" slot="end">add</ion-button>
       </ion-item>
@@ -26,10 +26,10 @@
         </ion-avatar>
         <ion-label>
           <h2>Wasser</h2>
-          <ion-button (click)="plus()">+</ion-button>
-          <ion-button (click)="minus()">-</ion-button>
+          <ion-button (click)="increaseWater()">+</ion-button>
+          <ion-button (click)="decreaseWater()">-</ion-button>
         </ion-label>
-        <ion-text>{{watercount}} Liter</ion-text>
+        <ion-text>{{waterIntake.goWC}} Liter</ion-text>
       </ion-item>
 
       <ion-item>
@@ -38,10 +38,10 @@
         </ion-avatar>
         <ion-label>
           <h2>Schlafen</h2>
-          <ion-button (click)="plusS()">+</ion-button>
-          <ion-button (click)="minusS()">-</ion-button>
+          <ion-button (click)="increaseSleep()">+</ion-button>
+          <ion-button (click)="decreaseSleep()">-</ion-button>
         </ion-label>
-        <ion-text>{{sleepcount}} Stunden</ion-text>
+        <ion-text>{{sleep.hoSC}} Stunden</ion-text>
       </ion-item>
 
       <ion-item>
@@ -54,5 +54,6 @@
         </ion-label>
         <ion-button (click)="navigateAchivement()"slot="end">GoTo</ion-button>
       </ion-item>
+      <ion-button slot="end" (click)="update()">Update</ion-button>
     </ion-list>
 </ion-content>

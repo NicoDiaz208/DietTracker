@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CalorieIntakeService } from 'src/app/services/api/calorieIntake.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
 import { CalorieIntakeCreationDto } from 'src/app/services/model/calorieIntakeCreationDto';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-calories',
@@ -11,15 +12,16 @@ import { CalorieIntakeCreationDto } from 'src/app/services/model/calorieIntakeCr
 })
 export class AddCaloriesComponent implements OnInit {
   b: number;
+  @Input() calorieIntakeId: string = '';
   public calorieIntake: CalorieIntakeDto = {};
-  constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService) {
+  constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService, private route: ActivatedRoute,
+    private router: Router) {
+    this.route.paramMap.subscribe(data => this.calorieIntakeId = data.get("calorieIntakeId"))
 
   }
 
   async ngOnInit() {
-
-    const ciId = await this.userService.apiUserGetCalorieIntakeByDateGet(localStorage.getItem('userId'), new Date()).toPromise();
-    this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(ciId).toPromise();
+    this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
 
     console.log(this.calorieIntake.date);
   }
@@ -39,5 +41,7 @@ export class AddCaloriesComponent implements OnInit {
     creation.proteinGoal = this.calorieIntake.proteinGoal;
 
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(creation, this.calorieIntake.id).toPromise();
+
+    this.router.navigate(['/main-pages/tracking/'])
   }
 }

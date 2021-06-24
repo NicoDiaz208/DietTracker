@@ -7,7 +7,7 @@ __Backend__\
 First open visual studio then run the server.
 
 __Frontend__ \
-go into the project directory and type npm install. \
+go into the project directory and type npm install. 
 
 After installing all the node modules type ionic serve into powerschell
 

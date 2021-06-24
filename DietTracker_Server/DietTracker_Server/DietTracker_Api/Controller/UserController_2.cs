@@ -101,7 +101,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.CalorieIntakeIds;
             listIds.Add(ObjectId.Parse(sleepId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, listIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, listIds,usr.AchievementsIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -117,10 +117,10 @@ namespace DietTracker_Api.Controller
 
             await userCollection.DeleteById(usr.Id);
 
-            var listIds = usr.CalorieIntakeIds;
+            var listIds = usr.WaterIntakeIds;
             listIds.Add(ObjectId.Parse(waterIntakeId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, listIds, usr.SleepIds, usr.ActivityLevel);
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, listIds, usr.SleepIds,usr.AchievementsIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -146,7 +146,45 @@ namespace DietTracker_Api.Controller
             return dpList;
         }
 
-        
+        [HttpGet]
+        [Route(nameof(GetAllAchievements))]
+        public async Task<ActionResult<List<Achievement>>> GetAllAchievements(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            List<Achievement> dpList = new();
+
+            foreach (var id in usr.AchievementsIds)
+            {
+                var cur = await achievementCollection.GetById(id.ToString());
+                if (cur == null) continue;
+                dpList.Add(cur);
+            }
+
+            return dpList;
+        }
+
+        [HttpPost]
+        [Route(nameof(AddAchievementToUser))]
+        public async Task<ActionResult<Boolean>> AddAchievementToUser(String userId, String achievementId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound(false);
+
+            await userCollection.DeleteById(usr.Id);
+
+            var listIds = usr.AchievementsIds;
+            listIds.Add(ObjectId.Parse(achievementId));
+
+            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, listIds, usr.ActivityLevel);
+
+            await userCollection.InsertOneAsync(na);
+
+            return Ok(true);
+        }
+
+
         [HttpGet]
         [Route(nameof(GetAllWaterIntakes))]
         public async Task<ActionResult<List<WaterIntake>>> GetAllWaterIntakes(string userId)

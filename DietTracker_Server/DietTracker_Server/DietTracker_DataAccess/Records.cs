@@ -85,6 +85,7 @@ namespace DietTracker_DataAccess
         List<ObjectId> CalorieIntakeIds,
         List<ObjectId> WaterIntakeIds,
         List<ObjectId> SleepIds,
+        List<ObjectId> AchievementsIds,
         int ActivityLevel) : IHaveId;
 
     public record WaterIntake(

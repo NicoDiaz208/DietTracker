@@ -71,5 +71,18 @@ namespace DietTracker_Api.Controller
             }
             return Ok(200);
         }
+
+        [HttpPost]
+        [Route(nameof(InitFood))]
+        public async Task<ActionResult<FoodDto>> InitFood()
+        {
+            var na = new Food(ObjectId.Empty, ObjectId.Empty, "Apple");
+            await foodCollection.InsertOneAsync(na);
+            na = new Food(ObjectId.Empty, ObjectId.Empty, "Banana");
+            await foodCollection.InsertOneAsync(na);
+            na = new Food(ObjectId.Empty, ObjectId.Empty, "Pizza");
+            await foodCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
     }
 }

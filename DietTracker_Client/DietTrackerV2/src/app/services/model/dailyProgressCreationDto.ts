@@ -12,5 +12,7 @@
 
 export interface DailyProgressCreationDto { 
     now?: number;
+    protein?: number;
+    calories?: number;
     date?: Date;
 }

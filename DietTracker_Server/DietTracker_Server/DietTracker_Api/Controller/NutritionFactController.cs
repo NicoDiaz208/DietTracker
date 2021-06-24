@@ -63,5 +63,19 @@ namespace DietTracker_Api.Controller
             await nutritionFactCollection.ReplaceById(id, na);
             return Ok(200);
         }
+
+
+        [HttpPost]
+        [Route(nameof(InitNutritionFact))]
+        public async Task<ActionResult<NutritionFactCreationDto>> InitNutritionFact()
+        {
+            var na = new NutritionFacts(ObjectId.Empty, 300, 200, 100, 20, 80, 0);
+            await nutritionFactCollection.InsertOneAsync(na);
+            na = new NutritionFacts(ObjectId.Empty, 100, 2100, 200, 20, 80, 0);
+            await nutritionFactCollection.InsertOneAsync(na);
+            na = new NutritionFacts(ObjectId.Empty, 300, 2030, 100, 60, 80, 40);
+            await nutritionFactCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
     }
 }

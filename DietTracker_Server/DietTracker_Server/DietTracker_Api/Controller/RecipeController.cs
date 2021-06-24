@@ -69,7 +69,18 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
-
+        [HttpPost]
+        [Route(nameof(InitRecipe))]
+        public async Task<ActionResult<RecipeDto>> InitRecipe()
+        {
+            var na = new Recipe(ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<ObjectId>(), "Vegan");
+            await recipeCollection.InsertOneAsync(na);
+            na = new Recipe(ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<ObjectId>(), "Vegan");
+            await recipeCollection.InsertOneAsync(na);
+            na = new Recipe(ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<ObjectId>(), "Vegan");
+            await recipeCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
 
     }
 }

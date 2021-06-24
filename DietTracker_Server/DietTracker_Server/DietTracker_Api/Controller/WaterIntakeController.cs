@@ -74,5 +74,18 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+        [HttpPost]
+        [Route(nameof(InitWaterIntake))]
+        public async Task<ActionResult<WaterIntakeDto>> InitWaterIntake()
+        {
+            var na = new WaterIntake(ObjectId.Empty, 7, ObjectId.Empty, DateTime.Now, 10);
+            await waterIntakeCollection.InsertOneAsync(na);
+            na = new WaterIntake(ObjectId.Empty, 14, ObjectId.Empty, DateTime.Now, 20);
+            await waterIntakeCollection.InsertOneAsync(na);
+            na = new WaterIntake(ObjectId.Empty, 17, ObjectId.Empty, DateTime.Now, 18);
+            await waterIntakeCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
+
     }
 }

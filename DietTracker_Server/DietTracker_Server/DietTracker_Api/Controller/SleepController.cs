@@ -69,7 +69,18 @@ namespace DietTracker_Api.Controller
             
             return Ok(200);
         }
-
+        [HttpPost]
+        [Route(nameof(InitSleep))]
+        public async Task<ActionResult<SleepDto>> InitSleep()
+        {
+            var na = new Sleep(ObjectId.Empty, 3, 8, DateTime.Now, ObjectId.Empty);
+            await sleepCollection.InsertOneAsync(na);
+            na = new Sleep(ObjectId.Empty, 7, 18, DateTime.Now, ObjectId.Empty);
+            await sleepCollection.InsertOneAsync(na);
+            na = new Sleep(ObjectId.Empty, 13, 28, DateTime.Now, ObjectId.Empty);
+            await sleepCollection.InsertOneAsync(na);
+            return Ok(200);
+        }
 
     }
 }

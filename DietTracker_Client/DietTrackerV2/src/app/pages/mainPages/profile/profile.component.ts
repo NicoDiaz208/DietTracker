@@ -15,13 +15,17 @@ export class ProfileComponent implements OnInit {
 
   }
   public user :UserDto = {};
-  public progresses: DailyProgress[];
+  public progresses: Array<DailyProgress> = [];
+   year:number = new Date().getFullYear();
+  public age: number;
 
   async ngOnInit() {
     
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
-    //this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+    this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
   }
+
+
 
 
 }

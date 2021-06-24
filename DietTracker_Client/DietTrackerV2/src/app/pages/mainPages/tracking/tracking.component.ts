@@ -58,11 +58,11 @@ export class TrackingComponent implements OnInit {
   }
 
   increaseSleep(){
-    this.sleep.hoSC += 1
+    this.sleep.hoSC += 1;
   }
 
   decreaseSleep(){
-    this.sleep.hoSC -= 1
+    this.sleep.hoSC -= 1;
   }
 
   async update(){

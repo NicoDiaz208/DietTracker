@@ -11,12 +11,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-calories.component.scss'],
 })
 export class AddCaloriesComponent implements OnInit {
-  b: number;
   @Input() calorieIntakeId: string = '';
+  b: number;
   public calorieIntake: CalorieIntakeDto = {};
   constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService, private route: ActivatedRoute,
     private router: Router) {
-    this.route.paramMap.subscribe(data => this.calorieIntakeId = data.get("calorieIntakeId"))
+    this.route.paramMap.subscribe(data => this.calorieIntakeId = data.get("calorieIntakeId"));
 
   }
 

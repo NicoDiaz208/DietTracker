@@ -3,7 +3,8 @@ import { UserDto } from '../../../services/model/userDto';
 import{UserService} from '../../../services/api/user.service';
 import { User } from 'src/app/services/model/user';
 import { DailyProgressDto } from 'src/app/services/model/dailyProgressDto';
-import { DailyProgress } from 'src/app/classes/daily-progress';
+import { DailyProgress } from 'src/app/services/model/models';
+
 
 @Component({
   selector: 'app-profile',
@@ -15,13 +16,17 @@ export class ProfileComponent implements OnInit {
 
   }
   public user :UserDto = {};
-  public progresses: DailyProgress[];
+  public progresses: Array<DailyProgress> = [];
+   year:number = new Date().getFullYear();
+  public age: number;
 
   async ngOnInit() {
     
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
-    //this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+    this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
   }
+
+
 
 
 }

@@ -12,13 +12,13 @@
     <br>
     <br>
     <br>
-    <ion-text style="font-size:160%;">Alter:</ion-text>
+    <ion-text style="font-size:160%;">Geburtsjahr:</ion-text>
     <ion-text style="font-size:160%;" class="ttt">Gewicht:</ion-text>
     <ion-text style="font-size:160%;" class="ttt">Ziel:</ion-text>
     <br>
     <br>
     <br>
-    <ion-text style="font-size:160%;">19</ion-text>
+    <ion-text style="font-size:160%;">{{user.dateOfBirth | date:'dd.mm.yyyy'}}</ion-text>
     <ion-text style="font-size:160%;" class="ttt2">{{user.weight}}</ion-text>
     <ion-text style="font-size:160%;" class="ttt2">{{user.goalWeight}}</ion-text>
     <br>
@@ -40,7 +40,7 @@
               <ion-text>{{progress.date}}</ion-text>
             </ion-card-header>
             <ion-card-content>
-              <ion-text>+100P und -136kal </ion-text>
+              <ion-text>{{progress.protein}} and {{progress.calories}} </ion-text>
             </ion-card-content>
           </ion-card>
         </ion-col>

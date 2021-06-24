@@ -63,6 +63,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         int HoSG,
         int HoSC,
+        DateTime Date,
         ObjectId ActivityId) : IHaveId;
 
     public record User(

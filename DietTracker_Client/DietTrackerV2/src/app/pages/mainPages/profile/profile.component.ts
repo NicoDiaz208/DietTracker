@@ -12,16 +12,16 @@ import { DailyProgress } from 'src/app/services/model/models';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private userService: UserService) { 
+  public user: UserDto = {};
+  public progresses: Array<DailyProgress> = [];
+   year: number = new Date().getFullYear();
+  public age: number;
+  constructor(private userService: UserService) {
 
   }
-  public user :UserDto = {};
-  public progresses: Array<DailyProgress> = [];
-   year:number = new Date().getFullYear();
-  public age: number;
 
   async ngOnInit() {
-    
+
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
     this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
   }

@@ -14,7 +14,7 @@ export class AchievementComponent implements OnInit {
   public achivements: Array<Achievement>;
 
 
-  constructor( private restService: AchievementsService, private userService:UserService) { }
+  constructor( private restService: AchievementsService, private userService: UserService) { }
 
   async ngOnInit() {
     this.achivements = await this.userService.apiUserGetAllAchievementsGet(localStorage.getItem('userId')).toPromise();

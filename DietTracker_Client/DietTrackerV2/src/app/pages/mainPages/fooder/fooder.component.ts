@@ -35,9 +35,9 @@ export class FooderComponent implements OnInit {
     await this.update();
     }
 
-  async isAlreadyAdded() : Promise<boolean>{
+  async isAlreadyAdded(): Promise<boolean>{
     let recipes = await this.userService.apiUserGetAllRecipesGet(localStorage.getItem('userId')).toPromise();
-    let res =  recipes.filter(x=> x.name == this.recipe.name)
+    let res =  recipes.filter(x=> x.name == this.recipe.name);
 
     if(res.length > 0){
       return true;

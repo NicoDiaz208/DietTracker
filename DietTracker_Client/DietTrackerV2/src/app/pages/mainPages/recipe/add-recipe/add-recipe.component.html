@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title slot="start">Add Recipe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" size-lg offset="1">
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input [(ngModel)]="currentName" placeholder="Enter a Text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Category</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-badge class="ion-margin-start" color="medium">{{currentCategory}}</ion-badge>
+          <ion-badge (click)="clickingOnAmel(category)" class="ion-margin-start" *ngFor="let category of categories" >{{category}}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Preparation</ion-label>
+          <ion-textarea rows="6" [(ngModel)]="currentPreparation" placeholder="Enter a Text"></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3" size-lg>
+        <ion-thumbnail>
+          <ion-img src="../../../../../assets/Recipes/AmelReplacePic.jpeg" ></ion-img>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

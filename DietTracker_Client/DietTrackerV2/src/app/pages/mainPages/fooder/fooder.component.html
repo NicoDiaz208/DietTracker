@@ -1,19 +1,28 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item>
-      <ion-card>
+      <ion-card color="light">
         <ion-card-header>
-          <ion-card-subtitle>{{recipe.category}}</ion-card-subtitle>
-          <ion-card-title>{{recipe.name}}</ion-card-title>
+          <ion-card-title class="ion-text-center">{{recipe.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div class="flex">
-          <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 60%; height: 60%;" ></ion-img>
-          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 80%; height: 80%;" ></ion-img>
+              </ion-col>
+              <ion-col>
+                <ion-text  >{{recipe.preparation}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
           <ion-list>
-            <ion-title *ngIf="this.isAdded">
-              <ion-badge>Added</ion-badge>
-            </ion-title>
+            <ion-item>
+              <ion-title *ngIf="this.isAdded">
+                <ion-badge>Added</ion-badge>
+              </ion-title>
+            </ion-item>
             <ion-item>
               <ion-title>
                 {{recipe.category}}
@@ -28,9 +37,20 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-item>
-      <ion-button (click)="update()">Next</ion-button>
-      <ion-button *ngIf="!this.isAdded" (click)="add()">Add</ion-button>
-    </ion-item>
   </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-button size= "100%" (click)="update()">Next</ion-button>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-button slot="end" size="100%" *ngIf="!this.isAdded" (click)="add()">Add</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

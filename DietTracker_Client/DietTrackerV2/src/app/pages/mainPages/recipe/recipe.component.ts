@@ -11,20 +11,24 @@ import { CategoryCounter } from 'src/app/services/model/categoryCounter';
 })
 export class RecipeComponent implements OnInit {
 
-  public categories : CategoryCounter[];
+  public categories: CategoryCounter[];
 
-  constructor(private restService:RecipeService, private userService: UserService,private route:ActivatedRoute, private router : Router) {
+  constructor(private restService: RecipeService, private userService: UserService,private route: ActivatedRoute, private router: Router) {
    }
 
 
 
-   nextPage(cat : String){
-    this.router.navigate(["/main-pages/recipe/generic" ,cat])
+   nextPage(cat: string){
+    this.router.navigate(["/main-pages/recipe/generic" ,cat]);
+   }
+
+   addRecipe(){
+     this.router.navigate(["/main-pages/recipe/add-recipe"]);
    }
 
   ngOnInit() {
     this.restService.apiRecipeGetAllCategoriesGet().subscribe(data=>this.categories = data);
-    this.restService.apiRecipeGetAllCategoriesGet()
+    this.restService.apiRecipeGetAllCategoriesGet();
   }
 
 }

@@ -2,7 +2,7 @@
   <ion-grid >
     <ion-row >
       <ion-col >
-          <ion-title class="paddingclass">Log In</ion-title>
+          <ion-title class="paddingclass">Get new password</ion-title>
       </ion-col>
       <img src="assets\icon\apple-60.png" alt="An Apple" style="width:50px;height:50px;">
     </ion-row>
@@ -13,14 +13,8 @@
             <ion-label position="floating">Email</ion-label>
             <ion-input type="text" required></ion-input>
           </ion-item>
-
-          <ion-item lines="full">
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" required></ion-input>
-          </ion-item>
-
-          <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
-          <a [routerLink]="['/forgot-pass']" class="small-text">Forgot Password?</a>
+          <ion-button type="submit" color="danger" expand="block">get new password</ion-button>
+          <a [routerLink]="['/login']" class="small-text">cancel</a>
         </form>
       </ion-col>
     </ion-row>

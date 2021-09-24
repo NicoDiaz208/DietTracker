@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FooderComponent } from './pages/mainPages/fooder/fooder.component';
 import { MainPagesPage } from './pages/mainPages/main-pages.page';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
+  { path: 'forgot-pass', component: ForgotpassComponent},
   { path: 'main-pages', component:MainPagesPage,
     children: [
       { path: 'fooder', component: FooderComponent},

@@ -1,19 +1,33 @@
+<ion-content>
+  <ion-grid >
+    <ion-row >
+      <ion-col >
+        <ion-title class="paddingclass">Sign Up</ion-title>
+      </ion-col>
+      <img src="assets\icon\apple-60.png" alt="An Apple" style="width:50px;height:50px;">
+    </ion-row>
+    <ion-row class="form-row" >
+      <ion-col >
+        <form class="backgroundwhite">
+          <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="text" required></ion-input>
+          </ion-item>
 
-<div class="container d-flex justify-content-center align-items-center">
-  <div class="form-wrapper text-center">
-      <h2 class="text-center">Sign Up</h2>
-      <form [formGroup]="signupForm">
-          <div class="form-group">
-              <input type="text" class="form-control" id="first-name-input" placeholder="username" formControlName="username" >
-          </div>
-          <div class="form-group">
-              <input type="email" class="form-control" id="email-input" placeholder="enter email" formControlName="email">
-          </div>
-          <div class="form-group">
-              <input type="password" class="form-control" id="password-input" placeholder="enter password" formControlName="password">
-          </div>
-          <button (click)="sumbmit()" class="btn btn-primary">Sign Up</button>
-      </form>
-      <small><a class="navlink" (click)="navigate()">Already have an Account?</a></small>
-  </div>
-</div>
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Repeat Password</ion-label>
+            <ion-input type="reenterpassword" required></ion-input>
+          </ion-item>
+
+          <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+          <a [routerLink]="['/login']" class="small-text">Already got an Account?</a>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -34,6 +34,7 @@ import { AchievementComponent } from './pages/mainPages/tracking/components/achi
 import { LoginService } from './services/api/login.service';
 import { LoginComponent } from './pages/login/login.component';
 import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-calories/add-calories.component';
+import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-
     AchievementComponent,
     LoginComponent,
     AddCaloriesComponent,
+    ForgotpassComponent
   ],
   entryComponents: [],
   imports: [

@@ -1,26 +1,18 @@
-@import '../../../styles/variables.scss';
-
-.container {
-    height: 100vh;
-
+ion-grid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) !important;
+      display: block !important;
+      /*width: 100%;*/
+      width: 75%;
+      max-width: 400px !important;
+      border: 1px solid #D8D8D8;
+      padding: 20px;
+      border-radius: 5px;
 }
 
-h2{
-    color: $secondary;
-    margin-bottom: 1em;
-}
-
-.form-wrapper{
-    min-width: 40%;
-    margin-bottom: 10% ;
-    padding: 1em 2em;
-}
-
-.btsize{
-  min-width: 40%;
-}
-
-.navlink {
-  color: navy;
-  text-decoration: underline;
+.paddingclass
+{
+  padding-inline: 20%;
 }

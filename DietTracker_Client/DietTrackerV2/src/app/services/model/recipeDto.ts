@@ -17,4 +17,5 @@ export interface RecipeDto {
     difficulty?: number;
     category?: string;
     preparation?: string;
+    foodIds?: Array<string>;
 }

@@ -37,6 +37,8 @@ import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-
 import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
 import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-recipe.component';
 import { ModalFoodComponent } from './pages/mainPages/recipe/add-recipe/modal-food/modal-food.component';
+import { ModalRecipeCategoryComponent }
+from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recipe-category.component';
 
 
 @NgModule({
@@ -57,7 +59,8 @@ import { ModalFoodComponent } from './pages/mainPages/recipe/add-recipe/modal-fo
     AddCaloriesComponent,
     ForgotpassComponent,
     AddRecipeComponent,
-    ModalFoodComponent
+    ModalFoodComponent,
+    ModalRecipeCategoryComponent
   ],
   entryComponents: [],
   imports: [

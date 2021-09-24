@@ -26,5 +26,20 @@ namespace DietTracker_Api.Controller
             return Ok(true);
         }
 
+        [HttpPost]
+        [Route(nameof(GetListOfFood))]
+        public async Task<ActionResult<List<FoodDto>>> GetListOfFood(string[] foods)
+        {
+            List<FoodDto> result = new List<FoodDto>();
+            foreach (var item in foods)
+            {
+                var curr = await foodCollection.GetById(item);
+                if(curr == null) continue;
+
+                result.Add(new FoodDto(curr.Id.ToString(), curr.Name));
+            }
+
+            return result;
+        }
     }
 }

@@ -25,13 +25,13 @@ namespace DietTracker_Api.Controller
 
         public record RecipeDto(
             string Id,
-            string Name, double PrepareTime, double Difficulty, string Category,string Preparation);
+            string Name, double PrepareTime, double Difficulty, string Category,string Preparation, List<string>? FoodIds);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDto>>> GetAll()
         {
             var dbResult = await recipeCollection.GetAll();
-            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name,a.PrepareTime,a.Difficulty,a.Category,a.Preparation));
+            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name,a.PrepareTime,a.Difficulty,a.Category,a.Preparation, a.FoodIds.Select(i=> i.ToString()).ToList()));
             return Ok(result);
         }
 
@@ -44,7 +44,7 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new RecipeDto(item.Id.ToString(), item.Name, item.PrepareTime, item.Difficulty, item.Category,item.Preparation);
+            return new RecipeDto(item.Id.ToString(), item.Name, item.PrepareTime, item.Difficulty, item.Category,item.Preparation, item.FoodIds.Select(i => i.ToString()).ToList());
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace DietTracker_Api.Controller
             var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<ObjectId>(), item.Category );
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
-                new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category,na.Preparation));
+                new RecipeDto(na.Id.ToString(), na.Name, na.PrepareTime, na.Difficulty, na.Category,na.Preparation, na.FoodIds.Select(i => i.ToString()).ToList()));
         }
 
         [HttpPost]

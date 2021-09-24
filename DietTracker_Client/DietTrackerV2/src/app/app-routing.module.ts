@@ -13,7 +13,6 @@ import { TrackingComponent } from './pages/mainPages/tracking/tracking.component
 import { SignupComponent } from './pages/signup/signup.component';
 import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-recipe.component';
 
-
 const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent},

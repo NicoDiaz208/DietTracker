@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DietTracker_Api.Controller.FoodController;
 
 namespace DietTracker_Api.Controller
 {
@@ -81,11 +82,10 @@ namespace DietTracker_Api.Controller
 
             foreach(var i in list)
             {
-                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category, i.Preparation));
+                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category, i.Preparation, i.FoodIds.Select(i => i.ToString()).ToList()));
             }
 
             return res;
         }
-
     }
 }

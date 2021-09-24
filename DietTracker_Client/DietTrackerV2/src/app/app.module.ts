@@ -16,7 +16,7 @@ import { RecipeService } from './services/api/recipe.service';
 import { WaterIntakeService } from './services/api/waterIntake.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from './services/variables';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
 import { UserService } from './services/api/user.service';
 import { SleepService } from './services/api/sleep.service';
 import { NutritionFactService } from './services/api/nutritionFact.service';
@@ -35,6 +35,7 @@ import { LoginService } from './services/api/login.service';
 import { LoginComponent } from './pages/login/login.component';
 import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-calories/add-calories.component';
 import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-recipe.component';
+import { ModalFoodComponent } from './pages/mainPages/recipe/add-recipe/modal-food/modal-food.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-reci
     AchievementComponent,
     LoginComponent,
     AddCaloriesComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    ModalFoodComponent
   ],
   entryComponents: [],
   imports: [

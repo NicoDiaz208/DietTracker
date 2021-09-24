@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FoodService } from 'src/app/services/api/food.service';
 import { RecipeService } from 'src/app/services/api/recipe.service';
+import { Food } from 'src/app/services/model/food';
+import { ModalController } from '@ionic/angular';
+import { ModalFoodComponent } from './modal-food/modal-food.component';
 
 @Component({
   selector: 'app-add-recipe',
@@ -12,12 +16,14 @@ export class AddRecipeComponent implements OnInit {
   public currentCategory = '';
   public currentName = '';
   public currentPreparation = '';
+  public ingredients: Food[];
 
-  constructor(private recipeService: RecipeService) {  }
+  constructor(private recipeService: RecipeService, private foodService: FoodService, private modalController: ModalController) {  }
 
   ngOnInit()
   {
     this.recipeService.apiRecipeGetAllCategoriesGet().subscribe(data=> this.categories = data.map(i=> i.category));
+    this.foodService.apiFoodGet().subscribe(i=> this.ingredients = i);
   }
 
   clickingOnAmel(clicked: string){
@@ -29,6 +35,14 @@ export class AddRecipeComponent implements OnInit {
       this.categories.push(this.currentCategory);
     }
     this.currentCategory = clicked;
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalFoodComponent,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
   }
 
 }

@@ -43,13 +43,13 @@ export class FooderComponent implements OnInit {
   }
 
   async add(){
-    await this.userService.apiUserAddRecipeIdToUserPost(localStorage.getItem('userId'), this.recipe.id.toString()).toPromise();
+    const i = await this.userService.apiUserAddRecipeIdToUserPost(localStorage.getItem('userId'), this.recipe.id.toString()).toPromise();
     await this.update();
-    }
+  }
 
   async isAlreadyAdded(): Promise<boolean>{
     const recipes = await this.userService.apiUserGetAllRecipesGet(localStorage.getItem('userId')).toPromise();
-    const res =  recipes.filter(x=> x.id === this.recipe.id);
+    const res =  recipes.filter(x=> x.name === this.recipe.name);
 
     if(res.length > 0){
       return true;

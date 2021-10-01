@@ -4,7 +4,8 @@ ion-card{
   width: 80%;
   left: 10%;
   margin: 0%;
-
+  padding-bottom: 0%;
+  padding-top: 0%;
 }
 
 ion-img{
@@ -50,4 +51,8 @@ p {
 
 p b {
   color: var(--ion-text-color, #000000);
+}
+
+.mid_but{
+  left: 50%;
 }

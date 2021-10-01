@@ -17,6 +17,8 @@ export class AddRecipeComponent implements OnInit {
   public currentName = '';
   public currentPreparation = '';
   public ingredients: Food[];
+  public modalPage: any;
+  public selected: {id: string; amount: number}[] = [];
 
   constructor(private recipeService: RecipeService, private foodService: FoodService, private modalController: ModalController) {  }
 
@@ -40,9 +42,14 @@ export class AddRecipeComponent implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalFoodComponent,
-      cssClass: 'my-custom-class'
+      cssClass: 'my-custom-class',
+      componentProps: {
+        selected: this.selected
+      }
     });
-    return await modal.present();
+    await modal.present();
+    const {data} = await modal.onWillDismiss();
+    this.selected = data.selected as {id: string; amount: number}[];
   }
 
 }

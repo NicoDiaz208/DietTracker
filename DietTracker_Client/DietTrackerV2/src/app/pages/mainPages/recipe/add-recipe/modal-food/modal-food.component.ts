@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { FoodService } from 'src/app/services/api/food.service';
 import { Food } from 'src/app/services/model/food';
 
@@ -8,16 +9,12 @@ import { Food } from 'src/app/services/model/food';
   styleUrls: ['./modal-food.component.scss'],
 })
 export class ModalFoodComponent implements OnInit {
-
-  public ingredientsAll: Food[];
-  public ingredientsPresentation: Food[];
+  @Input() selected: {id: string; amount: number}[];
+  public ingredientsAll: Food[] = [];
+  public ingredientsPresentation: Food[] = [];
   public searchString = '';
-  public selected: {
-    id: string;
-    amount: number;
-  }[];
 
-  constructor(private foodService: FoodService) { }
+  constructor(private foodService: FoodService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.foodService.apiFoodGet().subscribe(i=> {
@@ -30,8 +27,21 @@ export class ModalFoodComponent implements OnInit {
     this.ingredientsPresentation = this.ingredientsAll.filter(i=> i.name.startsWith(this.searchString));
   }
 
-  select(id: string, amount: number){
-    this.selected.splice(this.selected.indexOf({id,amount}),1);
-    this.selected.push({id,amount});
+  select(id: string, amount: string){
+
+    if(amount === ''){
+      return;
+    }
+
+    if(this.selected.find(i=> i.id === id) !== undefined){
+      this.selected.splice(this.selected.indexOf(this.selected.find(i=> i.id === id)),1);
+    }
+    this.selected.push({id, amount: Number(amount)});
+  }
+
+  back(){
+    this.modalController.dismiss({
+      selected: this.selected
+    });
   }
 }

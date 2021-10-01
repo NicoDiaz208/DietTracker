@@ -14,6 +14,8 @@ export * from './dailyProgressDto';
 export * from './food';
 export * from './foodCreationDto';
 export * from './foodDto';
+export * from './ingredient';
+export * from './ingredientDto';
 export * from './loginDto';
 export * from './nutritionFactCreationDto';
 export * from './nutritionFactDto';

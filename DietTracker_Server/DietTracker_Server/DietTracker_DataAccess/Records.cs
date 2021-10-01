@@ -53,6 +53,10 @@ namespace DietTracker_DataAccess
         double Sugar,
         double Fiber,
         double Fat): IHaveId;
+    public record Ingredient(
+        ObjectId Id,
+        double Value,
+        string Unit);
 
     public record Recipe(
         ObjectId Id,
@@ -60,7 +64,7 @@ namespace DietTracker_DataAccess
         double PrepareTime,
         double Difficulty,
         string Preparation,
-        List<ObjectId> FoodIds,
+        List<Ingredient> FoodIds,
         string Category) : IHaveId;
 
     public record Sleep(

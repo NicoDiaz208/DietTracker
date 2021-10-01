@@ -32,7 +32,7 @@ namespace DietTracker_Api.Controller
 
         [HttpPost]
         [Route(nameof(AddFoodToRecipe))]
-        public async Task<ActionResult<Boolean>> AddFoodToRecipe(String recipeId, String foodId)
+        public async Task<ActionResult<Boolean>> AddFoodToRecipe(String recipeId, String foodId, double value, string unit)
         {
             var recipe = await recipeCollection.GetById(recipeId);
             if (recipe == null) return NotFound(false);
@@ -40,7 +40,7 @@ namespace DietTracker_Api.Controller
             await recipeCollection.DeleteById(recipe.Id);
 
             var listIds = recipe.FoodIds;
-            listIds.Add(ObjectId.Parse(foodId));
+            listIds.Add(new Ingredient(ObjectId.Parse(foodId), value, unit));
 
             var na = new Recipe(recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.Category);
 
@@ -82,7 +82,14 @@ namespace DietTracker_Api.Controller
 
             foreach(var i in list)
             {
-                res.Add(new RecipeDto(i.Id.ToString(), i.Name, i.PrepareTime, i.Difficulty, i.Category, i.Preparation, i.FoodIds.Select(i => i.ToString()).ToList()));
+                res.Add(new RecipeDto(
+                    i.Id.ToString(), 
+                    i.Name, 
+                    i.PrepareTime, 
+                    i.Difficulty, 
+                    i.Category, 
+                    i.Preparation, 
+                    i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
             }
 
             return res;

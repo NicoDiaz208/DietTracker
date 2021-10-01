@@ -19,7 +19,7 @@ export class ModalRecipeCategoryComponent implements OnInit {
   constructor(private foodService: FoodService) { }
 
   ngOnInit() {
-    this.foodService.apiFoodGetListOfFoodPost(this.recipe.foodIds).subscribe(i=> this.foods = i);
+    this.foodService.apiFoodGetListOfFoodPost(this.recipe.foodIds.map(i=>i.id)).subscribe(i=> this.foods = i);
   }
 
 }

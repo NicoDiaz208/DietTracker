@@ -62,13 +62,17 @@ export class RecipeService {
      * 
      * @param recipeId 
      * @param foodId 
+     * @param value 
+     * @param unit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, value?: number, unit?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, value?: number, unit?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, value?: number, unit?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiRecipeAddFoodToRecipePost(recipeId?: string, foodId?: string, value?: number, unit?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
 
 
 
@@ -78,6 +82,12 @@ export class RecipeService {
         }
         if (foodId !== undefined && foodId !== null) {
             queryParameters = queryParameters.set('foodId', <any>foodId);
+        }
+        if (value !== undefined && value !== null) {
+            queryParameters = queryParameters.set('value', <any>value);
+        }
+        if (unit !== undefined && unit !== null) {
+            queryParameters = queryParameters.set('unit', <any>unit);
         }
 
         let headers = this.defaultHeaders;

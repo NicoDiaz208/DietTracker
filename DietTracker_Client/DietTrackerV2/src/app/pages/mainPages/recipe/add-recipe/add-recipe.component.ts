@@ -4,6 +4,8 @@ import { RecipeService } from 'src/app/services/api/recipe.service';
 import { Food } from 'src/app/services/model/food';
 import { ModalController } from '@ionic/angular';
 import { ModalFoodComponent } from './modal-food/modal-food.component';
+import { RecipeCreationDto } from 'src/app/services/model/recipeCreationDto';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-recipe',
@@ -19,6 +21,8 @@ export class AddRecipeComponent implements OnInit {
   public ingredients: Food[];
   public modalPage: any;
   public selected: {id: string; amount: number}[] = [];
+  public currentDifficulty = 0;
+  public currentPreparetime: Date;
 
   constructor(private recipeService: RecipeService, private foodService: FoodService, private modalController: ModalController) {  }
 
@@ -28,7 +32,7 @@ export class AddRecipeComponent implements OnInit {
     this.foodService.apiFoodGet().subscribe(i=> this.ingredients = i);
   }
 
-  clickingOnAmel(clicked: string){
+  clickCategory(clicked: string){
     if (this.categories.find(i=> i === clicked))
     {
       this.categories.splice(this.categories.indexOf(clicked),1);
@@ -50,6 +54,18 @@ export class AddRecipeComponent implements OnInit {
     await modal.present();
     const {data} = await modal.onWillDismiss();
     this.selected = data.selected as {id: string; amount: number}[];
+  }
+
+  save(){
+    const creation: RecipeCreationDto = {
+      category: this.currentCategory,
+      difficulty: this.currentDifficulty,
+      //preparetime is missing
+      name: this.currentName,
+      preparation: this.currentPreparation
+    };
+
+    //this.recipeService.apiRecipePost()
   }
 
 }

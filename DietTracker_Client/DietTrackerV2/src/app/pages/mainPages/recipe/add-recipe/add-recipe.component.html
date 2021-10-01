@@ -8,23 +8,30 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" size-lg offset="1">
+        <ion-label position="stacked">Name</ion-label>
         <ion-item>
-          <ion-label position="stacked">Name</ion-label>
           <ion-input [(ngModel)]="currentName" placeholder="Enter a Text"></ion-input>
         </ion-item>
+        <ion-label position="stacked">Category</ion-label>
         <ion-item>
-          <ion-label position="stacked">Category</ion-label>
+          <ion-chip class="ion-margin-start" color="medium">{{currentCategory}}</ion-chip>
+          <ion-chip (click)="clickCategory(category)" class="ion-margin-start" *ngFor="let category of categories" >{{category}}</ion-chip>
         </ion-item>
+        <ion-label position="stacked">Difficulty</ion-label>
         <ion-item>
-          <ion-badge class="ion-margin-start" color="medium">{{currentCategory}}</ion-badge>
-          <ion-badge (click)="clickingOnAmel(category)" class="ion-margin-start" *ngFor="let category of categories" >{{category}}</ion-badge>
+          <ion-range min="1" max="10" step="1" snaps="true" pin="true" [(ngModel)]="currentDifficulty"></ion-range>
         </ion-item>
+        <ion-label position="stacked">Preparation</ion-label>
         <ion-item>
-          <ion-label position="stacked">Preparation</ion-label>
           <ion-textarea rows="6" [(ngModel)]="currentPreparation" placeholder="Enter a Text"></ion-textarea>
         </ion-item>
+        <ion-label position="stacked">Enter your Ingredients</ion-label>
         <ion-item>
-          <ion-button (click)="presentModal()">Food</ion-button>
+          <ion-button slot="end"(click)="presentModal()">Food</ion-button>
+        </ion-item>
+        <ion-label position="stacked">How long will it take?</ion-label>
+        <ion-item>
+          <ion-datetime [(ngModel)]="currentPreparetime" placeholder="Pick a Time" displayFormat="HH:mm" hourValues="0,1,2,3,4,5,6,7,8,9,10" minuteValues="0,5,10,15,30,45"></ion-datetime>
         </ion-item>
       </ion-col>
       <ion-col size="3" size-lg>
@@ -32,7 +39,7 @@
           <ion-img src="../../../../../assets/Recipes/AmelReplacePic.jpeg" ></ion-img>
         </ion-thumbnail>
         <ion-button>Cancel</ion-button>
-        <ion-button>Save</ion-button>
+        <ion-button (click)="Save()">Save</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

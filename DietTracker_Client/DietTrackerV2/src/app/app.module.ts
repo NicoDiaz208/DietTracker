@@ -39,6 +39,7 @@ import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-reci
 import { ModalFoodComponent } from './pages/mainPages/recipe/add-recipe/modal-food/modal-food.component';
 import { ModalRecipeCategoryComponent }
 from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recipe-category.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -69,7 +70,13 @@ from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recip
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
     WaterIntakeService,

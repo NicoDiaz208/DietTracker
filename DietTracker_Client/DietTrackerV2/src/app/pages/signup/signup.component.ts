@@ -7,7 +7,6 @@ import { LoginService } from 'src/app/services/api/login.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { UserCreationDto } from 'src/app/services/model/userCreationDto';
 import { LoginDto } from 'src/app/services/model/loginDto';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-signup',

@@ -4,6 +4,7 @@
     <Controller_SelectedScaffolderID>MvcControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/MVC/Controller</Controller_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>DietTracker_Api</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\NicoD\Documents\GitHub\DietTracker\DietTracker_Server\DietTracker_Server\DietTracker_Api\Properties\PublishProfiles\DietTrackerApi - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

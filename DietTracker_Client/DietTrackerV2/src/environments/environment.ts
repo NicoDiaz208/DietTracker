@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBase: 'https://localhost:5001'
+  apiBase: 'https://diettrackerapi.azurewebsites.net/'
 };
 
 /*

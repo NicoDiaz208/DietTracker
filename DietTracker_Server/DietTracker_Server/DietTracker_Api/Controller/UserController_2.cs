@@ -1,9 +1,13 @@
 ﻿using DietTracker_DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DietTracker_Api.Controller
@@ -251,5 +255,46 @@ namespace DietTracker_Api.Controller
             return ciNew.Id.ToString();
 
         }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route(nameof(UploadImage))]
+        public async Task<IActionResult> UploadImage(string name,string source)
+        {
+            var formCollection = await Request.ReadFormAsync();
+            var file = formCollection.Files[0];
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
+                using (var stream = await bucket.OpenUploadStreamAsync(fileName))
+                {
+                    await file.CopyToAsync(stream);
+                    await stream.CloseAsync();
+                }
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        public record FileInfo(string Id, string FileName);
+
+        [HttpGet("images")]
+        public async Task<ActionResult<FileInfo[]>> GetImages()
+        {
+            using var cursor = await bucket.FindAsync(Builders<GridFSFileInfo>.Filter.Empty);
+            var files = await cursor.ToListAsync();
+            return files.Select(f => new FileInfo(f.Id.ToString(), f.Filename)).ToArray();
+        }
+
+        [HttpGet("images/{id}")]
+        public async Task<IActionResult> GetImage(string id)
+        {
+            var oid = new ObjectId(id);
+            return File(await bucket.OpenDownloadStreamAsync(oid), "image/jpeg");
+        }
+
     }
 }

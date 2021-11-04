@@ -19,5 +19,11 @@ namespace DietTracker_DataAccess
             var db = client.GetDatabase(dbName);
             return db.GetCollection<T>(typeof(T).Name);
         }
+
+        public IMongoDatabase GetDatabase()
+        {
+            var db = client.GetDatabase(dbName);
+            return db;
+        }
     }
 }

@@ -21,7 +21,49 @@
 
           <ion-item lines="full">
             <ion-label position="floating">Repeat Password</ion-label>
-            <ion-input type="reenterpassword" required></ion-input>
+            <ion-input [(ngModel)]="this.repassword" type="password" name="repassword" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Date of Birth</ion-label>
+            <ion-input [(ngModel)]="this.dateOfBirth" type="text" name="dateOfBirth" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Gender</ion-label>
+            <ion-input [(ngModel)]="this.gender" type="text" name="gender" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Goal Weight</ion-label>
+            <ion-input [(ngModel)]="this.goalWeight" type="number" name="goalWeight" required></ion-input>
+
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Height</ion-label>
+            <ion-input [(ngModel)]="this.height" type="number" name="height" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="this.email" type="text" name="email" required></ion-input>
+          </ion-item>
+
+
+          <ion-item lines="full">
+            <ion-label position="floating">Phone Number</ion-label>
+            <ion-input [(ngModel)]="this.phoneNumber" type="text" name="phoneNumber" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Weight</ion-label>
+            <ion-input [(ngModel)]="this.weight" type="number" name="weight" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Activity Level(1 to 10)</ion-label>
+            <ion-input [(ngModel)]="this.activityLevel" type="number" name="activityLevel" required></ion-input>
           </ion-item>
 
           <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>

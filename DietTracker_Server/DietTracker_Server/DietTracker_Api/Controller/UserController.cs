@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace DietTracker_Api.Controller
 
         private readonly IMongoCollection<Achievement> achievementCollection;
 
+        private readonly GridFSBucket bucket;
+
         public UserController(CollectionFactory cf,CollectionFactory rf, CollectionFactory dp,CollectionFactory ac, CollectionFactory ci,CollectionFactory sc,CollectionFactory wic,CollectionFactory achc)
         {
             userCollection = cf.GetCollection<User>();
@@ -39,6 +42,13 @@ namespace DietTracker_Api.Controller
             sleepCollection = sc.GetCollection<Sleep>();
             waterIntakeCollection = wic.GetCollection<WaterIntake>();
             achievementCollection = achc.GetCollection<Achievement>();
+            bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
+            {
+                BucketName = "Images",
+                ChunkSizeBytes = 1048576, // 1MB
+                WriteConcern = WriteConcern.WMajority,
+                ReadPreference = ReadPreference.Primary
+            });
         }
 
         public record UserCreationDto(

@@ -258,7 +258,7 @@ namespace DietTracker_Api.Controller
 
         [HttpPost, DisableRequestSizeLimit]
         [Route(nameof(UploadImage))]
-        public async Task<IActionResult> UploadImage(string name, string source)
+        public async Task<IActionResult> UploadImage()
         {
             var formCollection = await Request.ReadFormAsync();
             var file = formCollection.Files[0];

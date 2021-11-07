@@ -11,6 +11,7 @@ export * from './categoryCounter';
 export * from './dailyProgress';
 export * from './dailyProgressCreationDto';
 export * from './dailyProgressDto';
+export * from './fileInfo';
 export * from './food';
 export * from './foodCreationDto';
 export * from './foodDto';

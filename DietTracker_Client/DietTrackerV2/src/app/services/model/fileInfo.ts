@@ -9,12 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ObjectId } from './objectId';
 
-export interface DailyProgress { 
-    id?: ObjectId;
-    now?: number;
-    protein?: number;
-    calories?: number;
-    date?: Date;
+export interface FileInfo { 
+    id?: string;
+    fileName?: string;
 }

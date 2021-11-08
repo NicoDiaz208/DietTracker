@@ -59,6 +59,7 @@ namespace DietTracker_DataAccess
         string Unit);
 
     public record Recipe(
+        ObjectId Picture,
         ObjectId Id,
         string Name,
         double PrepareTime,
@@ -75,6 +76,7 @@ namespace DietTracker_DataAccess
         ObjectId ActivityId) : IHaveId;
 
     public record User(
+        ObjectId Picture,
         ObjectId Id,
         string Name,
         DateTime DateOfBirth,

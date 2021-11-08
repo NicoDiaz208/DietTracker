@@ -105,7 +105,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.CalorieIntakeIds;
             listIds.Add(ObjectId.Parse(sleepId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, listIds, usr.AchievementsIds, usr.ActivityLevel);
+            var na = new User(usr.Picture,usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, listIds, usr.AchievementsIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -124,7 +124,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.WaterIntakeIds;
             listIds.Add(ObjectId.Parse(waterIntakeId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, listIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
+            var na = new User(usr.Picture,usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, listIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -181,7 +181,7 @@ namespace DietTracker_Api.Controller
             var listIds = usr.AchievementsIds;
             listIds.Add(ObjectId.Parse(achievementId));
 
-            var na = new User(usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, listIds, usr.ActivityLevel);
+            var na = new User(usr.Picture,usr.Id, usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, listIds, usr.ActivityLevel);
 
             await userCollection.InsertOneAsync(na);
 
@@ -258,8 +258,11 @@ namespace DietTracker_Api.Controller
 
         [HttpPost, DisableRequestSizeLimit]
         [Route(nameof(UploadImage))]
-        public async Task<IActionResult> UploadImage()
+        public async Task<IActionResult> UploadImage(string userId)
         {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
             var formCollection = await Request.ReadFormAsync();
             var file = formCollection.Files[0];
             if (file.Length > 0)
@@ -267,6 +270,9 @@ namespace DietTracker_Api.Controller
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
                 using (var stream = await bucket.OpenUploadStreamAsync(fileName))
                 {
+                    var na = new User(stream.Id, ObjectId.Parse(userId), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
+                    await userCollection.ReplaceById(userId, na);
+
                     await file.CopyToAsync(stream);
                     await stream.CloseAsync();
                 }

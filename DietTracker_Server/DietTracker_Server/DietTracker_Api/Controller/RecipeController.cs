@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,18 @@ namespace DietTracker_Api.Controller
     {
         private readonly IMongoCollection<Recipe> recipeCollection;
 
+        private readonly GridFSBucket bucket;
+
         public RecipeController(CollectionFactory cf)
         {
             recipeCollection = cf.GetCollection<Recipe>();
+            bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
+            {
+                BucketName = "Images",
+                ChunkSizeBytes = 1048576, // 1MB
+                WriteConcern = WriteConcern.WMajority,
+                ReadPreference = ReadPreference.Primary
+            });
         }
 
         public record RecipeCreationDto(
@@ -67,7 +77,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<RecipeDto>> Add(RecipeCreationDto item)
         {
-            var na = new Recipe(ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), item.Category );
+            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), item.Category );
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
                 new RecipeDto(
@@ -92,6 +102,7 @@ namespace DietTracker_Api.Controller
             if (oldRecipe != null)
             {
                 var na = new Recipe(
+                    ObjectId.Empty,
                     ObjectId.Parse(id), 
                     item.Name, 
                     item.PrepareTime, 
@@ -108,11 +119,11 @@ namespace DietTracker_Api.Controller
         [Route(nameof(InitRecipe))]
         public async Task<ActionResult<RecipeDto>> InitRecipe()
         {
-            var na = new Recipe(ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
             await recipeCollection.InsertOneAsync(na);
             return Ok(200);
         }

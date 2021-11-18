@@ -270,6 +270,10 @@ namespace DietTracker_Api.Controller
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
                 using (var stream = await bucket.OpenUploadStreamAsync(fileName))
                 {
+                    if(usr.Picture == ObjectId.Empty)
+                    {
+                        _ = bucket.DeleteAsync(usr.Picture);
+                    }
                     var na = new User(stream.Id, ObjectId.Parse(userId), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
                     await userCollection.ReplaceById(userId, na);
 
@@ -302,5 +306,6 @@ namespace DietTracker_Api.Controller
             return File(await bucket.OpenDownloadStreamAsync(oid), "image/jpeg");
         }
 
+        
     }
 }

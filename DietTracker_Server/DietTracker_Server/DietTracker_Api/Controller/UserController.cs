@@ -239,7 +239,7 @@ namespace DietTracker_Api.Controller
                 await userCollection.ReplaceById(userId, usr);
             }
 
-            DailyProgress dp = new DailyProgress(dailyProgress.Id, percentage, dailyProgress.Protein, dailyProgress.Calories, dailyProgress.Date);
+            DailyProgress dp = new(dailyProgress.Id, percentage, dailyProgress.Protein, dailyProgress.Calories, dailyProgress.Date);
 
             await dailyProgressCollection.InsertOneAsync(dp);
 

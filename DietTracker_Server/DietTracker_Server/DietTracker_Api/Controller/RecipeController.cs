@@ -23,7 +23,7 @@ namespace DietTracker_Api.Controller
             recipeCollection = cf.GetCollection<Recipe>();
             bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
             {
-                BucketName = "Images",
+                BucketName = "RecipeImages",
                 ChunkSizeBytes = 1048576, // 1MB
                 WriteConcern = WriteConcern.WMajority,
                 ReadPreference = ReadPreference.Primary

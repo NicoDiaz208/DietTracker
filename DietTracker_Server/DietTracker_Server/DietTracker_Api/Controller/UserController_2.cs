@@ -289,8 +289,6 @@ namespace DietTracker_Api.Controller
             }
         }
 
-        public record FileInfo(string Id, string FileName);
-
         [HttpGet("images")]
         public async Task<ActionResult<FileInfo[]>> GetImages()
         {

@@ -75,6 +75,8 @@ namespace DietTracker_DataAccess
         DateTime Date,
         ObjectId ActivityId) : IHaveId;
 
+    public record FileInfo(string Id, string FileName);
+
     public record User(
         ObjectId Picture,
         ObjectId Id,

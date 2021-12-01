@@ -44,7 +44,7 @@ namespace DietTracker_Api.Controller
             achievementCollection = achc.GetCollection<Achievement>();
             bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
             {
-                BucketName = "Images",
+                BucketName = "UserImages",
                 ChunkSizeBytes = 1048576, // 1MB
                 WriteConcern = WriteConcern.WMajority,
                 ReadPreference = ReadPreference.Primary

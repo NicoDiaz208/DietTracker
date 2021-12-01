@@ -113,7 +113,6 @@ namespace DietTracker_Api.Controller
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
                 using (var stream = await bucket.OpenUploadStreamAsync(fileName))
                 {
-
                     var na = new Recipe(
                     stream.Id,
                     ObjectId.Parse(recipeId),
@@ -137,8 +136,6 @@ namespace DietTracker_Api.Controller
                 return BadRequest();
             }
         }
-
-        public record FileInfo(string Id, string FileName);
 
         [HttpGet("images")]
         public async Task<ActionResult<FileInfo[]>> GetImages()

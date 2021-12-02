@@ -27,8 +27,8 @@ export class SignupComponent implements OnInit {
   weight = 0;
   activityLevel =0;
 
-  userCreate: UserCreationDto;
-  loginCreate: LoginDto;
+  userCreate: UserCreationDto = {};
+  loginCreate: LoginDto = {};
 
   public signupForm: FormGroup;
   constructor(
@@ -63,15 +63,13 @@ export class SignupComponent implements OnInit {
   }
 
 
-  async sumbmit() {
+  submitForm() {
     if (this.signupForm.get('password').value !== this.signupForm.get('repassword').value) {
       console.log('Password do not Match');
     }
     else{
-      //this.userCreate =
-      //this.user = await this.userService.apiUserPost().toPromise();
       this.userCreate.name = this.username;
-      let newDate = new Date(this.username);
+      let newDate = new Date(this.dateOfBirth);
       this.userCreate.dateOfBirth = newDate;
       this.userCreate.gender = this.gender;
       this.userCreate.goalWeight = this.goalWeight;
@@ -81,11 +79,13 @@ export class SignupComponent implements OnInit {
       this.userCreate.weight = this.weight;
       this.userCreate.activityLevel = this.activityLevel;
 
+      this.loginCreate.password = this.password;
+      this.loginCreate.username = this.username;
 
-      this.mainnav();
-      const {username,email, password} = this.signupForm.value;
-        console.log('scope is ' + username + email + password);
+      console.log(this.userCreate);
+      console.log(this.loginCreate);
+      this.userService.apiUserPost(this.userCreate).toPromise();
+      this.loginService.apiLoginPost(this.loginCreate).toPromise();
     }
   }
-
 }

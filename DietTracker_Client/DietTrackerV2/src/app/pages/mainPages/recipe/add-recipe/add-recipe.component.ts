@@ -28,6 +28,7 @@ export class AddRecipeComponent implements OnInit {
   public selected: {id: string; amount: number}[] = [];
   public currentDifficulty = 0;
   public currentPreparetime: Date;
+  public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
 
   constructor(private recipeService: RecipeService,
     private userService: UserService,
@@ -73,7 +74,8 @@ export class AddRecipeComponent implements OnInit {
       source: CameraSource.Photos
     });
 
-    console.log(image);
+    this.currentPicture = image.webPath;
+    console.log('saved: ', image.webPath);
 
     if(image){
       this.saveImage(image);
@@ -91,7 +93,6 @@ export class AddRecipeComponent implements OnInit {
       path: `${IMAGE_DIR}/${fileName}`,
       data: base64Data
     });
-    console.log('saved: ', savedFile);
 
     //https://www.youtube.com/watch?v=fU8uM5oU1wY&ab_channel=SimonGrimm
   }
@@ -133,6 +134,7 @@ export class AddRecipeComponent implements OnInit {
       name: this.currentName,
       preparation: this.currentPreparation
     };
+    console.log('saved!');
 
     //this.recipeService.apiRecipePost()
   }

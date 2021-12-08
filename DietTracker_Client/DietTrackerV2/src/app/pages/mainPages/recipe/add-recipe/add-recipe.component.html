@@ -5,11 +5,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-button (click)="selectImage()"></ion-button>
   <ion-label position="stacked">Name</ion-label>
   <ion-item>
     <ion-input [(ngModel)]="currentName" placeholder="Enter a Text"></ion-input>
+  </ion-item>
+  <ion-label>Picture</ion-label>
+  <ion-item>
+    <ion-img (click)="selectImage()" [src]="currentPicture"></ion-img>
   </ion-item>
   <ion-label position="stacked">Category</ion-label>
   <ion-item>
@@ -33,5 +35,5 @@
     <ion-datetime [(ngModel)]="currentPreparetime" placeholder="Pick a Time" displayFormat="HH:mm" hourValues="0,1,2,3,4,5,6,7,8,9,10" minuteValues="0,5,10,15,30,45"></ion-datetime>
   </ion-item>
   <ion-button>Cancel</ion-button>
-  <ion-button (click)="Save()">Save</ion-button>
+  <ion-button (click)="save()">Save</ion-button>
 </ion-content>

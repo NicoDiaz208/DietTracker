@@ -11,7 +11,7 @@
         <form class="backgroundwhite">
           <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
-            <ion-input type="text" required></ion-input>
+            <ion-input [(ngModel)]="this.username" type="text" name="username" required></ion-input>
           </ion-item>
 
           <ion-item lines="full">
@@ -66,7 +66,7 @@
             <ion-input [(ngModel)]="this.activityLevel" type="number" name="activityLevel" required></ion-input>
           </ion-item>
 
-          <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+          <ion-button (click)="submitForm()" type="submit" color="danger" expand="block">Sign Up</ion-button>
           <a [routerLink]="['/login']" class="small-text">Already got an Account?</a>
         </form>
       </ion-col>

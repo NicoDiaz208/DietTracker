@@ -12,19 +12,41 @@
   align-content: center;
   text-align: center;
   align-items: center;
+  margin-top: 2;
 }
 
 .ttt{
-  margin-left: 10%;
+  margin-top: 2.5%;
 }
 .ttt2{
-  margin-left: 12.5%;
+  margin-top: 5%;
 }
+.ttt3{
+  margin-top: 2.5%;
+  margin-bottom: 5%;
+}
+
 
 .image-center{
   margin:0 auto;
+ 
   }
 
 #progressbar{
   margin-top: 1000px;
 }
+
+.col1{
+  text-align: right;
+}
+.col2{
+  text-align: center;
+}
+
+.col3{
+  text-align: left;
+}
+.bottom{
+  margin-bottom: 2.5;
+}
+

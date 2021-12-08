@@ -14,7 +14,7 @@ import { DailyProgress } from 'src/app/services/model/models';
 export class ProfileComponent implements OnInit {
   public user: UserDto = {};
   public progresses: Array<DailyProgress> = [];
-   year: number = new Date().getFullYear();
+  year: number = new Date().getFullYear();
   public age: number;
   constructor(private userService: UserService) {
 

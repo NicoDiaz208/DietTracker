@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
   }
 
 
-  submitForm() {
+  async submitForm() {
     if (this.signupForm.get('password').value !== this.signupForm.get('repassword').value) {
       console.log('Password do not Match');
     }

@@ -1,39 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title slot="start">Add Recipe</ion-title>
+    <ion-title slot="start">New Recipe</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-label position="stacked">Name</ion-label>
   <ion-item>
+      <ion-img  class="image-center" (click)="selectImage()" [src]="currentPicture" ></ion-img>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Name</ion-label>
     <ion-input [(ngModel)]="currentName" placeholder="Enter a Text"></ion-input>
   </ion-item>
-  <ion-label>Picture</ion-label>
-  <ion-item>
-    <ion-img (click)="selectImage()" [src]="currentPicture"></ion-img>
+  <ion-item detail button="true" id="open-date-input">
+    <ion-label slot="start">Prepare Time</ion-label>
+    <ion-input slot="start">{{ currentPreparetime }}</ion-input>
+    <ion-popover trigger="open-date-input" show-backdrop="false">
+      <ng-template>
+        <ion-datetime
+          #popoverDatetime
+          presentation="time"
+          placeholder="Pick a Time"
+          displayFormat="HH:mm"
+          hourValues="0,1,2,3,4,5,6,7,8,9,10"
+          minuteValues="0,5,10,15,30,45"
+          (ionChange)="currentPreparetime = formatDate(popoverDatetime.value)"></ion-datetime>
+      </ng-template>
+    </ion-popover>
   </ion-item>
-  <ion-label position="stacked">Category</ion-label>
   <ion-item>
-    <ion-chip class="ion-margin-start" color="medium">{{currentCategory}}</ion-chip>
-    <ion-chip (click)="clickCategory(category)" class="ion-margin-start" *ngFor="let category of categories" >{{category}}</ion-chip>
+    <ion-chip slot="start" class="ion-margin-start" color="medium">{{currentCategory}}</ion-chip>
+  <ion-accordion-group slot="end">
+    <ion-accordion value="shapes">
+      <ion-item slot="header">
+        <ion-label>Category</ion-label>
+      </ion-item>
+      <ion-list slot="content">
+      <ion-item button (click)="clickCategory(category)" *ngFor="let category of categories">
+        <ion-label>{{category}}</ion-label>
+      </ion-item>
+    </ion-list>
+    </ion-accordion>
+  </ion-accordion-group>
   </ion-item>
-  <ion-label position="stacked">Difficulty</ion-label>
   <ion-item>
+    <ion-label position="stacked">Difficulty</ion-label>
     <ion-range min="1" max="10" step="1" snaps="true" pin="true" [(ngModel)]="currentDifficulty"></ion-range>
   </ion-item>
-  <ion-label position="stacked">Preparation</ion-label>
+  <ion-item detail button (click)="presentModal()">
+    <ion-label>Ingredients</ion-label>
+  </ion-item>
   <ion-item>
+    <ion-label position="stacked">Preparation</ion-label>
     <ion-textarea rows="6" [(ngModel)]="currentPreparation" placeholder="Enter a Text"></ion-textarea>
   </ion-item>
-  <ion-label position="stacked">Enter your Ingredients</ion-label>
   <ion-item>
-    <ion-button slot="end"(click)="presentModal()">Food</ion-button>
+    <ion-button (click)="cancel()" slot="start">Cancel</ion-button>
+    <ion-button (click)="save()" slot="end">Save</ion-button>
   </ion-item>
-  <ion-label position="stacked">How long will it take?</ion-label>
-  <ion-item>
-    <ion-datetime [(ngModel)]="currentPreparetime" placeholder="Pick a Time" displayFormat="HH:mm" hourValues="0,1,2,3,4,5,6,7,8,9,10" minuteValues="0,5,10,15,30,45"></ion-datetime>
-  </ion-item>
-  <ion-button>Cancel</ion-button>
-  <ion-button (click)="save()">Save</ion-button>
 </ion-content>

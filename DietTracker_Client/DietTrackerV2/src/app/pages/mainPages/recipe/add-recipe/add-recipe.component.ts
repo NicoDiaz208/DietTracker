@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import {Camera, CameraResultType, CameraSource, Photo} from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { UserService } from 'src/app/services/api/user.service';
+import { Router } from '@angular/router';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -20,21 +21,22 @@ const IMAGE_DIR = 'stored-images';
 export class AddRecipeComponent implements OnInit {
 
   public categories: string[];
-  public currentCategory = '';
+  public currentCategory = '+';
   public currentName = '';
   public currentPreparation = '';
   public ingredients: Food[];
   public modalPage: any;
   public selected: {id: string; amount: number}[] = [];
   public currentDifficulty = 0;
-  public currentPreparetime: Date;
+  public currentPreparetime: string;
   public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
 
   constructor(private recipeService: RecipeService,
     private userService: UserService,
     private foodService: FoodService,
     private modalController: ModalController,
-    private platform: Platform) {  }
+    private platform: Platform,
+    private router: Router) {  }
 
   ngOnInit()
   {
@@ -52,6 +54,11 @@ export class AddRecipeComponent implements OnInit {
     }
     this.currentCategory = clicked;
   }
+
+  formatDate(date: string): string{
+    const dt = new Date(date);
+    return dt.getHours() +':'+dt.getMinutes();
+   }
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -126,11 +133,16 @@ export class AddRecipeComponent implements OnInit {
     reader.readAsDataURL(blob);
   });
 
+  cancel(){
+    this.router.navigate(['/main-pages/recipe/']);
+  }
+
   save(){
     const creation: RecipeCreationDto = {
       category: this.currentCategory,
       difficulty: this.currentDifficulty,
       //preparetime is missing
+      //prepareTime = 0,
       name: this.currentName,
       preparation: this.currentPreparation
     };

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DietTracker_Api.Controller.CategoryController;
 
 namespace DietTracker_Api.Controller
 {
@@ -40,14 +41,16 @@ namespace DietTracker_Api.Controller
             );
         public record RecipeDto(
             string Id,
-            string Name, double PrepareTime, double Difficulty, string Category, string Preparation,
+            string Name, double PrepareTime, double Difficulty, List<CategoryDto>? Category, string Preparation,
             List<IngredientDto>? FoodIds);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDto>>> GetAll()
         {
             var dbResult = await recipeCollection.GetAll();
-            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name, a.PrepareTime, a.Difficulty, a.Category, a.Preparation,
+            var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name, a.PrepareTime, a.Difficulty,
+            a.CategorysId.Select(a => new CategoryDto(a.Id.ToString(), a.category)).ToList()
+            , a.Preparation,
             a.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
             return Ok(result);
         }
@@ -66,7 +69,9 @@ namespace DietTracker_Api.Controller
                 item.Name, 
                 item.PrepareTime, 
                 item.Difficulty,
-                item.Category,
+                item.CategorysId.Select(a => new CategoryDto(
+                    a.Id.ToString(),
+                    a.category)).ToList(),
                 item.Preparation, 
                 item.FoodIds.Select(i => new IngredientDto(
                     i.Id.ToString(), 
@@ -77,15 +82,18 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<RecipeDto>> Add(RecipeCreationDto item)
         {
-            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), item.Category );
+            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), new List<Category>() );
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
                 new RecipeDto(
                     na.Id.ToString(), 
                     na.Name, 
                     na.PrepareTime, 
-                    na.Difficulty, 
-                    na.Category,
+                    na.Difficulty,
+                    na.CategorysId.Select(i =>
+                    new CategoryDto(
+                        i.Id.ToString(),
+                        i.category)).ToList(),
                     na.Preparation, 
                     na.FoodIds.Select(i => 
                     new IngredientDto(
@@ -109,7 +117,7 @@ namespace DietTracker_Api.Controller
                     item.Difficulty, 
                     item.Preparation, 
                     oldRecipe.FoodIds, 
-                    item.Category);
+                    oldRecipe.CategorysId);
                 await recipeCollection.ReplaceById(id, na);
             }
             return Ok(200);
@@ -119,11 +127,11 @@ namespace DietTracker_Api.Controller
         [Route(nameof(InitRecipe))]
         public async Task<ActionResult<RecipeDto>> InitRecipe()
         {
-            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), "Vegan");
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
             return Ok(200);
         }

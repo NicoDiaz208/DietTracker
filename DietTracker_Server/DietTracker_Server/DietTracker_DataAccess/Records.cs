@@ -62,11 +62,11 @@ namespace DietTracker_DataAccess
         ObjectId Picture,
         ObjectId Id,
         string Name,
-        double PrepareTime,
+        string PrepareTime,
         double Difficulty,
         string Preparation,
         List<Ingredient> FoodIds,
-        string Category) : IHaveId;
+        List<Category> CategorysId) : IHaveId;
 
     public record Sleep(
         ObjectId Id,
@@ -108,4 +108,8 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         string Username,
         string Password): IHaveId;
+
+    public record Category(
+        ObjectId Id,
+        string category): IHaveId;
 }

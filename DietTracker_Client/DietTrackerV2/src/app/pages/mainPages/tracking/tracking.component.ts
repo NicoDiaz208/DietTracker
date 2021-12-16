@@ -54,7 +54,12 @@ export class TrackingComponent implements OnInit {
   }
 
   decreaseWater(){
-    this.waterIntake.goWC -= 1;
+    if(this.waterIntake.goWC > 0){
+      this.waterIntake.goWC -= 1;
+    }
+    else{
+      this.waterIntake.goWC = 0;
+    }
   }
 
   increaseSleep(){
@@ -62,7 +67,10 @@ export class TrackingComponent implements OnInit {
   }
 
   decreaseSleep(){
-    this.sleep.hoSC -= 1;
+    if(this.sleep.hoSC > 0){
+      this.sleep.hoSC -= 1;
+    }
+    this.sleep.hoSC = 0;
   }
 
   async update(){

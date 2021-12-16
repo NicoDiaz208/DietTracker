@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using static DietTracker_Api.Controller.CategoryController;
 using static DietTracker_Api.Controller.FoodController;
 
 namespace DietTracker_Api.Controller
@@ -44,7 +45,7 @@ namespace DietTracker_Api.Controller
             var listIds = recipe.FoodIds;
             listIds.Add(new Ingredient(ObjectId.Parse(foodId), value, unit));
 
-            var na = new Recipe(recipe.Picture, recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.Category);
+            var na = new Recipe(recipe.Picture, recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.CategorysId);
 
 
             await recipeCollection.InsertOneAsync(na);
@@ -89,7 +90,7 @@ namespace DietTracker_Api.Controller
                     i.Name,
                     i.PrepareTime,
                     i.Difficulty,
-                    i.Category,
+                    i.CategorysId.Select(i => new CategoryDto(i.Id.ToString(), i.category)).ToList(),
                     i.Preparation,
                     i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
             }
@@ -121,7 +122,7 @@ namespace DietTracker_Api.Controller
                     recipe.Difficulty,
                     recipe.Preparation,
                     recipe.FoodIds,
-                    recipe.Category);
+                    recipe.CategorysId);
 
                     await recipeCollection.ReplaceById(recipeId, na);
 

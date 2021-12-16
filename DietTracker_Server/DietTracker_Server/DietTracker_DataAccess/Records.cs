@@ -62,7 +62,7 @@ namespace DietTracker_DataAccess
         ObjectId Picture,
         ObjectId Id,
         string Name,
-        double PrepareTime,
+        string PrepareTime,
         double Difficulty,
         string Preparation,
         List<Ingredient> FoodIds,

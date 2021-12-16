@@ -32,7 +32,7 @@ namespace DietTracker_Api.Controller
         }
 
         public record RecipeCreationDto(
-            string Name, double PrepareTime, double Difficulty, string Category, string Preparation);
+            string Name, string PrepareTime, double Difficulty, string Category, string Preparation);
 
         public record IngredientDto(
             string Id,
@@ -41,7 +41,7 @@ namespace DietTracker_Api.Controller
             );
         public record RecipeDto(
             string Id,
-            string Name, double PrepareTime, double Difficulty, List<CategoryDto>? Category, string Preparation,
+            string Name, string PrepareTime, double Difficulty, List<CategoryDto>? Category, string Preparation,
             List<IngredientDto>? FoodIds);
 
         [HttpGet]
@@ -127,11 +127,11 @@ namespace DietTracker_Api.Controller
         [Route(nameof(InitRecipe))]
         public async Task<ActionResult<RecipeDto>> InitRecipe()
         {
-            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", 3, 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
+            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", "3 hours", 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", 1, 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", "1 hour", 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", 5, 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
+            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", "5 hours", 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
             await recipeCollection.InsertOneAsync(na);
             return Ok(200);
         }

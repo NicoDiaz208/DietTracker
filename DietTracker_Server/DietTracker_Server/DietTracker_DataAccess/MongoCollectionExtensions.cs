@@ -52,13 +52,6 @@ namespace DietTracker_DataAccess
             return await cursor.FirstOrDefaultAsync();
         }
 
-        public static async Task<IEnumerable<T>> GetAllRecipesByCategory<T>(this IMongoCollection<T> collection, string category)
-            where T : Recipe
-        {
-            var cursor = await collection.FindAsync<T>(Builders<T>.Filter.Eq(x => x.Category, category));
-            return await cursor.ToListAsync();
-             
-        }
 
        
     }

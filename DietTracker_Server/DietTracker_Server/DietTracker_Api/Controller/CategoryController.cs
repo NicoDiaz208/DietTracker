@@ -28,8 +28,8 @@ namespace DietTracker_Api.Controller
             return Ok(result);
         }
 
-        [HttpGet("{id}", Name = nameof(GetSingleDailyProgress))]
-        public async Task<ActionResult<CategoryDto>> GetSingleDailyProgress(string id)
+        [HttpGet("{id}", Name = nameof(GetSingleCategory))]
+        public async Task<ActionResult<CategoryDto>> GetSingleCategory(string id)
         {
             var item = await categoryController.GetById(id);
             if (item == null)
@@ -45,7 +45,7 @@ namespace DietTracker_Api.Controller
         {
             var na = new Category(ObjectId.Empty, item.name);
             await categoryController.InsertOneAsync(na);
-            return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
+            return CreatedAtRoute(nameof(GetSingleCategory), new { id = na.Id },
                 new CategoryDto(na.Id.ToString(), na.category));
         }
 

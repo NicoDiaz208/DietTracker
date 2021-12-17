@@ -54,38 +54,25 @@ namespace DietTracker_Api.Controller
         }
 
         public record CategoryCounter(
-                String category,
+                Category category,
                 int count
             );
-
-        [HttpGet]
-        [Route(nameof(GetAllCategories))]
-        public async Task<ActionResult<List<CategoryCounter>>> GetAllCategories()
-        {
-            var list = await recipeCollection.DistinctAsync<String>("Category", new BsonDocument());
-            int cnt = 0;
-            List<CategoryCounter> result = new List<CategoryCounter>();
-
-            foreach (var i in list.ToList())
-            {
-                var current = await recipeCollection.GetAllRecipesByCategory(i);
-                cnt = current.Count();
-                result.Add(new CategoryCounter(i, cnt));
-            }
-
-            return result;
-        }
 
         [HttpGet]
         [Route(nameof(GetAllRecipesByCategory))]
         public async Task<ActionResult<List<RecipeDto>>> GetAllRecipesByCategory(string category)
         {
-            var list = await recipeCollection.GetAllRecipesByCategory(category);
+            
+            var list = await recipeCollection.GetAll();
             var res = new List<RecipeDto>();
 
             foreach (var i in list)
             {
-                res.Add(new RecipeDto(
+                foreach( var d in i.CategorysId)
+                {
+                    if (d.category == category)
+                    {
+                        res.Add(new RecipeDto(
                     i.Id.ToString(),
                     i.Name,
                     i.PrepareTime,
@@ -93,6 +80,8 @@ namespace DietTracker_Api.Controller
                     i.CategorysId.Select(i => new CategoryDto(i.Id.ToString(), i.category)).ToList(),
                     i.Preparation,
                     i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
+                    }
+                }
             }
 
             return res;

@@ -81,17 +81,18 @@ export class AddRecipeComponent implements OnInit {
       source: CameraSource.Photos
     });
 
-    this.currentPicture = image.webPath;
-    console.log('saved: ', image.webPath);
-
     if(image){
-      this.saveImage(image);
+      this.currentPicture = image.webPath;
+      console.log('saved: ', image.webPath);
+      //this.saveImage(image);
+    }
+    else{
+      console.log('Capture Image did not work');
     }
   }
 
   async saveImage(photo: Photo){
     const base64Data = await this.readAsBase64(photo);
-    console.log(base64Data);
 
     const fileName = new Date().getTime() + '.jpeg';
 

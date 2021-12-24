@@ -32,7 +32,7 @@ namespace DietTracker_Api.Controller
         }
 
         public record RecipeCreationDto(
-            string Name, string PrepareTime, double Difficulty, string Category, string Preparation);
+            string Name, string PrepareTime, double Difficulty, string Preparation);
 
         public record IngredientDto(
             string Id,

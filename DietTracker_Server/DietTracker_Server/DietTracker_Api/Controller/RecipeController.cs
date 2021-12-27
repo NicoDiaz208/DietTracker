@@ -16,12 +16,14 @@ namespace DietTracker_Api.Controller
     public partial class RecipeController : ControllerBase
     {
         private readonly IMongoCollection<Recipe> recipeCollection;
+        private readonly IMongoCollection<Category> categoryCollection;
 
         private readonly GridFSBucket bucket;
 
         public RecipeController(CollectionFactory cf)
         {
             recipeCollection = cf.GetCollection<Recipe>();
+            categoryCollection = cf.GetCollection<Category>();
             bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
             {
                 BucketName = "RecipeImages",
@@ -32,26 +34,25 @@ namespace DietTracker_Api.Controller
         }
 
         public record RecipeCreationDto(
-            string Name, string PrepareTime, double Difficulty, string Preparation);
+            string Name, string PrepareTime, double Difficulty, List<CategoryDto> Category, string Preparation, List<IngredientDto> FoodIds);
 
         public record IngredientDto(
             string Id,
-            double Value,
-            string Unit
+            double Value
             );
         public record RecipeDto(
             string Id,
-            string Name, string PrepareTime, double Difficulty, List<CategoryDto>? Category, string Preparation,
-            List<IngredientDto>? FoodIds);
+            string Name, string PrepareTime, double Difficulty, List<CategoryDto> Category, string Preparation,
+            List<IngredientDto> FoodIds);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDto>>> GetAll()
         {
             var dbResult = await recipeCollection.GetAll();
             var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name, a.PrepareTime, a.Difficulty,
-            a.CategorysId.Select(a => new CategoryDto(a.Id.ToString(), a.category)).ToList()
+            a.Categories.Select(a => new CategoryDto(a.Id.ToString(), a.category)).ToList()
             , a.Preparation,
-            a.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
+            a.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value)).ToList()));
             return Ok(result);
         }
 
@@ -69,19 +70,21 @@ namespace DietTracker_Api.Controller
                 item.Name, 
                 item.PrepareTime, 
                 item.Difficulty,
-                item.CategorysId.Select(a => new CategoryDto(
+                item.Categories.Select(a => new CategoryDto(
                     a.Id.ToString(),
                     a.category)).ToList(),
                 item.Preparation, 
                 item.FoodIds.Select(i => new IngredientDto(
                     i.Id.ToString(), 
-                    i.Value, 
-                    i.Unit)).ToList());
+                    i.Value)).ToList());
         }
 
         [HttpPost]
         public async Task<ActionResult<RecipeDto>> Add(RecipeCreationDto item)
         {
+            if (item.Category == null) return BadRequest();
+            if(item.FoodIds == null) return BadRequest();
+
             var na = new Recipe(ObjectId.Empty,ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), new List<Category>() );
             await recipeCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
@@ -90,7 +93,7 @@ namespace DietTracker_Api.Controller
                     na.Name, 
                     na.PrepareTime, 
                     na.Difficulty,
-                    na.CategorysId.Select(i =>
+                    na.Categories.Select(i =>
                     new CategoryDto(
                         i.Id.ToString(),
                         i.category)).ToList(),
@@ -98,8 +101,7 @@ namespace DietTracker_Api.Controller
                     na.FoodIds.Select(i => 
                     new IngredientDto(
                         i.Id.ToString(), 
-                        i.Value, 
-                        i.Unit)).ToList()));
+                        i.Value)).ToList()));
         }
 
         [HttpPost]
@@ -117,7 +119,7 @@ namespace DietTracker_Api.Controller
                     item.Difficulty, 
                     item.Preparation, 
                     oldRecipe.FoodIds, 
-                    oldRecipe.CategorysId);
+                    oldRecipe.Categories);
                 await recipeCollection.ReplaceById(id, na);
             }
             return Ok(200);

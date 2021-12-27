@@ -45,11 +45,30 @@ namespace DietTracker_Api.Controller
             var listIds = recipe.FoodIds;
             listIds.Add(new Ingredient(ObjectId.Parse(foodId), value, unit));
 
-            var na = new Recipe(recipe.Picture, recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.CategorysId);
+            var na = new Recipe(recipe.Picture, recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.Categories);
 
 
             await recipeCollection.InsertOneAsync(na);
 
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route(nameof(AddCategoryToRecipe))]
+        public async Task<ActionResult<Boolean>> AddCategoryToRecipe(String recipeId, Category category)
+        {
+            var recipe = await recipeCollection.GetById(recipeId);
+            if(recipe == null) return NotFound(false);
+
+            if(categoryCollection.GetById(category.Id) == null)
+                return NotFound(false);
+
+            if (recipe.Categories.Where(c => c == category).Count() > 0) return BadRequest();
+
+            recipe.Categories.Add(category);
+
+            await recipeCollection.DeleteById(ObjectId.Parse(recipeId));
+            await recipeCollection.InsertOneAsync(recipe);
             return Ok(true);
         }
 
@@ -68,7 +87,7 @@ namespace DietTracker_Api.Controller
 
             foreach (var i in list)
             {
-                foreach( var d in i.CategorysId)
+                foreach( var d in i.Categories)
                 {
                     if (d.category == category)
                     {
@@ -77,9 +96,9 @@ namespace DietTracker_Api.Controller
                     i.Name,
                     i.PrepareTime,
                     i.Difficulty,
-                    i.CategorysId.Select(i => new CategoryDto(i.Id.ToString(), i.category)).ToList(),
+                    i.Categories.Select(i => new CategoryDto(i.Id.ToString(), i.category)).ToList(),
                     i.Preparation,
-                    i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value, i.Unit)).ToList()));
+                    i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value)).ToList()));
                     }
                 }
             }
@@ -111,7 +130,7 @@ namespace DietTracker_Api.Controller
                     recipe.Difficulty,
                     recipe.Preparation,
                     recipe.FoodIds,
-                    recipe.CategorysId);
+                    recipe.Categories);
 
                     await recipeCollection.ReplaceById(recipeId, na);
 

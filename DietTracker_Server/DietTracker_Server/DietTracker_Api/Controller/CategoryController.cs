@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace DietTracker_Api.Controller
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : ControllerBase
     {
 
@@ -21,6 +23,11 @@ namespace DietTracker_Api.Controller
             string Id,
             string name);
 
+        public record CategoryCreationDto(
+            string name);
+
+        [HttpGet]
+        [Route(nameof(GetAll))]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll()
         {
             var dbResult = await categoryController.GetAll();
@@ -41,7 +48,7 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDto>> Add(CategoryDto item)
+        public async Task<ActionResult<CategoryDto>> Add(CategoryCreationDto item)
         {
             var na = new Category(ObjectId.Empty, item.name);
             await categoryController.InsertOneAsync(na);

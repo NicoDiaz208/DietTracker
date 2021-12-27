@@ -10,21 +10,6 @@ namespace DietTracker_Api.Controller
 {
     public partial class FoodController : ControllerBase
     {
-        [HttpPost]
-        [Route(nameof(AddNutritionFactToFood))]
-        public async Task<ActionResult<Boolean>> AddNutritionFactToFood(String foodId, String nutritionFactId)
-        {
-            var food = await foodCollection.GetById(foodId);
-            if (food == null) return NotFound(false);
-
-            await foodCollection.DeleteById(food.Id);
-
-            var na = new Food(food.Id, ObjectId.Parse(nutritionFactId), food.Name);
-
-            await foodCollection.InsertOneAsync(na);
-
-            return Ok(true);
-        }
 
         [HttpPost]
         [Route(nameof(GetListOfFood))]
@@ -36,7 +21,7 @@ namespace DietTracker_Api.Controller
                 var curr = await foodCollection.GetById(item);
                 if(curr == null) continue;
 
-                result.Add(new FoodDto(curr.Id.ToString(), curr.Name));
+                result.Add(new FoodDto(curr.Id.ToString(), curr.Name, curr.Unit, curr.Value, curr.Calories, curr.Protein, curr.TotalCarbohydrates, curr.Sugar, curr.Fiber, curr.Fat));
             }
 
             return result;

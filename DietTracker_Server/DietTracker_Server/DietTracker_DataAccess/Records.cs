@@ -42,17 +42,15 @@ namespace DietTracker_DataAccess
 
     public record Food(
         ObjectId Id,
-        ObjectId NutritionFactIds,
-        string Name) : IHaveId;
-
-    public record NutritionFacts(
-        ObjectId Id,
-        double Calories,
-        double Protein,
-        double TotalCarbohydrates,
-        double Sugar,
-        double Fiber,
-        double Fat): IHaveId;
+        string Name,
+        string Unit,
+        double Value,
+        double Calories, 
+        double Protein, 
+        double TotalCarbohydrates, 
+        double Sugar, 
+        double Fiber, 
+        double Fat) : IHaveId;
     public record Ingredient(
         ObjectId Id,
         double Value,
@@ -66,7 +64,7 @@ namespace DietTracker_DataAccess
         double Difficulty,
         string Preparation,
         List<Ingredient> FoodIds,
-        List<Category> CategorysId) : IHaveId;
+        List<Category> Categories) : IHaveId;
 
     public record Sleep(
         ObjectId Id,

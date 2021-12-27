@@ -14,7 +14,7 @@ import { LoginDto } from 'src/app/services/model/loginDto';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
+  user = '';
   username = '';
   password = '';
   repassword = '';
@@ -86,6 +86,7 @@ export class SignupComponent implements OnInit {
       console.log(this.loginCreate);
       this.userService.apiUserPost(this.userCreate).toPromise();
       this.loginService.apiLoginPost(this.loginCreate).toPromise();
+      this.navigate();
     }
   }
 }

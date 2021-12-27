@@ -19,7 +19,6 @@ import { BASE_PATH } from './services/variables';
 import { environment } from '../environments/environment';
 import { UserService } from './services/api/user.service';
 import { SleepService } from './services/api/sleep.service';
-import { NutritionFactService } from './services/api/nutritionFact.service';
 import { FoodService } from './services/api/food.service';
 import { DailyProgressService } from './services/api/dailyProgress.service';
 import { CalorieIntakeService } from './services/api/calorieIntake.service';
@@ -40,6 +39,7 @@ import { ModalFoodComponent } from './pages/mainPages/recipe/add-recipe/modal-fo
 import { ModalRecipeCategoryComponent }
 from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recipe-category.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { CategoryService } from './services/api/category.service';
 
 
 @NgModule({
@@ -82,8 +82,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     WaterIntakeService,
     UserService,
     SleepService,
-    NutritionFactService,
     FoodService,
+    CategoryService,
     DailyProgressService,
     CalorieIntakeService,
     AchievementsService,

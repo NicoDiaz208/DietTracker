@@ -9,14 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CategoryDto } from './categoryDto';
 import { IngredientDto } from './ingredientDto';
 
 export interface RecipeDto { 
     id?: string;
     name?: string;
-    prepareTime?: number;
+    prepareTime?: string;
     difficulty?: number;
-    category?: string;
+    category?: Array<CategoryDto>;
     preparation?: string;
     foodIds?: Array<IngredientDto>;
 }

@@ -13,9 +13,8 @@
         <ion-searchbar></ion-searchbar>
       </ion-list-header>
 
-      <ion-item *ngFor="let cat of categories" (click)="nextPage(cat.category)">
-        <ion-text >{{cat.category}}</ion-text>
-        <ion-badge slot="end" color="primary">{{cat.count}}</ion-badge>
+      <ion-item *ngFor="let cat of categories" (click)="nextPage(cat.name)">
+        <ion-text >{{cat.name}}</ion-text>
       </ion-item>
     </ion-list>
   </ion-content>

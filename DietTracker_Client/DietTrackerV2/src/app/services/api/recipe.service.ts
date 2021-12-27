@@ -17,7 +17,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { CategoryCounter } from '../model/categoryCounter';
+import { Category } from '../model/category';
+import { FileInfo } from '../model/fileInfo';
 import { RecipeCreationDto } from '../model/recipeCreationDto';
 import { RecipeDto } from '../model/recipeDto';
 
@@ -56,6 +57,62 @@ export class RecipeService {
         return false;
     }
 
+
+    /**
+     * 
+     * 
+     * @param body 
+     * @param recipeId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeAddCategoryToRecipePost(body?: Category, recipeId?: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiRecipeAddCategoryToRecipePost(body?: Category, recipeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiRecipeAddCategoryToRecipePost(body?: Category, recipeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiRecipeAddCategoryToRecipePost(body?: Category, recipeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (recipeId !== undefined && recipeId !== null) {
+            queryParameters = queryParameters.set('recipeId', <any>recipeId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<boolean>('post',`${this.basePath}/api/Recipe/AddCategoryToRecipe`,
+            {
+                body: body,
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
@@ -159,44 +216,6 @@ export class RecipeService {
     /**
      * 
      * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiRecipeGetAllCategoriesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<CategoryCounter>>;
-    public apiRecipeGetAllCategoriesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CategoryCounter>>>;
-    public apiRecipeGetAllCategoriesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CategoryCounter>>>;
-    public apiRecipeGetAllCategoriesGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<CategoryCounter>>('get',`${this.basePath}/api/Recipe/GetAllCategories`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
      * @param category 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -269,6 +288,84 @@ export class RecipeService {
         ];
 
         return this.httpClient.request<string>('get',`${this.basePath}/api/Recipe/GetRandom`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeImagesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<FileInfo>>;
+    public apiRecipeImagesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<FileInfo>>>;
+    public apiRecipeImagesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<FileInfo>>>;
+    public apiRecipeImagesGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<FileInfo>>('get',`${this.basePath}/api/Recipe/images`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeImagesIdGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiRecipeImagesIdGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiRecipeImagesIdGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiRecipeImagesIdGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiRecipeImagesIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/api/Recipe/images/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -411,6 +508,49 @@ export class RecipeService {
         return this.httpClient.request<RecipeDto>('post',`${this.basePath}/api/Recipe/Replace`,
             {
                 body: body,
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param recipeId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiRecipeUploadImagePost(recipeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (recipeId !== undefined && recipeId !== null) {
+            queryParameters = queryParameters.set('recipeId', <any>recipeId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('post',`${this.basePath}/api/Recipe/UploadImage`,
+            {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

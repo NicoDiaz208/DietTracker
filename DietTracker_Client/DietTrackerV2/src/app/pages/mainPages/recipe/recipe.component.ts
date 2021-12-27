@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/api/category.service';
 import { RecipeService } from 'src/app/services/api/recipe.service';
 import { UserService } from 'src/app/services/api/user.service';
-import { CategoryCounter } from 'src/app/services/model/categoryCounter';
+import { CategoryDto } from 'src/app/services/model/categoryDto';
 
 @Component({
   selector: 'app-recipe',
@@ -11,24 +12,24 @@ import { CategoryCounter } from 'src/app/services/model/categoryCounter';
 })
 export class RecipeComponent implements OnInit {
 
-  public categories: CategoryCounter[];
+  public categories: CategoryDto[];
 
-  constructor(private restService: RecipeService, private userService: UserService,private route: ActivatedRoute, private router: Router) {
+  constructor(private recipeService: RecipeService, private categoryService: CategoryService, private route: ActivatedRoute, private router: Router) {
    }
 
 
 
    nextPage(cat: string){
-    this.router.navigate(["/main-pages/recipe/generic" ,cat]);
+    this.router.navigate(['/main-pages/recipe/generic' ,cat]);
    }
 
    addRecipe(){
-     this.router.navigate(["/main-pages/recipe/add-recipe"]);
+     this.router.navigate(['/main-pages/recipe/add-recipe']);
    }
 
   ngOnInit() {
-    this.restService.apiRecipeGetAllCategoriesGet().subscribe(data=>this.categories = data);
-    this.restService.apiRecipeGetAllCategoriesGet();
+    this.categoryService.apiCategoryGetAllGet().subscribe(data=>this.categories = data);
+    //this.recipeService.apiRecipeGetAllCategoriesGet();
   }
 
 }

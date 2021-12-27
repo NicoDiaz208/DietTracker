@@ -9,15 +9,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Category } from './category';
 import { Ingredient } from './ingredient';
 import { ObjectId } from './objectId';
 
 export interface Recipe { 
+    picture?: ObjectId;
     id?: ObjectId;
     name?: string;
-    prepareTime?: number;
+    prepareTime?: string;
     difficulty?: number;
     preparation?: string;
     foodIds?: Array<Ingredient>;
-    category?: string;
+    categories?: Array<Category>;
 }

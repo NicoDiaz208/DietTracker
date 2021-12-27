@@ -17,15 +17,15 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { NutritionFactCreationDto } from '../model/nutritionFactCreationDto';
-import { NutritionFactDto } from '../model/nutritionFactDto';
+import { CategoryCreationDto } from '../model/categoryCreationDto';
+import { CategoryDto } from '../model/categoryDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class NutritionFactService {
+export class CategoryService {
 
     protected basePath = '/';
     public defaultHeaders = new HttpHeaders();
@@ -62,10 +62,10 @@ export class NutritionFactService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiNutritionFactGet(observe?: 'body', reportProgress?: boolean): Observable<Array<NutritionFactDto>>;
-    public apiNutritionFactGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<NutritionFactDto>>>;
-    public apiNutritionFactGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<NutritionFactDto>>>;
-    public apiNutritionFactGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCategoryGetAllGet(observe?: 'body', reportProgress?: boolean): Observable<Array<CategoryDto>>;
+    public apiCategoryGetAllGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CategoryDto>>>;
+    public apiCategoryGetAllGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CategoryDto>>>;
+    public apiCategoryGetAllGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -84,45 +84,7 @@ export class NutritionFactService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<NutritionFactDto>>('get',`${this.basePath}/api/NutritionFact`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiNutritionFactInitNutritionFactPost(observe?: 'body', reportProgress?: boolean): Observable<NutritionFactCreationDto>;
-    public apiNutritionFactInitNutritionFactPost(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NutritionFactCreationDto>>;
-    public apiNutritionFactInitNutritionFactPost(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NutritionFactCreationDto>>;
-    public apiNutritionFactInitNutritionFactPost(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<NutritionFactCreationDto>('post',`${this.basePath}/api/NutritionFact/InitNutritionFact`,
+        return this.httpClient.request<Array<CategoryDto>>('get',`${this.basePath}/api/Category/GetAll`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -139,10 +101,10 @@ export class NutritionFactService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiNutritionFactPost(body?: NutritionFactCreationDto, observe?: 'body', reportProgress?: boolean): Observable<NutritionFactDto>;
-    public apiNutritionFactPost(body?: NutritionFactCreationDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NutritionFactDto>>;
-    public apiNutritionFactPost(body?: NutritionFactCreationDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NutritionFactDto>>;
-    public apiNutritionFactPost(body?: NutritionFactCreationDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCategoryPost(body?: CategoryCreationDto, observe?: 'body', reportProgress?: boolean): Observable<CategoryDto>;
+    public apiCategoryPost(body?: CategoryCreationDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CategoryDto>>;
+    public apiCategoryPost(body?: CategoryCreationDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CategoryDto>>;
+    public apiCategoryPost(body?: CategoryCreationDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -169,7 +131,7 @@ export class NutritionFactService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<NutritionFactDto>('post',`${this.basePath}/api/NutritionFact`,
+        return this.httpClient.request<CategoryDto>('post',`${this.basePath}/api/Category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -188,10 +150,10 @@ export class NutritionFactService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiNutritionFactReplacePost(body?: NutritionFactDto, id?: string, observe?: 'body', reportProgress?: boolean): Observable<NutritionFactDto>;
-    public apiNutritionFactReplacePost(body?: NutritionFactDto, id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NutritionFactDto>>;
-    public apiNutritionFactReplacePost(body?: NutritionFactDto, id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NutritionFactDto>>;
-    public apiNutritionFactReplacePost(body?: NutritionFactDto, id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCategoryReplacePost(body?: CategoryDto, id?: string, observe?: 'body', reportProgress?: boolean): Observable<CategoryDto>;
+    public apiCategoryReplacePost(body?: CategoryDto, id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CategoryDto>>;
+    public apiCategoryReplacePost(body?: CategoryDto, id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CategoryDto>>;
+    public apiCategoryReplacePost(body?: CategoryDto, id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -224,7 +186,7 @@ export class NutritionFactService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<NutritionFactDto>('post',`${this.basePath}/api/NutritionFact/Replace`,
+        return this.httpClient.request<CategoryDto>('post',`${this.basePath}/api/Category/Replace`,
             {
                 body: body,
                 params: queryParameters,
@@ -243,13 +205,13 @@ export class NutritionFactService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSingleNutritionFact(id: string, observe?: 'body', reportProgress?: boolean): Observable<NutritionFactDto>;
-    public getSingleNutritionFact(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NutritionFactDto>>;
-    public getSingleNutritionFact(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NutritionFactDto>>;
-    public getSingleNutritionFact(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getSingleCategory(id: string, observe?: 'body', reportProgress?: boolean): Observable<CategoryDto>;
+    public getSingleCategory(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CategoryDto>>;
+    public getSingleCategory(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CategoryDto>>;
+    public getSingleCategory(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getSingleNutritionFact.');
+            throw new Error('Required parameter id was null or undefined when calling getSingleCategory.');
         }
 
         let headers = this.defaultHeaders;
@@ -269,7 +231,7 @@ export class NutritionFactService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<NutritionFactDto>('get',`${this.basePath}/api/NutritionFact/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<CategoryDto>('get',`${this.basePath}/api/Category/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

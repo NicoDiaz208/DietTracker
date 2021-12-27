@@ -10,12 +10,7 @@
  * Do not edit the class manually.
  */
 
-export interface NutritionFactDto { 
+export interface CategoryDto { 
     id?: string;
-    calories?: number;
-    protein?: number;
-    totalCarbohydrates?: number;
-    sugar?: number;
-    fiber?: number;
-    fat?: number;
+    name?: string;
 }

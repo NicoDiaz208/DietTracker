@@ -13,5 +13,4 @@
 export interface IngredientDto { 
     id?: string;
     value?: number;
-    unit?: string;
 }

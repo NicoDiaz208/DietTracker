@@ -10,6 +10,8 @@ import {Camera, CameraResultType, CameraSource, Photo} from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { UserService } from 'src/app/services/api/user.service';
 import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/api/category.service';
+import { IngredientDto } from 'src/app/services/model/ingredientDto';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -26,7 +28,8 @@ export class AddRecipeComponent implements OnInit {
   public currentPreparation = '';
   public ingredients: Food[];
   public modalPage: any;
-  public selected: {id: string; amount: number}[] = [];
+  public selected: IngredientDto[] = [];
+  public foodNames: string[] = [];
   public currentDifficulty = 0;
   public currentPreparetime: string;
   public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
@@ -34,13 +37,14 @@ export class AddRecipeComponent implements OnInit {
   constructor(private recipeService: RecipeService,
     private userService: UserService,
     private foodService: FoodService,
+    private categoryService: CategoryService,
     private modalController: ModalController,
     private platform: Platform,
     private router: Router) {  }
 
   ngOnInit()
   {
-    this.recipeService.apiRecipeGetAllCategoriesGet().subscribe(data=> this.categories = data.map(i=> i.category));
+    this.categoryService.apiCategoryGetAllGet().subscribe(data => this.categories = data.map(i=> i.name));
     this.foodService.apiFoodGet().subscribe(i=> this.ingredients = i);
   }
 
@@ -65,12 +69,19 @@ export class AddRecipeComponent implements OnInit {
       component: ModalFoodComponent,
       cssClass: 'my-custom-class',
       componentProps: {
-        selected: this.selected
+        selected: this.selected,
+        names: this.foodNames
       }
     });
     await modal.present();
     const {data} = await modal.onWillDismiss();
-    this.selected = data.selected as {id: string; amount: number}[];
+
+    this.selected = data.selected as IngredientDto[];
+    this.foodNames = data.names as string[];
+
+    this.selected.forEach(element => {
+      console.log(element);
+    });
   }
 
   async selectImage(){
@@ -140,7 +151,6 @@ export class AddRecipeComponent implements OnInit {
 
   save(){
     const creation: RecipeCreationDto = {
-      category: this.currentCategory,
       difficulty: this.currentDifficulty,
       //preparetime is missing
       //prepareTime = 0,

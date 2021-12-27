@@ -9,8 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
 
-export interface CategoryCounter { 
+export interface Category { 
+    id?: ObjectId;
     category?: string;
-    count?: number;
 }

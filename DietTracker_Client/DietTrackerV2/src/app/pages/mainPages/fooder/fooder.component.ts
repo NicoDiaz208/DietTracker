@@ -9,7 +9,6 @@ import { RecipeDto } from 'src/app/services/model/recipeDto';
 interface IngredientDetail{
   name: string;
   amount: number;
-  unit: string;
 };
 
 @Component({
@@ -22,7 +21,7 @@ export class FooderComponent implements OnInit {
   public recipe: RecipeDto = {};
   public id: string;
   public isAdded = false;
-  public foodList: {name: string; amount: number; unit: string}[] = [];
+  public foodList: {name: string; amount: number}[] = [];
 
   constructor(private recipeService: RecipeService, private userService: UserService, private foodService: FoodService) { }
 
@@ -38,7 +37,7 @@ export class FooderComponent implements OnInit {
     this.foodList = [];
     await this.foodService.apiFoodGetListOfFoodPost(this.recipe.foodIds.map(a=>a.id)).subscribe(i=> i.forEach(e => {
       const f: IngredientDto = this.recipe.foodIds.find(fid=> fid.id === e.id);
-      this.foodList.push({name: e.name, amount: f.value, unit: f.unit});
+      this.foodList.push({name: e.name, amount: f.value});
     }));
   }
 
@@ -62,7 +61,6 @@ export class FooderComponent implements OnInit {
     let k: IngredientDetail;
     k.name = name;
     k.amount = f.value;
-    k.unit = f.unit;
     return k;
   }
 

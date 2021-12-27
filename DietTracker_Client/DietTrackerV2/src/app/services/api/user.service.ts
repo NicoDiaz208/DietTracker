@@ -1263,24 +1263,19 @@ export class UserService {
     /**
      * 
      * 
-     * @param name 
-     * @param source 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUserUploadImagePost(name?: string, source?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiUserUploadImagePost(name?: string, source?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiUserUploadImagePost(name?: string, source?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiUserUploadImagePost(name?: string, source?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public apiUserUploadImagePost(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiUserUploadImagePost(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiUserUploadImagePost(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiUserUploadImagePost(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (source !== undefined && source !== null) {
-            queryParameters = queryParameters.set('source', <any>source);
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
         }
 
         let headers = this.defaultHeaders;

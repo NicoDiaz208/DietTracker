@@ -13,6 +13,13 @@ import { ObjectId } from './objectId';
 
 export interface Food { 
     id?: ObjectId;
-    nutritionFactIds?: ObjectId;
     name?: string;
+    unit?: string;
+    value?: number;
+    calories?: number;
+    protein?: number;
+    totalCarbohydrates?: number;
+    sugar?: number;
+    fiber?: number;
+    fat?: number;
 }

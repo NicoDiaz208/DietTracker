@@ -13,4 +13,12 @@
 export interface FoodDto { 
     id?: string;
     name?: string;
+    unit?: string;
+    value?: number;
+    calories?: number;
+    protein?: number;
+    totalCarbohydrates?: number;
+    sugar?: number;
+    fiber?: number;
+    fat?: number;
 }

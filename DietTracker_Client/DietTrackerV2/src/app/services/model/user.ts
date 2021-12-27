@@ -12,6 +12,7 @@
 import { ObjectId } from './objectId';
 
 export interface User { 
+    picture?: ObjectId;
     id?: ObjectId;
     name?: string;
     dateOfBirth?: Date;

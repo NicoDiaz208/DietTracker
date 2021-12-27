@@ -12,4 +12,12 @@
 
 export interface FoodCreationDto { 
     name?: string;
+    unit?: string;
+    value?: number;
+    calories?: number;
+    protein?: number;
+    totalCarbohydrates?: number;
+    sugar?: number;
+    fiber?: number;
+    fat?: number;
 }

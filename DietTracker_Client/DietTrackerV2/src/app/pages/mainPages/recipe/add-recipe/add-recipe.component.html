@@ -50,6 +50,11 @@
   <ion-item detail button (click)="presentModal()">
     <ion-label>Ingredients</ion-label>
   </ion-item>
+  <ion-list *ngFor="let i of foodNames">
+    <ion-item>
+      <ion-text>{{i}}</ion-text>
+    </ion-item>
+  </ion-list>
   <ion-item>
     <ion-label position="stacked">Preparation</ion-label>
     <ion-textarea rows="6" [(ngModel)]="currentPreparation" placeholder="Enter a Text"></ion-textarea>

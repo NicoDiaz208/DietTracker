@@ -3,21 +3,64 @@
     <ion-button class="ion-padding-start" slot="start" (click)="back()">Back</ion-button>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-searchbar placeholder="Search for Ingredients" [(ngModel)]="searchString" (ionChange)="search()"></ion-searchbar>
-  <ion-row class="header-row">
-      <ion-col size="6" class="ion-text-center">
-        <ion-text>Name</ion-text>
-      </ion-col>
-      <ion-col size="4">
-        <ion-text>Size</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>Amount</ion-text>
-      </ion-col>
-    </ion-row>
-
+<ion-grid>
   <ion-row *ngFor="let item of ingredientsPresentation" class="data-row">
+        <ion-col>
+          <ion-item>
+          <ion-accordion-group>
+            <ion-accordion value="shapes" toggleIconSlot="start" (click)="expand()">
+              <ion-item slot="header">
+                <ion-label>{{item.name}}</ion-label>
+               </ion-item>
+              <ion-list slot="content">
+                <ion-item>
+                  <ion-label>One Piece: </ion-label>
+                  <ion-label slot="end">{{item.value + ' '+item.unit}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Calories: </ion-label>
+                  <ion-label slot="end">{{item.calories}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Carbohydrates: </ion-label>
+                  <ion-label slot="end">{{item.totalCarbohydrates}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Sugar: </ion-label>
+                  <ion-label slot="end">{{item.sugar}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Protein: </ion-label>
+                  <ion-label slot="end">{{item.protein}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Fiber: </ion-label>
+                  <ion-label slot="end">{{item.fiber}}</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Fat: </ion-label>
+                  <ion-label slot="end">{{item.fat}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-accordion>
+          </ion-accordion-group>
+          <ion-item [hidden]="hideItem">
+            <ion-input
+            class="ion-text-right"
+            inputmode="decimal"
+            (input)="select(item.id.toString(), $event.target.value, item.name)"
+            placeholder="0"
+            [value]="checkValueOnStart(item.id.toString())">
+        </ion-input>
+          </ion-item>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  <!-- <ion-row *ngFor="let item of ingredientsPresentation" class="data-row">
     <ion-col size="6" class="ion-text-center">
       <ion-text>{{item.name}}</ion-text>
     </ion-col>
@@ -28,7 +71,11 @@
       <ion-text>{{item.unit}}</ion-text>
     </ion-col>
     <ion-col>
+      <ion-item>
+        <ion-button>+</ion-button>
       <ion-input (input)="select(item.id.toString(), $event.target.value, item.name)" placeholder="0" [value]="checkValueOnStart(item.id.toString())" type="number"></ion-input>
+      <ion-button>-</ion-button>
+      </ion-item>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 </ion-content>

@@ -189,7 +189,7 @@ export class AddRecipeComponent implements OnInit {
     this.router.navigate(['/main-pages/recipe/']);
   }
 
-  validateInput(){
+  validateInput(): boolean{
     this.uploadImageError = false;
     this.ingrediendError = false;
     this.nameError = false;
@@ -197,29 +197,41 @@ export class AddRecipeComponent implements OnInit {
     this.prepareTimeError = false;
     this.categoryError = false;
 
+    let noError = true;
+
     if(this.currentName === ''){
       this.nameError = true;
+      noError = false;
     }
     if(this.currentPreparation.length < 50){
       this.preparationError = true;
+      noError = false;
     }
     if(this.currentPreparetime === ''){
       this.prepareTimeError = true;
+      noError = false;
     }
     if(this.currentCategories.length < 1){
       this.categoryError = true;
+      noError = false;
     }
     if(this.selected.length < 1){
       this.ingrediendError = true;
+      noError = false;
     }
     if(this.currentPicture === '../../../../../assets/Recipes/noimg.jpg'){
       this.uploadImageError = true;
+      noError = false;
     }
+
+    return noError;
   }
 
   save(){
 
-    this.validateInput();
+    if(!this.validateInput()){
+      return;
+    }
 
     const creation: RecipeCreationDto = {
       difficulty: this.currentDifficulty,

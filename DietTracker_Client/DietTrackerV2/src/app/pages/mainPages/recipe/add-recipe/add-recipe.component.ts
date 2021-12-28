@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FoodService } from 'src/app/services/api/food.service';
 import { RecipeService } from 'src/app/services/api/recipe.service';
 import { Food } from 'src/app/services/model/food';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController, PickerController, PickerOptions, Platform } from '@ionic/angular';
 import { ModalFoodComponent } from './modal-food/modal-food.component';
 import { RecipeCreationDto } from 'src/app/services/model/recipeCreationDto';
-import { DatePipe } from '@angular/common';
 import {Camera, CameraResultType, CameraSource, Photo} from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { UserService } from 'src/app/services/api/user.service';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/api/category.service';
 import { IngredientDto } from 'src/app/services/model/ingredientDto';
+import { CategoryDto } from 'src/app/services/model/categoryDto';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -22,8 +22,8 @@ const IMAGE_DIR = 'stored-images';
 })
 export class AddRecipeComponent implements OnInit {
 
-  public categories: string[];
-  public currentCategory = '+';
+  public categories: CategoryDto[];
+  public currentCategories: CategoryDto[] = [];
   public currentName = '';
   public currentPreparation = '';
   public ingredients: Food[];
@@ -31,8 +31,15 @@ export class AddRecipeComponent implements OnInit {
   public selected: IngredientDto[] = [];
   public foodNames: string[] = [];
   public currentDifficulty = 0;
-  public currentPreparetime: string;
+  public currentPreparetime = '';
   public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
+
+  public nameError = false;
+  public uploadImageError = false;
+  public ingrediendError = false;
+  public categoryError = false;
+  public prepareTimeError = false;
+  public preparationError = false;
 
   constructor(private recipeService: RecipeService,
     private userService: UserService,
@@ -40,29 +47,62 @@ export class AddRecipeComponent implements OnInit {
     private categoryService: CategoryService,
     private modalController: ModalController,
     private platform: Platform,
-    private router: Router) {  }
+    private router: Router,
+    private pickerCtrl: PickerController) {  }
 
   ngOnInit()
   {
-    this.categoryService.apiCategoryGetAllGet().subscribe(data => this.categories = data.map(i=> i.name));
+    this.categoryService.apiCategoryGetAllGet().subscribe(data => this.categories = data);
     this.foodService.apiFoodGet().subscribe(i=> this.ingredients = i);
   }
 
-  clickCategory(clicked: string){
-    if (this.categories.find(i=> i === clicked))
-    {
-      this.categories.splice(this.categories.indexOf(clicked),1);
-    }
-    if(this.currentCategory !== '' && !this.categories.find(i=> i === this.currentCategory)){
-      this.categories.push(this.currentCategory);
-    }
-    this.currentCategory = clicked;
+  async showDurationPicker(){
+    const opts: PickerOptions={
+      buttons: [
+        {
+          text: 'Cancel',
+        role: 'cancel'
+      },
+      {
+        text: 'Done'
+      }
+      ],
+      columns:[
+        {
+          name: 'duration',
+          options:[
+            {text: '5 Minutes', value: '5 Minutes'},
+            {text: '10 Minutes', value: '10 Minutes'},
+            {text: '15 Minutes', value: '15 Minutes'},
+            {text: '30 Minutes', value: '30 Minutes'},
+            {text: '1 Hour', value: '1 Hour'},
+            {text: '1 Hour and a Half', value: '1 Hour and a Half'},
+            {text: '2 Hours', value: '2 Hours'},
+            {text: '3 Hours', value: '3 Hours'},
+            {text: '4 Hours', value: '4 Hours'},
+            {text: 'more than 5 Hours', value: 'more than 5 Hours'},
+          ]
+        }
+      ]
+    };
+    const picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    picker.onDidDismiss().then(async data=>{
+      const col = await  picker.getColumn('duration');
+      console.log('col: ', col);
+      this.currentPreparetime = col.options[col.selectedIndex].text;
+    });
   }
 
-  formatDate(date: string): string{
-    const dt = new Date(date);
-    return dt.getHours() +':'+dt.getMinutes();
-   }
+  clickCategoryAdd(clicked: CategoryDto){
+    this.currentCategories.push(clicked);
+    this.categories.splice(this.categories.indexOf(clicked),1);
+  }
+
+  clickCategoryRem(clicked: CategoryDto){
+    this.currentCategories.splice(this.currentCategories.indexOf(clicked),1);
+    this.categories.push(clicked);
+  }
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -149,13 +189,45 @@ export class AddRecipeComponent implements OnInit {
     this.router.navigate(['/main-pages/recipe/']);
   }
 
+  validateInput(){
+    this.uploadImageError = false;
+    this.ingrediendError = false;
+    this.nameError = false;
+    this.preparationError = false;
+    this.prepareTimeError = false;
+    this.categoryError = false;
+
+    if(this.currentName === ''){
+      this.nameError = true;
+    }
+    if(this.currentPreparation.length < 50){
+      this.preparationError = true;
+    }
+    if(this.currentPreparetime === ''){
+      this.prepareTimeError = true;
+    }
+    if(this.currentCategories.length < 1){
+      this.categoryError = true;
+    }
+    if(this.selected.length < 1){
+      this.ingrediendError = true;
+    }
+    if(this.currentPicture === '../../../../../assets/Recipes/noimg.jpg'){
+      this.uploadImageError = true;
+    }
+  }
+
   save(){
+
+    this.validateInput();
+
     const creation: RecipeCreationDto = {
       difficulty: this.currentDifficulty,
-      //preparetime is missing
-      //prepareTime = 0,
+      prepareTime: this.currentPreparetime,
       name: this.currentName,
-      preparation: this.currentPreparation
+      preparation: this.currentPreparation,
+      category: this.currentCategories,
+      foodIds: this.selected
     };
     console.log('saved!');
 

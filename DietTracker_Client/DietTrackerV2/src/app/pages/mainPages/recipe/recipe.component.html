@@ -13,7 +13,7 @@
         <ion-searchbar></ion-searchbar>
       </ion-list-header>
 
-      <ion-item *ngFor="let cat of categories" (click)="nextPage(cat.name)">
+      <ion-item detail button *ngFor="let cat of categories" (click)="nextPage(cat.name)">
         <ion-text >{{cat.name}}</ion-text>
       </ion-item>
     </ion-list>

@@ -6,3 +6,15 @@
 .data-row{
   border-bottom: 1px solid  rgba(0,0,0,0.12941176470588237);
 }
+
+ion-accordion {
+  margin: 30px;
+  margin-left: -20px;
+  width: 100%;
+}
+
+ion-accordion.accordion-expanding,
+ion-accordion.accordion-expanded {
+  width: calc(100% -32px);
+  margin: 30px;
+}

@@ -16,6 +16,7 @@ export class ModalFoodComponent implements OnInit {
   public ingredientsPresentation: Food[] = [];
   public selectedFoods: IngredientDto[] = [];
   public searchString = '';
+  public hideItem = false;
 
   constructor(private foodService: FoodService, private modalController: ModalController) { }
 
@@ -71,6 +72,10 @@ export class ModalFoodComponent implements OnInit {
       }
     });
     return num;
+  }
+
+  expand(){
+    this.hideItem = !this.hideItem;
   }
 
   back(){

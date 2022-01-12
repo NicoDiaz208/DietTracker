@@ -17,13 +17,14 @@ export class ProfileComponent implements OnInit {
   year: number = new Date().getFullYear();
   public age: number;
   constructor(private userService: UserService) {
-
+    
   }
 
   async ngOnInit() {
-
+    this.age = await this.userService.apiUserGetAgeGet(localStorage.getItem('userId')).toPromise();
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
     this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+  
   }
 
 

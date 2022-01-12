@@ -9,6 +9,7 @@ import { WaterIntakeDto } from 'src/app/services/model/waterIntakeDto';
 import { SleepDto } from 'src/app/services/model/sleepDto';
 import { CalorieIntakeService } from 'src/app/services/api/calorieIntake.service';
 import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
@@ -17,13 +18,14 @@ import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
 export class TrackingComponent implements OnInit {
   private watercount = 0;
   private sleepcount = 0;
-  private user: UserDto = {};
+  public user: UserDto = {};
   public waterIntake: WaterIntakeDto = {};
   public sleep: SleepDto = {};
   private sleepId = '';
   private waterId = '';
   public calorieIntake: CalorieIntakeDto = {};
   public calorieIntakeId = '';
+  public calorienGoal : number = 0;
 
 
   constructor(private router: Router,private waterintakeService: WaterIntakeService,
@@ -39,6 +41,7 @@ export class TrackingComponent implements OnInit {
     this.sleep = await this.sleepService.getSingleSleep(this.sleepId).toPromise();
     this.calorieIntakeId =  await this.userService.apiUserGetCalorieIntakeByDateGet(localStorage.getItem('userId'), new Date()).toPromise();
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
+    // this.calorienGoal = await this.userService.getS
   }
 
   navigateAchivement(){

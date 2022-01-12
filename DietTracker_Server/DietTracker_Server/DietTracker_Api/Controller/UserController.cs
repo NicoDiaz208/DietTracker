@@ -294,16 +294,19 @@ namespace DietTracker_Api.Controller
         }
         [HttpGet]
         [Route(nameof(GetAge))]
-        public async Task<ActionResult<int>> GetAge(String ageid)
+        public async Task<ActionResult<int>> GetAge(String userId)
         {
-            var usr = await userCollection.GetById(ageid);
+            var usr = await userCollection.GetById(userId);
 
             if (usr == null) return NotFound();
 
-            return DateTime.Now.Year - usr.DateOfBirth.Year;
+            return GetAgeSolo(usr);
         }
         
 
-
+        private int GetAgeSolo(User usr)
+        {
+            return DateTime.Now.Year - usr.DateOfBirth.Year;
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace DietTracker_Api.Controller
             await recipeCollection.DeleteById(recipe.Id);
 
             var listIds = recipe.FoodIds;
-            listIds.Add(new Ingredient(ObjectId.Parse(foodId), value, unit));
+            listIds.Add(new Ingredient(value, foodId));
 
             var na = new Recipe(recipe.Picture, recipe.Id, recipe.Name, recipe.PrepareTime, recipe.Difficulty, recipe.Preparation, listIds, recipe.Categories);
 
@@ -98,7 +98,7 @@ namespace DietTracker_Api.Controller
                     i.Difficulty,
                     i.Categories.Select(i => new CategoryDto(i.Id.ToString(), i.category)).ToList(),
                     i.Preparation,
-                    i.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value)).ToList()));
+                    i.FoodIds));
                     }
                 }
             }
@@ -112,8 +112,6 @@ namespace DietTracker_Api.Controller
         {
             var recipe = await recipeCollection.GetById(recipeId);
             if (recipe == null) return NotFound(false);
-
-
 
             var formCollection = await Request.ReadFormAsync();
             var file = formCollection.Files[0];

@@ -51,10 +51,11 @@ namespace DietTracker_DataAccess
         double Sugar, 
         double Fiber, 
         double Fat) : IHaveId;
+
+    //Not a Database Entity, just for Recipe. Holds Id from food and the Amount of it
     public record Ingredient(
-        ObjectId Id,
         double Value,
-        string Unit);
+        string FoodId);
 
     public record Recipe(
         ObjectId Picture,

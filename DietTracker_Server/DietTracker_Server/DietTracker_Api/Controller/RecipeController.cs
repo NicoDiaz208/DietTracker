@@ -17,12 +17,14 @@ namespace DietTracker_Api.Controller
     {
         private readonly IMongoCollection<Recipe> recipeCollection;
         private readonly IMongoCollection<Category> categoryCollection;
+        private readonly IMongoCollection<Food> foodCollection;
 
         private readonly GridFSBucket bucket;
 
         public RecipeController(CollectionFactory cf)
         {
             recipeCollection = cf.GetCollection<Recipe>();
+            foodCollection = cf.GetCollection<Food>();
             categoryCollection = cf.GetCollection<Category>();
             bucket = new GridFSBucket(cf.GetDatabase(), new GridFSBucketOptions
             {
@@ -34,16 +36,12 @@ namespace DietTracker_Api.Controller
         }
 
         public record RecipeCreationDto(
-            string Name, string PrepareTime, double Difficulty, List<CategoryDto> Category, string Preparation, List<IngredientDto> FoodIds);
+            string Name, string PrepareTime, double Difficulty, List<CategoryDto> Category, string Preparation, List<Ingredient> FoodIds);
 
-        public record IngredientDto(
-            string Id,
-            double Value
-            );
         public record RecipeDto(
             string Id,
             string Name, string PrepareTime, double Difficulty, List<CategoryDto> Category, string Preparation,
-            List<IngredientDto> FoodIds);
+            List<Ingredient> FoodIds);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDto>>> GetAll()
@@ -52,7 +50,7 @@ namespace DietTracker_Api.Controller
             var result = dbResult.Select(a => new RecipeDto(a.Id.ToString(), a.Name, a.PrepareTime, a.Difficulty,
             a.Categories.Select(a => new CategoryDto(a.Id.ToString(), a.category)).ToList()
             , a.Preparation,
-            a.FoodIds.Select(i => new IngredientDto(i.Id.ToString(), i.Value)).ToList()));
+            a.FoodIds.Select(i => new Ingredient(i.Value, i.FoodId)).ToList()));
             return Ok(result);
         }
 
@@ -74,9 +72,7 @@ namespace DietTracker_Api.Controller
                     a.Id.ToString(),
                     a.category)).ToList(),
                 item.Preparation, 
-                item.FoodIds.Select(i => new IngredientDto(
-                    i.Id.ToString(), 
-                    i.Value)).ToList());
+                item.FoodIds);
         }
 
         [HttpPost]
@@ -85,8 +81,37 @@ namespace DietTracker_Api.Controller
             if (item.Category == null) return BadRequest();
             if(item.FoodIds == null) return BadRequest();
 
-            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, item.Name, item.PrepareTime, item.Difficulty, item.Preparation, new List<Ingredient>(), new List<Category>() );
+            //Validate CategoryIds
+            var categories = new List<Category>();
+            foreach (var category in item.Category)
+            {
+                var cat = await categoryCollection.GetById(category.Id);
+
+                if(cat == null) continue;
+                categories.Add(cat);
+            }
+
+            //validate FoodIds
+            var foods = new List<Ingredient>();
+            foreach (var food in item.FoodIds)
+            {
+                var fd = await foodCollection.GetById(food.FoodId);
+                if(fd == null) continue;
+                foods.Add(food);
+            }
+
+            var na = new Recipe(
+                ObjectId.Empty,
+                ObjectId.Empty, 
+                item.Name, 
+                item.PrepareTime, 
+                item.Difficulty, 
+                item.Preparation, 
+                item.FoodIds,
+                categories);
+
             await recipeCollection.InsertOneAsync(na);
+
             return CreatedAtRoute(nameof(GetSingleRecipe), new { id = na.Id },
                 new RecipeDto(
                     na.Id.ToString(), 
@@ -98,10 +123,7 @@ namespace DietTracker_Api.Controller
                         i.Id.ToString(),
                         i.category)).ToList(),
                     na.Preparation, 
-                    na.FoodIds.Select(i => 
-                    new IngredientDto(
-                        i.Id.ToString(), 
-                        i.Value)).ToList()));
+                    foods));
         }
 
         [HttpPost]

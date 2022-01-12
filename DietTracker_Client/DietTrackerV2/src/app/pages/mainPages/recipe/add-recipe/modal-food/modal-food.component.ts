@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FoodService } from 'src/app/services/api/food.service';
 import { Food } from 'src/app/services/model/food';
-import { IngredientDto } from 'src/app/services/model/ingredientDto';
+import { Ingredient } from 'src/app/services/model/ingredient';
 
 @Component({
   selector: 'app-modal-food',
@@ -10,11 +10,11 @@ import { IngredientDto } from 'src/app/services/model/ingredientDto';
   styleUrls: ['./modal-food.component.scss'],
 })
 export class ModalFoodComponent implements OnInit {
-  @Input() selected: IngredientDto[];
+  @Input() selected: Ingredient[];
   @Input() names: string[];
   public ingredientsAll: Food[] = [];
   public ingredientsPresentation: Food[] = [];
-  public selectedFoods: IngredientDto[] = [];
+  public selectedFoods: Ingredient[] = [];
   public searchString = '';
   public hideItem = false;
 
@@ -31,7 +31,7 @@ export class ModalFoodComponent implements OnInit {
     this.ingredientsPresentation = this.ingredientsAll.filter(i=> i.name.startsWith(this.searchString));
   }
 
-  select(id: string, amount: string, name: string){
+  select(foodId: string, amount: string, name: string){
     console.log(amount);
 
     if(amount === ''){
@@ -40,15 +40,15 @@ export class ModalFoodComponent implements OnInit {
 
     if(amount === '0'){
       this.names.splice(this.names.indexOf(this.names.find(i=> i === name)),1);
-      this.selected.splice(this.selected.indexOf(this.selected.find(i=> i.id === id)),1);
+      this.selected.splice(this.selected.indexOf(this.selected.find(i=> i.foodId === foodId)),1);
       return;
     }
 
-    if(this.selected.indexOf(this.selected.find(i=> i.id === id)) === -1){
-      this.selected.push({id, value: Number(amount)});
+    if(this.selected.indexOf(this.selected.find(i=> i.foodId === foodId)) === -1){
+      this.selected.push({value: Number(amount), foodId});
     }
     else{
-      this.selected.find(i=> i.id === id).value = Number(amount);
+      this.selected.find(i=> i.foodId === foodId).value = Number(amount);
     }
 
     if(this.names.indexOf(this.names.find(i=> i === name)) === -1){
@@ -67,7 +67,7 @@ export class ModalFoodComponent implements OnInit {
     let num = 0;
 
     this.selected.forEach(element=>{
-      if(element.id === id){
+      if(element.foodId === id){
         num = element.value;
       }
     });

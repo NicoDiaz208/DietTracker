@@ -9,10 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ObjectId } from './objectId';
 
 export interface Ingredient { 
-    id?: ObjectId;
     value?: number;
-    unit?: string;
+    foodId?: string;
 }

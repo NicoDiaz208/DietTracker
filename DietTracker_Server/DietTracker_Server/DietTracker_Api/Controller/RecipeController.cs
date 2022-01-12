@@ -160,5 +160,37 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+
+        [HttpGet]
+        [Route(nameof(GetRandomWithCount))]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetRandomWithCount(int count)
+        {
+            var cnt = await recipeCollection.CountDocumentsAsync(new BsonDocument());
+            if(count>cnt)count=Convert.ToInt32(cnt);
+
+            List<Recipe> listOfRecipe = new List<Recipe>();
+
+            for(int i = 0; i < count; i++)
+            {
+                var rand = new Random();
+
+
+
+                var rec = await recipeCollection
+                    .Find(new BsonDocument())
+                    .Skip(rand.Next(0, Convert.ToInt32(cnt)))
+                    .Limit(1)
+                    .FirstOrDefaultAsync();
+
+                if (rec == null) count--;
+                else
+                {
+                    listOfRecipe.Add(rec); 
+                }
+
+            }
+            
+            return Ok(listOfRecipe);
+        }
     }
 }

@@ -42,7 +42,7 @@ export class TrackingComponent implements OnInit {
     this.sleep = await this.sleepService.getSingleSleep(this.sleepId).toPromise();
     this.calorieIntakeId =  await this.userService.apiUserGetCalorieIntakeByDateGet(localStorage.getItem('userId'), new Date()).toPromise();
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
-    // this.calorienGoal = await this.userService.getS
+    this.calorienGoal = await this.userService.apiUserGetSingleBMRGet(localStorage.getItem('userId')).toPromise();
   }
 
   navigateAchivement(){

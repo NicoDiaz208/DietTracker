@@ -18,7 +18,6 @@ export * from './food';
 export * from './foodCreationDto';
 export * from './foodDto';
 export * from './ingredient';
-export * from './ingredientDto';
 export * from './loginDto';
 export * from './objectId';
 export * from './recipe';

@@ -10,8 +10,10 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
 import { UserService } from 'src/app/services/api/user.service';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/api/category.service';
-import { IngredientDto } from 'src/app/services/model/ingredientDto';
 import { CategoryDto } from 'src/app/services/model/categoryDto';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Ingredient } from 'src/app/services/model/ingredient';
 
 const IMAGE_DIR = 'stored-images';
 
@@ -28,11 +30,14 @@ export class AddRecipeComponent implements OnInit {
   public currentPreparation = '';
   public ingredients: Food[];
   public modalPage: any;
-  public selected: IngredientDto[] = [];
+  public selected: Ingredient[] = [];
   public foodNames: string[] = [];
   public currentDifficulty = 0;
   public currentPreparetime = '';
   public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
+  public photo: Photo = null;
+  public progress: number;  //progress of uploading an Image
+  public message: string;   //Message if image is Uploaded
 
   public nameError = false;
   public uploadImageError = false;
@@ -48,7 +53,8 @@ export class AddRecipeComponent implements OnInit {
     private modalController: ModalController,
     private platform: Platform,
     private router: Router,
-    private pickerCtrl: PickerController) {  }
+    private pickerCtrl: PickerController,
+    private http: HttpClient) {  }
 
   ngOnInit()
   {
@@ -116,7 +122,7 @@ export class AddRecipeComponent implements OnInit {
     await modal.present();
     const {data} = await modal.onWillDismiss();
 
-    this.selected = data.selected as IngredientDto[];
+    this.selected = data.selected as Ingredient[];
     this.foodNames = data.names as string[];
 
     this.selected.forEach(element => {
@@ -134,6 +140,7 @@ export class AddRecipeComponent implements OnInit {
 
     if(image){
       this.currentPicture = image.webPath;
+      this.photo = image;
       console.log('saved: ', image.webPath);
       //this.saveImage(image);
     }
@@ -142,7 +149,10 @@ export class AddRecipeComponent implements OnInit {
     }
   }
 
-  async saveImage(photo: Photo){
+  async saveImage(photo: Photo, recipeId: string): Promise<boolean>{
+    if(this.photo === null){
+      return false;
+    }
     const base64Data = await this.readAsBase64(photo);
 
     const fileName = new Date().getTime() + '.jpeg';
@@ -153,8 +163,22 @@ export class AddRecipeComponent implements OnInit {
       data: base64Data
     });
 
+    //Upload Image to Recipe
+    const formData = new FormData();
+    formData.append('file', this.dataURLtoFile(base64Data, fileName), fileName);
+
+    this.http.post(environment.apiBase+'api/Food/UploadImage', {recipeId,formData}, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress)
+          {this.progress = Math.round(100 * event.loaded / event.total);}
+        else if (event.type === HttpEventType.Response) {
+          this.message = 'Upload success.';
+        }
+      });
+
+    return true;
     //https://www.youtube.com/watch?v=fU8uM5oU1wY&ab_channel=SimonGrimm
-  }
+}
 
   async readAsBase64(photo: Photo) {
     // "hybrid" will detect Cordova or Capacitor
@@ -243,7 +267,24 @@ export class AddRecipeComponent implements OnInit {
     };
     console.log('saved!');
 
-    //this.recipeService.apiRecipePost()
+    //TBD
+    //let recipeId = '';
+    //this.recipeService.apiRecipePost(creation).subscribe(x=> recipeId = x.id);
+    //console.log(recipeId);
+
+    //this.saveImage(this.photo, recipeId);
   }
+
+  dataURLtoFile(dataurl, filename) {
+    const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type: mime});
+}
 
 }

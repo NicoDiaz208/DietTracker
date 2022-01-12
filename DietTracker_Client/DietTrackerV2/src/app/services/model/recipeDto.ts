@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import { CategoryDto } from './categoryDto';
-import { IngredientDto } from './ingredientDto';
+import { Ingredient } from './ingredient';
 
 export interface RecipeDto { 
     id?: string;
@@ -19,5 +19,5 @@ export interface RecipeDto {
     difficulty?: number;
     category?: Array<CategoryDto>;
     preparation?: string;
-    foodIds?: Array<IngredientDto>;
+    foodIds?: Array<Ingredient>;
 }

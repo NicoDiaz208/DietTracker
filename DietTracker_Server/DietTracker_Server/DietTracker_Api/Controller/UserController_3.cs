@@ -1,5 +1,6 @@
 ﻿using DietTracker_DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace DietTracker_Api.Controller
@@ -16,7 +17,7 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
             var bmr = 66.47 + (13.75 * item.Weight) + (5.003 * item.Height) - 6.755 * GetAgeSolo(item);
-            return Ok(bmr);
+            return Ok(Convert.ToInt32(bmr));
         }
     }
 }

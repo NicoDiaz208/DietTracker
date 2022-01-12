@@ -16,12 +16,13 @@
 
           <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
-            <ion-input [(ngModel)]="this.password" type="password" name="password" required></ion-input>
+            <ion-input [(ngModel)]="this.password" type="password" name="password" required (keyup)="handleKeyUp($event)" ></ion-input>
           </ion-item>
 
           <ion-button (click)="submitForm()" type="submit" color="danger" expand="block">Sign In</ion-button>
           <a [routerLink]="['/forgot-pass']" class="small-text">Forgot Password?</a>
         </form>
+        <a style="text-align:center" [routerLink]="['/signup']" class="small-text">Have no account yet? Sign up now!</a>
       </ion-col>
     </ion-row>
   </ion-grid>

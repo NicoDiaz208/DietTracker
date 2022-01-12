@@ -79,6 +79,8 @@ export class SignupComponent implements OnInit {
       this.userCreate.weight = this.weight;
       this.userCreate.activityLevel = this.activityLevel;
 
+      console.log(this.password);
+
       this.loginCreate.password = this.password;
       this.loginCreate.username = this.username;
 

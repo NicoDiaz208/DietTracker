@@ -514,19 +514,19 @@ export class UserService {
     /**
      * 
      * 
-     * @param ageid 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUserGetAgeGet(ageid?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public apiUserGetAgeGet(ageid?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public apiUserGetAgeGet(ageid?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public apiUserGetAgeGet(ageid?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiUserGetAgeGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetAgeGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetAgeGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetAgeGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (ageid !== undefined && ageid !== null) {
-            queryParameters = queryParameters.set('ageid', <any>ageid);
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
         }
 
         let headers = this.defaultHeaders;
@@ -920,6 +920,52 @@ export class UserService {
         ];
 
         return this.httpClient.request<string>('get',`${this.basePath}/api/User/GetCalorieIntakeByDate`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetSingleBMRGet(id?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetSingleBMRGet(id?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetSingleBMRGet(id?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetSingleBMRGet(id?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetSingleBMR`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

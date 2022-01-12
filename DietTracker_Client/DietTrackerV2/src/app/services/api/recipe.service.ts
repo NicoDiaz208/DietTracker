@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Category } from '../model/category';
 import { FileInfo } from '../model/fileInfo';
+import { Recipe } from '../model/recipe';
 import { RecipeCreationDto } from '../model/recipeCreationDto';
 import { RecipeDto } from '../model/recipeDto';
 
@@ -289,6 +290,52 @@ export class RecipeService {
 
         return this.httpClient.request<string>('get',`${this.basePath}/api/Recipe/GetRandom`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param count 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Recipe>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Recipe>>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Recipe>>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (count !== undefined && count !== null) {
+            queryParameters = queryParameters.set('count', <any>count);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Recipe>>('get',`${this.basePath}/api/Recipe/GetRandomWithCount`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

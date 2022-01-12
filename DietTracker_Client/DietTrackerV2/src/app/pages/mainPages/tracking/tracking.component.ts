@@ -9,23 +9,24 @@ import { WaterIntakeDto } from 'src/app/services/model/waterIntakeDto';
 import { SleepDto } from 'src/app/services/model/sleepDto';
 import { CalorieIntakeService } from 'src/app/services/api/calorieIntake.service';
 import { CalorieIntakeDto } from 'src/app/services/model/calorieIntakeDto';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
   styleUrls: ['./tracking.component.scss'],
 })
 export class TrackingComponent implements OnInit {
-  private watercount = 0;
-  private sleepcount = 0;
   public user: UserDto = {};
   public waterIntake: WaterIntakeDto = {};
   public sleep: SleepDto = {};
-  private sleepId = '';
-  private waterId = '';
   public calorieIntake: CalorieIntakeDto = {};
   public calorieIntakeId = '';
-  public calorienGoal : number = 0;
+  public calorienGoal = 0;
+
+  private sleepId = '';
+  private waterId = '';
+  private watercount = 0;
+  private sleepcount = 0;
 
 
   constructor(private router: Router,private waterintakeService: WaterIntakeService,

@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   password = '';
   user = '';
   loginForm: FormGroup;
+  msg = '';
 
   constructor(
     private loginService: LoginService,
@@ -43,4 +44,15 @@ export class LoginComponent implements OnInit {
   mainnav(){
     this.router.navigate(['/main-pages/fooder']);
   }
+
+  handleSubmit(e){
+    e.preventDefault();
+    alert(this.msg);
+  }
+
+  handleKeyUp(e){
+    if(e.keyCode === 13){
+       this.submitForm();
+    }
+ }
 }

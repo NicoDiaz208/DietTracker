@@ -19,7 +19,6 @@ import { Observable }                                        from 'rxjs';
 
 import { Category } from '../model/category';
 import { FileInfo } from '../model/fileInfo';
-import { Recipe } from '../model/recipe';
 import { RecipeCreationDto } from '../model/recipeCreationDto';
 import { RecipeDto } from '../model/recipeDto';
 
@@ -305,9 +304,9 @@ export class RecipeService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Recipe>>;
-    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Recipe>>>;
-    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Recipe>>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<RecipeDto>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RecipeDto>>>;
+    public apiRecipeGetRandomWithCountGet(count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RecipeDto>>>;
     public apiRecipeGetRandomWithCountGet(count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -333,7 +332,7 @@ export class RecipeService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Recipe>>('get',`${this.basePath}/api/Recipe/GetRandomWithCount`,
+        return this.httpClient.request<Array<RecipeDto>>('get',`${this.basePath}/api/Recipe/GetRandomWithCount`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

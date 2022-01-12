@@ -1,10 +1,10 @@
-<ion-content>
-      <ion-card class="ion-card-main" color="light">
+<ion-content class="size-content">
+      <ion-card color="light" *ngFor="let rec of recipes" [style.position]="'absolute'">
         <ion-card-header>
             <ion-title *ngIf="this.isAdded">
               <ion-badge>Added</ion-badge>
             </ion-title>
-          <ion-card-title class="ion-text-center">{{recipe.name}}</ion-card-title>
+          <ion-card-title class="ion-text-center">{{rec.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-grid>
@@ -32,6 +32,7 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
+      <!-- <ion-card class="ion-card-content"></ion-card> -->
 
   <!--
     <ion-content>

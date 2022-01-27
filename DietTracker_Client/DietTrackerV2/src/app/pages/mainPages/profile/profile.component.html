@@ -28,8 +28,8 @@
       <br>
       <br>
       <br>
-      <ion-text class="ttt4" style="font-size:160%;"> Die Letzten Tage</ion-text>
-      <ion-content class="ttt">
+      <ion-text > Die Letzten Tage</ion-text>
+
         <ion-grid>
           <ion-row>
             <ion-col size="6" *ngFor="let progress of progresses | slice:0:5 ; let i= index">
@@ -41,12 +41,11 @@
                 <ion-text>+{{progress.protein}} prot. and +{{progress.calories}} kcal.  </ion-text>
               </ion-card-content>
             </ion-card>
-          </ion-col> 
+          </ion-col>
         </ion-row>
       </ion-grid>
+
     </ion-content>
-    </ion-content>
 
 
 
-   

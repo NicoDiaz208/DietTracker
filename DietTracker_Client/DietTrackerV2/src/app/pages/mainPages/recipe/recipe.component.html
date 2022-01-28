@@ -6,14 +6,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-content style="width: 80%; left: 10%;">
+  <ion-content>
     <ion-list>
-      <ion-list-header style="font-size: 120%    ;">
-        <ion-title style="font-size: small; padding-left: 0%;">Kategorien</ion-title>
-        <ion-searchbar></ion-searchbar>
+      <ion-list-header>
+        <ion-searchbar placeholder="Search Recipes"  style="margin: 0;"></ion-searchbar>
       </ion-list-header>
-
-      <ion-item detail button *ngFor="let cat of categories" (click)="nextPage(cat.name)">
+      <ion-item class="ion-text-center" detail button *ngFor="let cat of categories" (click)="nextPage(cat.name)">
         <ion-text >{{cat.name}}</ion-text>
       </ion-item>
     </ion-list>

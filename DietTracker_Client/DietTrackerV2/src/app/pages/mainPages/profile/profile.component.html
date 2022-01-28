@@ -5,45 +5,46 @@
 </ion-header>
 
 <ion-content class="flex">
-    <ion-avatar class="image-center">
-      <img src="../../../../assets/Recipes/TestPerson.jpg">
-    </ion-avatar>
-    <ion-grid class="ttt3">
-      <ion-row>
-          <ion-col class="col1" style="font-size:160%;">Alter:</ion-col>
-          <ion-col class="col2" style="font-size:160%;">Gewicht:</ion-col>
-          <ion-col class="col3" style="font-size:160%;">Ziel:</ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col class="col1" style="font-size:160%;"> {{age}}</ion-col>
-          <ion-col class="col2" style="font-size:160%;"> {{user.weight}}</ion-col>
-          <ion-col class="col3"style="font-size:160%;"> {{user.goalWeight}}</ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <ion-content class="ttt2">
-      <ion-text id="progressbar" style="font-size:160%;" >Progress bar</ion-text>
-      <br>
-      <ion-progress-bar style="width: 75%; left: 14.5%; height: 1.5%;"> </ion-progress-bar>
-      <br>
-      <br>
-      <br>
-      <ion-text > Die Letzten Tage</ion-text>
-
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6" *ngFor="let progress of progresses | slice:0:5 ; let i= index">
-            <ion-card>
-              <ion-card-header>
-                <ion-text>{{progress.date | date:'dd.mm.yyyy'}}</ion-text>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-text>+{{progress.protein}} prot. and +{{progress.calories}} kcal.  </ion-text>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
+    <ion-card>
+      <ion-avatar class="image-center">
+        <img src="../../../../assets/Recipes/TestPerson.jpg">
+      </ion-avatar>
+      <ion-grid class="ttt3">
+        <ion-row>
+            <ion-col class="col1" style="font-size:160%;">Alter:</ion-col>
+            <ion-col class="col2" style="font-size:160%;">Gewicht:</ion-col>
+            <ion-col class="col3" style="font-size:160%;">Ziel:</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="col1" style="font-size:160%;"> {{age}}</ion-col>
+            <ion-col class="col2" style="font-size:160%;"> {{user.weight}}</ion-col>
+            <ion-col class="col3"style="font-size:160%;"> {{user.goalWeight}}</ion-col>
         </ion-row>
       </ion-grid>
+    </ion-card>
+
+        <ion-text id="progressbar" style="font-size:160%;" >Progress bar</ion-text>
+        <br>
+        <ion-progress-bar style="width: 75%; left: 14.5%; height: 1.5%;"> </ion-progress-bar>
+        <br>
+        <br>
+        <br>
+        <ion-text > Die Letzten Tage</ion-text>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" *ngFor="let progress of progresses | slice:0:5 ; let i= index">
+              <ion-card>
+                <ion-card-header>
+                  <ion-text>{{progress.date | date:'dd.mm.yyyy'}}</ion-text>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-text>+{{progress.protein}} prot. and +{{progress.calories}} kcal.  </ion-text>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
     </ion-content>
 

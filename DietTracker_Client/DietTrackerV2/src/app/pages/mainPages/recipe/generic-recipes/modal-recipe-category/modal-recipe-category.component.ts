@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { FoodService } from 'src/app/services/api/food.service';
 import { RecipeService } from 'src/app/services/api/recipe.service';
 import { Food } from 'src/app/services/model/food';
@@ -16,10 +16,17 @@ export class ModalRecipeCategoryComponent implements OnInit {
   @Input() recipe: RecipeDto;
   public foods: FoodDto[];
 
-  constructor(private foodService: FoodService) { }
+  constructor(private foodService: FoodService,private modalController: ModalController) { }
 
   ngOnInit() {
     this.foodService.apiFoodGetListOfFoodPost(this.recipe.foodIds.map(i=>i.foodId)).subscribe(i=> this.foods = i);
+
+  }
+
+  back(){
+    this.modalController.dismiss({
+      recipe: this.recipe
+    });
   }
 
 }

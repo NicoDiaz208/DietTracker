@@ -7,11 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- 
+
 <ion-item> 
   <ion-label>Kind of Activty</ion-label>
   <ion-select>
-    <ion-select-option *ngFor="let activtiy of activitys" [value]="activtiy">{{}}</ion-select-option>
+    <ion-select-option >Running</ion-select-option>
+    <ion-select-option >Swimming</ion-select-option>
+    <ion-select-option >Hiking</ion-select-option>
+    <ion-select-option >Walking</ion-select-option>
+    <ion-select-option >Cycling</ion-select-option>
   </ion-select>
 </ion-item>
 
@@ -21,7 +25,7 @@
   </ion-avatar>
     <ion-label>
       <h2>Distance</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]="this.calorieIntake.calorieCurrent"></ion-input>
+      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.distance"></ion-input>
     </ion-label>
  </ion-item>
 
@@ -31,7 +35,7 @@
   </ion-avatar>
     <ion-label>
       <h2>Duration</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]="this.calorieIntake.calorieCurrent"></ion-input>
+      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.minutes"></ion-input>
     </ion-label>
  </ion-item>
 
@@ -41,6 +45,7 @@
   </ion-avatar>
     <ion-label>
       <h2>Burnd Calorien</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]=""></ion-input>
+      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.burnedCalories"></ion-input>
     </ion-label>
- </ion-item> -->
+ </ion-item> 
+ <ion-button (click)="this.add()">Add</ion-button>

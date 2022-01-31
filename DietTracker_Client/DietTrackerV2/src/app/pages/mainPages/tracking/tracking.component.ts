@@ -53,6 +53,11 @@ export class TrackingComponent implements OnInit {
     //    this.router.navigate(["/main-pages/recipe/generic" ,cat])
   }
 
+  navigateActivity(){
+    this.router.navigate(['/main-pages/tracking/trackActivity', this.calorieIntakeId]);
+   
+  }
+
   increaseWater(){
     this.waterIntake.goWC += 1;
   }

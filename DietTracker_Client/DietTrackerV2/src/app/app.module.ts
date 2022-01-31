@@ -40,6 +40,7 @@ import { ModalRecipeCategoryComponent }
 from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recipe-category.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CategoryService } from './services/api/category.service';
+import { TrackActivityComponent } from './pages/mainPages/tracking/components/track-activity/track-activity.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { CategoryService } from './services/api/category.service';
     ForgotpassComponent,
     AddRecipeComponent,
     ModalFoodComponent,
-    ModalRecipeCategoryComponent
+    ModalRecipeCategoryComponent,
+    TrackActivityComponent
   ],
   entryComponents: [],
   imports: [

@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AcitvityEnum } from './acitvityEnum';
 
-export interface ActivityDto { 
-    id?: string;
-    name?: AcitvityEnum;
-    distance?: number;
-    minutes?: number;
-    burnedCalories?: number;
-    date?: Date;
-}
+export type AcitvityEnum = 0 | 1 | 2 | 3 | 4;
+
+export const AcitvityEnum = {
+    NUMBER_0: 0 as AcitvityEnum,
+    NUMBER_1: 1 as AcitvityEnum,
+    NUMBER_2: 2 as AcitvityEnum,
+    NUMBER_3: 3 as AcitvityEnum,
+    NUMBER_4: 4 as AcitvityEnum
+};

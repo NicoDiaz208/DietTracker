@@ -13,7 +13,7 @@ namespace DietTracker_DataAccess
 
     public record Activity(
         ObjectId Id,
-        string name,
+        AcitvityEnum name,
         double distance,		//km
         int minutes,			//duration of activity
         double burnedCalories,

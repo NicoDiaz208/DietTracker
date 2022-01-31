@@ -1,6 +1,7 @@
 export * from './achievement';
 export * from './achievementCreationDto';
 export * from './achievementDto';
+export * from './acitvityEnum';
 export * from './activity';
 export * from './activityCreationDto';
 export * from './activityDto';

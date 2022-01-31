@@ -13,7 +13,7 @@ import { ObjectId } from './objectId';
 
 export interface DailyProgress { 
     id?: ObjectId;
-    now?: number;
+    percentage?: number;
     protein?: number;
     calories?: number;
     date?: Date;

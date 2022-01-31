@@ -21,7 +21,7 @@ namespace DietTracker_Api.Controller
         }
 
        public record ActivityCreationDto(
-            string name,
+            AcitvityEnum name,
             double distance,		//km
             int minutes,			//duration of activity
             double burnedCalories,
@@ -30,7 +30,7 @@ namespace DietTracker_Api.Controller
 
        public record ActivityDto(
            string Id,
-           string name,
+           AcitvityEnum name,
             double distance,		//km
             int minutes,			//duration of activity
             double burnedCalories,

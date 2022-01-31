@@ -9,15 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AcitvityEnum } from './acitvityEnum';
 import { ObjectId } from './objectId';
 
 export interface Activity { 
     id?: ObjectId;
-    steps?: number;
-    activeTime?: number;
-    goalTime?: number;
-    burnedCalories?: number;
-    isDone?: boolean;
-    date?: Date;
+    name?: AcitvityEnum;
     distance?: number;
+    minutes?: number;
+    burnedCalories?: number;
+    date?: Date;
 }

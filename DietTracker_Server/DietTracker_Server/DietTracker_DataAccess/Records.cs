@@ -13,13 +13,11 @@ namespace DietTracker_DataAccess
 
     public record Activity(
         ObjectId Id,
-        int Steps,
-        double ActiveTime,
-        double GoalTime,
-        double BurnedCalories,
-        bool IsDone,
-        DateTime Date,
-        double Distance) : IHaveId;
+        string name,
+        double distance,		//km
+        int minutes,			//duration of activity
+        double burnedCalories,
+        DateTime date) : IHaveId;
 
     public record CalorieIntake(
         ObjectId Id,
@@ -35,9 +33,9 @@ namespace DietTracker_DataAccess
 
     public record DailyProgress(
         ObjectId Id,
-        double Now,
+        double Percentage,
         double Protein,
-        double Calories,
+        double Calories,        //
         DateTime Date) : IHaveId;
 
     public record Food(

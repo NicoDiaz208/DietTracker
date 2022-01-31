@@ -203,12 +203,12 @@ namespace DietTracker_Api.Controller
                 var cur = await activityCollection.GetById(i.ToString());
                 if (cur == null) continue;
 
-                if (cur.IsDone == true && isSameDay(cur.Date, date))
+                if (isSameDay(cur.date, date))
                 {
                     countIsTrue++;
                     acList.Add(cur);
                 }
-                else if(cur.IsDone == false && isSameDay(cur.Date, date))
+                else if(isSameDay(cur.date, date))
                 {
                     acList.Add(cur);
                 }

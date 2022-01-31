@@ -37,7 +37,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<IEnumerable<DailyProgressDto>>> GetAll()
         {
             var dbResult = await dailyProgressCollection.GetAll();
-            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(),a.Protein,a.Calories, a.Now,a.Date));
+            var result = dbResult.Select(a => new DailyProgressDto(a.Id.ToString(),a.Protein,a.Calories, a.Percentage,a.Date));
             return Ok(result);
         }
 
@@ -50,7 +50,7 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new DailyProgressDto(item.Id.ToString(),item.Protein,item.Calories, item.Now,item.Date);
+            return new DailyProgressDto(item.Id.ToString(),item.Protein,item.Calories, item.Percentage,item.Date);
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@ namespace DietTracker_Api.Controller
             var na = new DailyProgress(ObjectId.Empty, item.Now,item.Protein,item.Calories,item.Date);
             await dailyProgressCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
-                new DailyProgressDto(na.Id.ToString(),na.Protein,na.Calories, na.Now,na.Date));
+                new DailyProgressDto(na.Id.ToString(),na.Protein,na.Calories, na.Percentage,na.Date));
         }
 
         [HttpPost]

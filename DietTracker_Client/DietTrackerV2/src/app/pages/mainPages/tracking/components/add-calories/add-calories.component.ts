@@ -14,9 +14,11 @@ export class AddCaloriesComponent implements OnInit {
   @Input() calorieIntakeId: string = '';
   b: number;
   public calorieIntake: CalorieIntakeDto = {};
+  public newCalorieIntake: CalorieIntakeDto = { fatCurrent: 0, proteinCurrent: 0, calorieCurrent: 0, carbohydratesCurrent: 0 };
+
   constructor(private userService: UserService, private calorieIntakeService: CalorieIntakeService, private route: ActivatedRoute,
     private router: Router) {
-    this.route.paramMap.subscribe(data => this.calorieIntakeId = data.get("calorieIntakeId"));
+    this.route.paramMap.subscribe(data => this.calorieIntakeId = data.get('calorieIntakeId'));
 
   }
 
@@ -28,12 +30,12 @@ export class AddCaloriesComponent implements OnInit {
 
   async update(){
     console.log(this.calorieIntake.calorieCurrent);
-    let creation : CalorieIntakeCreationDto = {};
+    const creation: CalorieIntakeCreationDto = {};
 
-    creation.calorieCurrent = this.calorieIntake.calorieCurrent;
-    creation.carbohydratesCurrent = this.calorieIntake.carbohydratesCurrent;
-    creation.proteinCurrent = this.calorieIntake.proteinCurrent;
-    creation.fatCurrent = this.calorieIntake.fatCurrent;
+    creation.calorieCurrent = +this.calorieIntake.calorieCurrent + +this.newCalorieIntake.calorieCurrent;
+    creation.carbohydratesCurrent = +this.calorieIntake.carbohydratesCurrent + +this.newCalorieIntake.carbohydratesCurrent;
+    creation.proteinCurrent = +this.calorieIntake.proteinCurrent + +this.newCalorieIntake.proteinCurrent;
+    creation.fatCurrent = +this.calorieIntake.fatCurrent + +this.newCalorieIntake.fatCurrent;
     creation.date = this.calorieIntake.date;
     creation.fatGoal = this.calorieIntake.fatGoal;
     creation.carbohydratesGoal = this.calorieIntake.carbohydratesGoal;

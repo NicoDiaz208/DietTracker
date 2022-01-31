@@ -21,31 +21,27 @@ namespace DietTracker_Api.Controller
         }
 
        public record ActivityCreationDto(
-           int Steps, 
-           double ActiveTime, 
-           double GoalTime, 
-           double BurnedCalories,
-           bool IsDone,
-           DateTime Date,
-           double Distance
-           );
+            string name,
+            double distance,		//km
+            int minutes,			//duration of activity
+            double burnedCalories,
+            DateTime date
+       );
 
        public record ActivityDto(
            string Id,
-           int Steps, 
-           double ActiveTime, 
-           double GoalTime, 
-           double BurnedCalories,
-           bool IsDone,
-           DateTime Date,
-           double Distance
+           string name,
+            double distance,		//km
+            int minutes,			//duration of activity
+            double burnedCalories,
+            DateTime date
            );
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ActivityDto>>> GetAll()
         {
             var dbResult = await activityCollection.GetAll();
-            var result = dbResult.Select(a => new ActivityDto(a.Id.ToString(), a.Steps, a.ActiveTime, a.GoalTime, a.BurnedCalories,a.IsDone, a.Date, a.Distance));
+            var result = dbResult.Select(a => new ActivityDto(a.Id.ToString(), a.name, a.distance, a.minutes, a.burnedCalories, a.date));
             
             return Ok(result);
         }
@@ -60,37 +56,24 @@ namespace DietTracker_Api.Controller
                 return NotFound();
             }
 
-            return new ActivityDto(result.Id.ToString(), result.Steps, result.ActiveTime, result.GoalTime, result.BurnedCalories, result.IsDone, result.Date,result.Distance);
+            return new ActivityDto(result.Id.ToString(), result.name, result.distance, result.minutes, result.burnedCalories, result.date);
         }
 
         [HttpPost]
         public async Task<ActionResult<ActivityDto>> Add(ActivityCreationDto activityCreationDto)
         {
-            var na = new Activity(ObjectId.Empty, activityCreationDto.Steps, activityCreationDto.ActiveTime, activityCreationDto.GoalTime, activityCreationDto.BurnedCalories,activityCreationDto.IsDone, activityCreationDto.Date, activityCreationDto.Distance);
+            var na = new Activity(ObjectId.Empty, activityCreationDto.name, activityCreationDto.distance, activityCreationDto.minutes, activityCreationDto.burnedCalories,activityCreationDto.date);
             await activityCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleActivity), new { Id = na.Id },
-                new ActivityDto(na.Id.ToString(), na.Steps, na.ActiveTime, na.GoalTime, na.BurnedCalories, na.IsDone, na.Date , na.Distance));
+                new ActivityDto(na.Id.ToString(), na.name, na.distance, na.minutes, na.burnedCalories, na.date));
         }
 
         [HttpPost]
         [Route(nameof(Replace))]
         public async Task<ActionResult<ActivityDto>> Replace(ActivityCreationDto activityCreationDto, string id)
         {
-            var na = new Activity(ObjectId.Parse(id), activityCreationDto.Steps, activityCreationDto.ActiveTime, activityCreationDto.GoalTime, activityCreationDto.BurnedCalories, activityCreationDto.IsDone, activityCreationDto.Date, activityCreationDto.Distance);
+            var na = new Activity(ObjectId.Parse(id), activityCreationDto.name, activityCreationDto.distance, activityCreationDto.minutes, activityCreationDto.burnedCalories, activityCreationDto.date);
             await activityCollection.ReplaceById(id, na);
-            return Ok(200);
-        }
-
-        [HttpPost]
-        [Route(nameof(InitActivity))]
-        public async Task<ActionResult<ActivityDto>> InitActivity()
-        {
-            var na = new Activity(ObjectId.Empty, 5, 10, 20, 600, false, DateTime.Now, 7);
-            await activityCollection.InsertOneAsync(na);
-            na = new Activity(ObjectId.Empty, 500, 110, 210, 40, false, DateTime.Now, 3);
-            await activityCollection.InsertOneAsync(na);
-            na = new Activity(ObjectId.Empty, 50, 100, 200, 6000, false, DateTime.Now, 70);
-            await activityCollection.InsertOneAsync(na);
             return Ok(200);
         }
     }

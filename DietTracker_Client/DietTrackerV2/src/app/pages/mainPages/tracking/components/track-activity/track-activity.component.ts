@@ -20,6 +20,7 @@ export class TrackActivityComponent implements OnInit {
   public activity: ActivityCreationDto = {}
   public activities: ActivityDto[] = []
   private router:Router
+  private dailyActivities : Activity[] = []
 
 
   constructor(private userService: UserService, private activityService : ActivityService) { 
@@ -29,6 +30,7 @@ export class TrackActivityComponent implements OnInit {
   async ngOnInit() {
     
     this.activities = await this.activityService.apiActivityGet().toPromise()
+    this.dailyActivities = await this.userService.apiUserGetAllActivitiesGet().toPromise()
   }
 
   add(){

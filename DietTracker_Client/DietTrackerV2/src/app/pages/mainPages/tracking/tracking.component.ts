@@ -86,4 +86,7 @@ export class TrackingComponent implements OnInit {
     await this.sleepService.apiSleepReplacePost(this.sleep,this.sleepId).toPromise();
     await this.waterintakeService.apiWaterIntakeReplacePost(this.waterIntake, this.waterId).toPromise();
   }
+  navigateAllActivitys(){
+    this.router.navigate(['/main-pages/tracking/allActivities']);
+  }
 }

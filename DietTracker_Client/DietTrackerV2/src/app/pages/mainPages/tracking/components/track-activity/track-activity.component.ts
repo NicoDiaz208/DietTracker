@@ -30,9 +30,9 @@ export class TrackActivityComponent implements OnInit {
   }
 
   add(){
-    
-
-     this.activityService.apiActivityPost(this.activity)
+    this.activity.date = new Date(Date.now())
+    console.log(this.activity.date)
+    this.activityService.apiActivityPost(this.activity)
   }
 
 

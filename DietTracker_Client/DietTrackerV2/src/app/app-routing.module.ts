@@ -12,6 +12,7 @@ import { AddCaloriesComponent } from './pages/mainPages/tracking/components/add-
 import { TrackingComponent } from './pages/mainPages/tracking/tracking.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-recipe.component';
+import { TrackActivityComponent } from './pages/mainPages/tracking/components/track-activity/track-activity.component';
 
 const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'tracking/addCalories/:calorieIntakeId', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent},
       { path: 'tracking/achievement', component: AchievementComponent},
-      { path: 'recipe/add-recipe', component: AddRecipeComponent}
+      { path: 'recipe/add-recipe', component: AddRecipeComponent},
+      { path: 'tracking/track-activity', component : TrackActivityComponent}
     ]
   },
   { path: '**', redirectTo: '/login'},

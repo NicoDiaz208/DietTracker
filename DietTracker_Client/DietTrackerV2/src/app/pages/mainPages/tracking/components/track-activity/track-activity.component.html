@@ -7,10 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content [fullscreen]="true">
 
+<ion-list>
 <ion-item>
   <ion-avatar slot="start">
-    <img src="">
+    <img src="../../../../../../assets/icon/sport-equipment.png">
   </ion-avatar>
   <ion-label>
     <h2>Kind of Activity</h2>
@@ -20,7 +22,7 @@
 
 <ion-item>
   <ion-avatar slot="start">
-    <img src="">
+    <img src="../../../../../../assets/icon/distance.png">
   </ion-avatar>
     <ion-label>
       <h2>Distance</h2>
@@ -30,7 +32,7 @@
 
  <ion-item>
   <ion-avatar slot="start">
-    <img src="">
+    <img src="../../../../../../assets/icon/clock.png">
   </ion-avatar>
     <ion-label>
       <h2>Duration</h2>
@@ -40,11 +42,13 @@
 
  <ion-item>
   <ion-avatar slot="start">
-    <img src="">
+    <img src="../../../../../../assets/icon/trending-topic.png">
   </ion-avatar>
     <ion-label>
       <h2>Burnd Calorien</h2>
       <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.burnedCalories"></ion-input>
     </ion-label>
  </ion-item> 
- <ion-button (click)="this.add()">Add</ion-button>
+
+ <ion-button (click)="add()">Add</ion-button>
+</ion-list>

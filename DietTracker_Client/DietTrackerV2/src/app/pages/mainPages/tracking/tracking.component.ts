@@ -54,7 +54,7 @@ export class TrackingComponent implements OnInit {
   }
 
   navigateActivity(){
-    this.router.navigate(['/main-pages/tracking/trackActivity', this.calorieIntakeId]);
+    this.router.navigate(['/main-pages/tracking/trackActivity']);
    
   }
 

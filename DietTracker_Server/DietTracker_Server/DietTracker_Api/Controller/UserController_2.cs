@@ -75,6 +75,29 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet]
+        [Route(nameof(GetAllDailyActivities))]
+        public async Task<ActionResult<List<Activity>>> GetAllDailyActivities(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            if (usr == null) return NotFound();
+
+            List<Activity> aclist = new();
+
+            foreach (ObjectId i in usr.ActivityIds)
+            {
+                var activity = await activityCollection.GetById(i.ToString());
+                if (activity == null) break;
+                else if (activity.date.Date == System.DateTime.Now.Date)
+                {
+                    aclist.Add(activity);
+                }
+
+            }
+
+            return aclist;
+        }
+
+        [HttpGet]
         [Route(nameof(GetAllCalorieIntake))]
         public async Task<ActionResult<List<CalorieIntake>>> GetAllCalorieIntake(string userId)
         {

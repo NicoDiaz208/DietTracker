@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivityService } from 'src/app/services/api/activity.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { AcitvityEnum } from 'src/app/services/model/acitvityEnum';
@@ -18,6 +19,7 @@ export class TrackActivityComponent implements OnInit {
   public user:UserDto = {}
   public activity: ActivityCreationDto = {}
   public activities: ActivityDto[] = []
+  private router:Router
 
 
   constructor(private userService: UserService, private activityService : ActivityService) { 
@@ -34,6 +36,8 @@ export class TrackActivityComponent implements OnInit {
     console.log(this.activity.date)
     this.activityService.apiActivityPost(this.activity)
   }
-
+  back(){
+    this.router.navigate(['/main-pages/tracking/']);
+  }
 
 }

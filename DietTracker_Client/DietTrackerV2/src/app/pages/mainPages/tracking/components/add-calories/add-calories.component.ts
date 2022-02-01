@@ -46,4 +46,8 @@ export class AddCaloriesComponent implements OnInit {
 
     this.router.navigate(['/main-pages/tracking/']);
   }
+
+  back(){
+    this.router.navigate(['/main-pages/tracking/']);
+  }
 }

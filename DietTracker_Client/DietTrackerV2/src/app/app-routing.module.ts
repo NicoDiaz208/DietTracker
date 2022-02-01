@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent},
       { path: 'tracking/achievement', component: AchievementComponent},
       { path: 'recipe/add-recipe', component: AddRecipeComponent},
-      { path: 'tracking/track-activity', component : TrackActivityComponent}
+      { path: 'tracking/trackActivity', component : TrackActivityComponent}
     ]
   },
   { path: '**', redirectTo: '/login'},

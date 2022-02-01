@@ -8,15 +8,14 @@
 </ion-header>
 
 
-<ion-item> 
-  <ion-label>Kind of Activty</ion-label>
-  <ion-select>
-    <ion-select-option >Running</ion-select-option>
-    <ion-select-option >Swimming</ion-select-option>
-    <ion-select-option >Hiking</ion-select-option>
-    <ion-select-option >Walking</ion-select-option>
-    <ion-select-option >Cycling</ion-select-option>
-  </ion-select>
+<ion-item>
+  <ion-avatar slot="start">
+    <img src="">
+  </ion-avatar>
+  <ion-label>
+    <h2>Kind of Activity</h2>
+    <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.name"></ion-input>
+  </ion-label>
 </ion-item>
 
 <ion-item>

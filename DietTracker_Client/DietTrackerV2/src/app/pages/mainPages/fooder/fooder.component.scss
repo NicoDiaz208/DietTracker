@@ -1,8 +1,6 @@
 
 ion-card{
-  height: 85%;
-  width: 80%;
-  left: 10%;
+  height: 90%;
 }
 
 ion-img{
@@ -56,4 +54,14 @@ p b {
 
 .ion-card-main{
   margin-top: 3%;
+}
+
+textarea {
+  // overwrite inline styles
+  //--offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

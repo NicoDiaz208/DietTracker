@@ -11,45 +11,14 @@
 <br>
 
 <ion-list>
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="../../../../../../assets/Recipes/restaurant.png">
-    </ion-avatar>
-    <ion-label>
-      <h2>Kalorien Eingabe</h2>
-      <ion-input disabled="true" placeholder="Enter Input" [(ngModel)]="this.calorieIntake.calorieCurrent"></ion-input>
-    </ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="../../../../../../assets/Recipes/Protein.jpg">
-    </ion-avatar>
-    <ion-label>
-      <h2>Protein Eingabe</h2>
-      <ion-input disabled="true" placeholder="Enter Input"  [(ngModel)]="this.calorieIntake.proteinCurrent"></ion-input>
-    </ion-label>
-
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="../../../../../../assets/Recipes/Kohlenhydrate.png">
-    </ion-avatar>
-    <ion-label>
-      <h2>Kohlenhydrate</h2>
-      <ion-input disabled="true" placeholder="Enter Input" [(ngModel)]="this.calorieIntake.carbohydratesCurrent"></ion-input>
-    </ion-label>
-
-  </ion-item>
-
   <ion-item >
-    <ion-avatar slot="start">
-      <img src="../../../../../../assets/Recipes/Fett.png">
-    </ion-avatar>
     <ion-label>
-      <h2>Fett</h2>
-      <ion-input disabled="true" placeholder="Enter Input" [(ngModel)]="this.calorieIntake.fatCurrent"></ion-input>
+      <h1>Current Stats</h1>
+      <ion-input disabled="true" placeholder="Fett" [(ngModel)]="this.calorieIntake.fatCurrent"> Fat</ion-input>
+      <ion-input disabled="true" placeholder="Protain" [(ngModel)]="this.calorieIntake.proteinCurrent"> Protein</ion-input>
+      <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.carbohydratesCurrent">Carbohydrates</ion-input>
+      <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.calorieCurrent">Calorie</ion-input>
+
     </ion-label>
   </ion-item>
 </ion-list>

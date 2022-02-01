@@ -41,6 +41,7 @@ from './pages/mainPages/recipe/generic-recipes/modal-recipe-category/modal-recip
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CategoryService } from './services/api/category.service';
 import { TrackActivityComponent } from './pages/mainPages/tracking/components/track-activity/track-activity.component';
+import { AllActivitiesComponent } from './pages/mainPages/tracking/components/all-activities/all-activities.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { TrackActivityComponent } from './pages/mainPages/tracking/components/tr
     AddRecipeComponent,
     ModalFoodComponent,
     ModalRecipeCategoryComponent,
-    TrackActivityComponent
+    TrackActivityComponent,
+    AllActivitiesComponent
   ],
   entryComponents: [],
   imports: [

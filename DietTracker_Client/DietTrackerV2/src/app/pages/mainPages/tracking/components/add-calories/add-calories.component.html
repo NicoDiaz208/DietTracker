@@ -10,24 +10,9 @@
 <ion-content [fullscreen]="true">
 <br>
 
-<ion-list>
-  <ion-item >
-    <ion-label>
-      <h1>Current Stats</h1>
-      <ion-input disabled="true" placeholder="Fett" [(ngModel)]="this.calorieIntake.fatCurrent"> Fat</ion-input>
-      <ion-input disabled="true" placeholder="Protain" [(ngModel)]="this.calorieIntake.proteinCurrent"> Protein</ion-input>
-      <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.carbohydratesCurrent">Carbohydrates</ion-input>
-      <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.calorieCurrent">Calorie</ion-input>
-
-    </ion-label>
-  </ion-item>
-</ion-list>
 
 <ion-list>
-  <ion-list-header>
-    <ion-label>Write your CalorieIntake</ion-label>
-  </ion-list-header>
-
+  
       <ion-item>
         <ion-avatar slot="start">
           <img src="../../../../../../assets/Recipes/restaurant.png">
@@ -71,5 +56,19 @@
 
       </ion-item>
     </ion-list>
+    <ion-list>
+      <ion-item >
+        <ion-label>
+          <h1>Current Stats</h1>
+          <ion-input disabled="true" placeholder="Fett" [(ngModel)]="this.calorieIntake.fatCurrent"> Fat</ion-input>
+          <ion-input disabled="true" placeholder="Protain" [(ngModel)]="this.calorieIntake.proteinCurrent"> Protein</ion-input>
+          <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.carbohydratesCurrent">Carbohydrates</ion-input>
+          <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.calorieCurrent">Calorie</ion-input>
+    
+        </ion-label>
+      </ion-item>
+    </ion-list>
     <ion-button (click)="this.update()">Update</ion-button>
+
+
 </ion-content>

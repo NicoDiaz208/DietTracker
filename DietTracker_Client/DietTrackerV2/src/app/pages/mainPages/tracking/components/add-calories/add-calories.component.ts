@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-calories.component.scss'],
 })
 export class AddCaloriesComponent implements OnInit {
-  @Input() calorieIntakeId: string = '';
+  @Input() calorieIntakeId = '';
   b: number;
   public calorieIntake: CalorieIntakeDto = {};
   public newCalorieIntake: CalorieIntakeDto = { fatCurrent: 0, proteinCurrent: 0, calorieCurrent: 0, carbohydratesCurrent: 0 };

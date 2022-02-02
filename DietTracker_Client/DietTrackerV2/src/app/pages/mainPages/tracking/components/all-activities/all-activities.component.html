@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-content>
     <ion-list>
-      <ion-item detail button *ngFor="let activity of activities" (click)="nextPage(activity)">
+      <ion-item detail button *ngFor="let activity of activities" (click)="nextPage(activity.id)">
         <ion-text slot="start" >{{getName(activity.name)}}</ion-text>
         <ion-text slot="end">{{activity.date | date : 'fullDate'}}</ion-text>
       </ion-item>

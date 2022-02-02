@@ -31,11 +31,9 @@ export class AllActivitiesComponent implements OnInit {
   back(){
     this.router.navigate(['/main-pages/tracking/']);
   }
-  nextPage(activity: Activity){
-    console.log(activity.id);
-    const str: string = activity.id as string;
-    console.log(str);
+  nextPage(activity: string){
 
-    this.router.navigate(['/main-pages/tracking/allActivities/ActivityDetail' ,activity.id.toString()]);
+    //this.router.navigate(['/main-pages/recipe/generic',cat]);
+    this.router.navigate(['/main-pages/tracking/allActivities/ActivityDetail',activity]);
    }
 }

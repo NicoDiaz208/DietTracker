@@ -20,7 +20,7 @@ export class RecipeComponent implements OnInit {
 
 
    nextPage(cat: string){
-    this.router.navigate(['/main-pages/recipe/generic' ,cat]);
+    this.router.navigate(['/main-pages/recipe/generic',cat]);
    }
 
    addRecipe(){

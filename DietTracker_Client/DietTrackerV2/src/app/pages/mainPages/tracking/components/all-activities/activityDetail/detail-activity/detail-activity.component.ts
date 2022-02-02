@@ -12,16 +12,18 @@ import { ActivityDto } from 'src/app/services/model/activityDto';
 export class DetailActivityComponent implements OnInit {
   @Input() activityId = '';
 
-  activity: ActivityDto = {};
+  public activity: ActivityDto = {};
 
   router: Router;
   constructor(private activityService: ActivityService) { }
 
-  async ngOnInit() {
-    this.activity = await this.activityService.getSingleActivity(this.activityId).toPromise();
+  ngOnInit() {
+    this.activityService.getSingleActivity(this.activityId).subscribe(data => this.activity = data);
   }
 
   back(){
+    console.log(this.activity.id);
+
     this.router.navigate(['/main-pages/tracking/allActivities']);
   }
 

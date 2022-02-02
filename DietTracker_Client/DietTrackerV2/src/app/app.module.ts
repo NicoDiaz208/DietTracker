@@ -42,6 +42,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { CategoryService } from './services/api/category.service';
 import { TrackActivityComponent } from './pages/mainPages/tracking/components/track-activity/track-activity.component';
 import { AllActivitiesComponent } from './pages/mainPages/tracking/components/all-activities/all-activities.component';
+import {DetailActivityComponent} from
+ './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
 
 
 @NgModule({
@@ -65,7 +67,8 @@ import { AllActivitiesComponent } from './pages/mainPages/tracking/components/al
     ModalFoodComponent,
     ModalRecipeCategoryComponent,
     TrackActivityComponent,
-    AllActivitiesComponent
+    AllActivitiesComponent,
+    DetailActivityComponent
   ],
   entryComponents: [],
   imports: [

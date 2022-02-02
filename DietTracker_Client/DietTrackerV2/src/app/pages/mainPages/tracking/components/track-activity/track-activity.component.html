@@ -8,16 +8,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
 <ion-list>
 <ion-item>
   <ion-avatar slot="start">
     <img src="../../../../../../assets/icon/sport-equipment.png">
   </ion-avatar>
-  <ion-label>
-    <h2>Kind of Activity</h2>
-    <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.name"></ion-input>
-  </ion-label>
+    <label>Kind of Activity</label>
+    <ion-accordion-group>
+        <ion-accordion value="name">
+          <ion-item slot="header">
+            <ion-label color="primary">{{this.names[this.currName]}}</ion-label>
+          </ion-item>
+
+          <ion-list slot="content">
+            <ion-item button (click)="chooseName(i)" *ngFor="let item of names; let i = index">
+              <ion-label>{{item}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+    </ion-accordion-group>
 </ion-item>
 
 <ion-item>
@@ -48,10 +57,10 @@
       <h2>Burnd Calorien</h2>
       <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.burnedCalories"></ion-input>
     </ion-label>
- </ion-item> 
+ </ion-item>
 
  <ion-button (click)="add()">Add</ion-button>
-<!-- 
+<!--
  <ion-item>
     <ion-label>
       <h2>Activity Stats</h2>
@@ -59,5 +68,5 @@
       <ion-input disabled="true" placeholder="Protain" [(ngModel)]="this.calorieIntake.proteinCurrent"> Protein</ion-input>
       <ion-input disabled="true" placeholder=""  [(ngModel)]="this.calorieIntake.carbohydratesCurrent">Carbohydrates</ion-input>
     </ion-label>
- </ion-item> 
+ </ion-item>
 </ion-list> -->

@@ -16,27 +16,39 @@ import { UserDto } from 'src/app/services/model/userDto';
 })
 export class TrackActivityComponent implements OnInit {
 
-  public user:UserDto = {}
-  public activity: ActivityCreationDto = {}
-  public activities: ActivityDto[] = []
-  private router:Router
-  private dailyActivities : Activity[] = []
+  public currName: AcitvityEnum = 0;
+  public names: string[] = [ 'Running',
+  'Swimming',
+  'Hiking',
+  'Walking',
+  'Cycling'];
+  public user: UserDto = {};
+  public activity: ActivityCreationDto = {};
+  public activities: ActivityDto[] = [];
+  private router: Router;
+  private dailyActivities: Activity[] = [];
 
 
-  constructor(private userService: UserService, private activityService : ActivityService) { 
-    
+
+  constructor(private userService: UserService, private activityService: ActivityService) {
   }
 
   async ngOnInit() {
-    
-    this.activities = await this.activityService.apiActivityGet().toPromise()
-    this.dailyActivities = await this.userService.apiUserGetAllActivitiesGet().toPromise()
+    this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
+    this.activities = await this.activityService.apiActivityGet().toPromise();
+    //this.dailyActivities = await this.userService.apiUserGetAllActivitiesGet().toPromise();
   }
 
-  add(){
-    this.activity.date = new Date(Date.now())
-    console.log(this.activity.date)
-    this.activityService.apiActivityPost(this.activity)
+  chooseName(name: number){
+    this.currName = name as AcitvityEnum;
+  }
+
+  async add(){
+    this.activity.date = new Date(Date.now());
+    this.activity.name = this.currName;
+    console.log(this.activity.name);
+    const id = await this.activityService.apiActivityPost(this.activity).toPromise();
+    await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
   }
   back(){
     this.router.navigate(['/main-pages/tracking/']);

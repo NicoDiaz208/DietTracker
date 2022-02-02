@@ -14,6 +14,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { AddRecipeComponent } from './pages/mainPages/recipe/add-recipe/add-recipe.component';
 import { TrackActivityComponent } from './pages/mainPages/tracking/components/track-activity/track-activity.component';
 import { AllActivitiesComponent } from './pages/mainPages/tracking/components/all-activities/all-activities.component';
+import {DetailActivityComponent} from
+ './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
 
 const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
@@ -31,7 +33,8 @@ const routes: Routes = [
       { path: 'tracking/achievement', component: AchievementComponent},
       { path: 'recipe/add-recipe', component: AddRecipeComponent},
       { path: 'tracking/trackActivity', component : TrackActivityComponent},
-      { path: 'tracking/allActivities', component : AllActivitiesComponent}
+      { path: 'tracking/allActivities', component : AllActivitiesComponent},
+      {path: 'tracking/allActivities/ActivityDetail', component: DetailActivityComponent}
     ]
   },
   { path: '**', redirectTo: '/login'},

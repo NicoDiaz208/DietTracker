@@ -21,7 +21,7 @@ namespace DietTracker_Api.Controller
         }
 
         public record DailyProgressCreationDto(
-            double Now,
+            double Percentage,
             double Protein,
             double Calories,
             DateTime Date);
@@ -30,7 +30,7 @@ namespace DietTracker_Api.Controller
             string Id,
             double Protein,
             double Calories,
-            double Now,
+            double Percentage,
             DateTime Date);
 
         [HttpGet]
@@ -56,7 +56,7 @@ namespace DietTracker_Api.Controller
         [HttpPost]
         public async Task<ActionResult<DailyProgressDto>> Add(DailyProgressCreationDto item)
         {
-            var na = new DailyProgress(ObjectId.Empty, item.Now,item.Protein,item.Calories,item.Date);
+            var na = new DailyProgress(ObjectId.Empty, item.Percentage,item.Protein,item.Calories,item.Date);
             await dailyProgressCollection.InsertOneAsync(na);
             return CreatedAtRoute(nameof(GetSingleDailyProgress), new { id = na.Id },
                 new DailyProgressDto(na.Id.ToString(),na.Protein,na.Calories, na.Percentage,na.Date));
@@ -66,7 +66,7 @@ namespace DietTracker_Api.Controller
         [Route(nameof(Replace))]
         public async Task<ActionResult<DailyProgressDto>> Replace(DailyProgressDto item, string id)
         {
-            var na = new DailyProgress(ObjectId.Parse(id), item.Now,item.Protein,item.Calories, item.Date);
+            var na = new DailyProgress(ObjectId.Parse(id), item.Percentage,item.Protein,item.Calories, item.Date);
             await dailyProgressCollection.ReplaceById(id, na);
             return Ok(200);
         }

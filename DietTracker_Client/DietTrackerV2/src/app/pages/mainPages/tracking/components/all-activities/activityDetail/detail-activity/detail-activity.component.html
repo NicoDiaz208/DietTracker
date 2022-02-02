@@ -1,3 +1,18 @@
-<p>
-  detail-activity works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>All Activitys</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content>
+    <ion-list>
+        <ion-text>Distance: </ion-text>
+        <ion-text >Duration: </ion-text>
+        <ion-text>Kcal Burned</ion-text>
+    </ion-list>
+  </ion-content>
+</ion-content>

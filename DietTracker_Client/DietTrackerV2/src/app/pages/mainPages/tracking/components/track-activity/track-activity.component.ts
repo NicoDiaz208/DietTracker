@@ -23,7 +23,7 @@ export class TrackActivityComponent implements OnInit {
   public activity: ActivityCreationDto = {};
   public activities: ActivityDto[] = [];
   private router: Router;
-  private dailyActivities: Activity[] = [];
+  private dailyActivities: ActivityDto[] = [];
 
 
 

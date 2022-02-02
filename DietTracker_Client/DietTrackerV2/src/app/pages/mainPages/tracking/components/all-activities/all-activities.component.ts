@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ActivityNames } from 'src/app/services/activityNames';
 import { UserService } from 'src/app/services/api/user.service';
 import { Activity } from 'src/app/services/model/activity';
+import { ActivityDto } from 'src/app/services/model/activityDto';
 import { UserDto } from 'src/app/services/model/userDto';
 
 @Component({
@@ -14,7 +15,7 @@ import { UserDto } from 'src/app/services/model/userDto';
 export class AllActivitiesComponent implements OnInit {
 
   public names: string[] = ActivityNames.instance.names;
-  public activities: Activity[] = [];
+  public activities: ActivityDto[] = [];
 
   constructor(private router: Router, private userService: UserService) { }
 

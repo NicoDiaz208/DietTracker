@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Achievement } from '../model/achievement';
 import { Activity } from '../model/activity';
+import { ActivityDto } from '../model/activityDto';
 import { CalorieIntake } from '../model/calorieIntake';
 import { DailyProgress } from '../model/dailyProgress';
 import { FileInfo } from '../model/fileInfo';
@@ -610,9 +611,9 @@ export class UserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Activity>>;
-    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Activity>>>;
-    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Activity>>>;
+    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ActivityDto>>;
+    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ActivityDto>>>;
+    public apiUserGetAllActivitiesGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ActivityDto>>>;
     public apiUserGetAllActivitiesGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -638,7 +639,7 @@ export class UserService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Activity>>('get',`${this.basePath}/api/User/GetAllActivities`,
+        return this.httpClient.request<Array<ActivityDto>>('get',`${this.basePath}/api/User/GetAllActivities`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -685,6 +686,52 @@ export class UserService {
         ];
 
         return this.httpClient.request<Array<CalorieIntake>>('get',`${this.basePath}/api/User/GetAllCalorieIntake`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetAllDailyActivitiesGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Activity>>;
+    public apiUserGetAllDailyActivitiesGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Activity>>>;
+    public apiUserGetAllDailyActivitiesGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Activity>>>;
+    public apiUserGetAllDailyActivitiesGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Activity>>('get',`${this.basePath}/api/User/GetAllDailyActivities`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

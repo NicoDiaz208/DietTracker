@@ -56,18 +56,18 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetAllActivities))]
-        public async Task<ActionResult<List<Activity>>> GetAllActivities(string userId)
+        public async Task<ActionResult<List<ActivityController.ActivityDto>>> GetAllActivities(string userId)
         {
             var usr = await userCollection.GetById(userId);
             if (usr == null) return NotFound();
 
-            List<Activity> aclist = new();
+            List<ActivityController.ActivityDto> aclist = new();
 
             foreach (ObjectId i in usr.ActivityIds)
             {
                 var activity = await activityCollection.GetById(i.ToString());
                 if (activity == null) break;
-                aclist.Add(activity);
+                aclist.Add(new ActivityController.ActivityDto(activity.Id.ToString(),activity.name, activity.distance, activity.minutes, activity.burnedCalories, activity.date));
             }
 
             return aclist;

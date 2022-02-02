@@ -55,11 +55,11 @@ export class TrackingComponent implements OnInit {
 
   navigateActivity(){
     this.router.navigate(['/main-pages/tracking/trackActivity']);
-   
   }
 
   increaseWater(){
     this.waterIntake.goWC += 1;
+    this.update();
   }
 
   decreaseWater(){
@@ -69,10 +69,12 @@ export class TrackingComponent implements OnInit {
     else{
       this.waterIntake.goWC = 0;
     }
+    this.update();
   }
 
   increaseSleep(){
     this.sleep.hoSC += 1;
+    this.update();
   }
 
   decreaseSleep(){
@@ -80,6 +82,7 @@ export class TrackingComponent implements OnInit {
       this.sleep.hoSC -= 1;
     }
     this.sleep.hoSC = 0;
+    this.update();
   }
 
   async update(){

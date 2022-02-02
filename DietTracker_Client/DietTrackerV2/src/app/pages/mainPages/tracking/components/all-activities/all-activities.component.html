@@ -11,8 +11,8 @@
   <ion-content>
     <ion-list>
       <ion-item detail button *ngFor="let activity of activities" (click)="nextPage(activity)">
-        <ion-text >{{activity.name}}</ion-text>
-        <ion-text>{{activity.date}}</ion-text>
+        <ion-text slot="start" >{{getName(activity.name)}}</ion-text>
+        <ion-text slot="end">{{activity.date | date : 'fullDate'}}</ion-text>
       </ion-item>
     </ion-list>
   </ion-content>

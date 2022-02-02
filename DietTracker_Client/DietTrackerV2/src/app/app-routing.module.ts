@@ -34,7 +34,7 @@ const routes: Routes = [
       { path: 'recipe/add-recipe', component: AddRecipeComponent},
       { path: 'tracking/trackActivity', component : TrackActivityComponent},
       { path: 'tracking/allActivities', component : AllActivitiesComponent},
-      {path: 'tracking/allActivities/ActivityDetail', component: DetailActivityComponent}
+      {path: 'tracking/allActivities/ActivityDetail/:activityId', component: DetailActivityComponent}
     ]
   },
   { path: '**', redirectTo: '/login'},

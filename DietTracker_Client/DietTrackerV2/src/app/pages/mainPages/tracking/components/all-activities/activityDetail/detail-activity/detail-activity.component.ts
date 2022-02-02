@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivityService } from 'src/app/services/api/activity.service';
+import { Activity } from 'src/app/services/model/activity';
+import { ActivityDto } from 'src/app/services/model/activityDto';
 
 @Component({
   selector: 'app-detail-activity',
@@ -7,13 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./detail-activity.component.scss'],
 })
 export class DetailActivityComponent implements OnInit {
-  router: Router;
-  constructor() { }
+  @Input() activityId = '';
 
-  ngOnInit() {}
+  activity: ActivityDto = {};
+
+  router: Router;
+  constructor(private activityService: ActivityService) { }
+
+  async ngOnInit() {
+    this.activity = await this.activityService.getSingleActivity(this.activityId).toPromise();
+  }
 
   back(){
-    this.router.navigate(['/main-pages/tracking/allActivities'])
+    this.router.navigate(['/main-pages/tracking/allActivities']);
   }
 
 }

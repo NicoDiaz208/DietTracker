@@ -7,6 +7,7 @@ import { Activity } from 'src/app/services/model/activity';
 import { ActivityCreationDto } from 'src/app/services/model/activityCreationDto';
 import { ActivityDto } from 'src/app/services/model/activityDto';
 import { UserDto } from 'src/app/services/model/userDto';
+import {ActivityNames } from 'src/app/services/activityNames';
 
 
 @Component({
@@ -17,11 +18,7 @@ import { UserDto } from 'src/app/services/model/userDto';
 export class TrackActivityComponent implements OnInit {
 
   public currName: AcitvityEnum = 0;
-  public names: string[] = [ 'Running',
-  'Swimming',
-  'Hiking',
-  'Walking',
-  'Cycling'];
+  public names: string[] = ActivityNames.instance.names;
   public user: UserDto = {};
   public activity: ActivityCreationDto = {};
   public activities: ActivityDto[] = [];

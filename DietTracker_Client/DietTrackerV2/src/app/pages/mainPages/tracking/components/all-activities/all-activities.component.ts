@@ -27,7 +27,6 @@ export class AllActivitiesComponent implements OnInit {
     return this.names[name];
   }
 
-
   back(){
     this.router.navigate(['/main-pages/tracking/']);
   }

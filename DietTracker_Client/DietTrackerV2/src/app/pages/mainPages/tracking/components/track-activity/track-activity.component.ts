@@ -22,12 +22,13 @@ export class TrackActivityComponent implements OnInit {
   public user: UserDto = {};
   public activity: ActivityCreationDto = {};
   public activities: ActivityDto[] = [];
-  private router: Router;
+  public errors = '';
+  public isError = false;
   private dailyActivities: ActivityDto[] = [];
 
 
 
-  constructor(private userService: UserService, private activityService: ActivityService) {
+  constructor(private userService: UserService, private activityService: ActivityService, private router: Router) {
   }
 
   async ngOnInit() {
@@ -40,12 +41,28 @@ export class TrackActivityComponent implements OnInit {
     this.currName = name as AcitvityEnum;
   }
 
+  validateInput(): boolean{
+    if(this.activity.distance < 0 || this.activity.minutes < 0 ||this.activity.burnedCalories < 0){
+      this.errors = 'Only positive numbers';
+      return true;
+    }
+
+    return false;
+  }
+
   async add(){
+    this.isError = this.validateInput();
+    if(this.isError){
+      return;
+    }
+
     this.activity.date = new Date(Date.now());
     this.activity.name = this.currName;
     console.log(this.activity.name);
     const id = await this.activityService.apiActivityPost(this.activity).toPromise();
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+
+    this.back();
   }
   back(){
     this.router.navigate(['/main-pages/tracking/']);

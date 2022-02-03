@@ -33,6 +33,10 @@ export class DetailActivityComponent implements OnInit {
     this.router.navigate(['/main-pages/tracking/allActivities']);
   }
 
+  delete(){
+    //this.activityService.
+  }
+
   private getName(value: number): string{
     return this.names[value];
   }

@@ -35,7 +35,7 @@
   </ion-avatar>
     <ion-label>
       <h2>Distance</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.distance"></ion-input>
+      <ion-input type="number" placeholder="Enter Input" [(ngModel)]="this.activity.distance"></ion-input>
     </ion-label>
  </ion-item>
 
@@ -45,7 +45,7 @@
   </ion-avatar>
     <ion-label>
       <h2>Duration</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.minutes"></ion-input>
+      <ion-input type="number" placeholder="Enter Input" [(ngModel)]="this.activity.minutes"></ion-input>
     </ion-label>
  </ion-item>
 
@@ -54,13 +54,20 @@
     <img src="../../../../../../assets/icon/trending-topic.png">
   </ion-avatar>
     <ion-label>
-      <h2>Burnd Calorien</h2>
-      <ion-input placeholder="Enter Input" [(ngModel)]="this.activity.burnedCalories"></ion-input>
+      <h2>Burned Calories</h2>
+      <ion-input type="number" placeholder="Enter Input" [(ngModel)]="this.activity.burnedCalories"></ion-input>
     </ion-label>
  </ion-item>
 
- <ion-button (click)="add()">Add</ion-button>
-<!--
+ <ion-item color="primary" button (click)="add()">
+   <ion-text slot="end">Add</ion-text>
+ </ion-item>
+
+ <ion-item *ngIf="isError">
+   <ion-text color="danger">Value must be positive!</ion-text>
+ </ion-item>
+
+ <!--
  <ion-item>
     <ion-label>
       <h2>Activity Stats</h2>

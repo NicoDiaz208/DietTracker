@@ -13,9 +13,8 @@ import { AchievementDto } from 'src/app/services/model/achievementDto';
 })
 export class AchievementComponent implements OnInit {
   public achivements: Array<Achievement>;
-  private router:Router
 
-  constructor( private restService: AchievementsService, private userService: UserService) { }
+  constructor( private restService: AchievementsService, private userService: UserService, private router: Router) { }
 
   async ngOnInit() {
     this.achivements = await this.userService.apiUserGetAllAchievementsGet(localStorage.getItem('userId')).toPromise();

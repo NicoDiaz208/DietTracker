@@ -8,15 +8,16 @@
   <ion-item>
       <ion-img  class="image-center" (click)="selectImage()" [src]="currentPicture" ></ion-img>
   </ion-item>
+
   <ion-item *ngIf="uploadImageError">
     <ion-label color="danger">Please Upload an Image!</ion-label>
   </ion-item>
-
 
   <ion-item>
     <ion-label position="stacked">Name</ion-label>
     <ion-input [(ngModel)]="currentName" placeholder="Enter a Text"></ion-input>
   </ion-item>
+
   <ion-item *ngIf="nameError">
     <ion-label color="danger">Name not given!</ion-label>
   </ion-item>
@@ -25,6 +26,7 @@
     <ion-label>Duration: </ion-label>
     <ion-label>{{currentPreparetime}}</ion-label>
   </ion-item>
+
   <ion-item *ngIf="prepareTimeError">
     <ion-label color="danger">Please set a PrepareTime!</ion-label>
   </ion-item>
@@ -39,16 +41,20 @@
     </ion-list>
   <ion-accordion-group slot="end">
     <ion-accordion value="shapes">
-      <ion-item slot="header">
-        <ion-label>Category</ion-label>
-      </ion-item>
-      <ion-list slot="content">
+
+    <ion-item slot="header">
+      <ion-label>Category</ion-label>
+    </ion-item>
+
+    <ion-list slot="content">
       <ion-item button (click)="clickCategoryAdd(category)" *ngFor="let category of categories">
         <ion-label>{{category.name}}</ion-label>
       </ion-item>
     </ion-list>
+
     </ion-accordion>
   </ion-accordion-group>
+
   </ion-item>
   <ion-item *ngIf="categoryError">
     <ion-label color="danger">Select One or More Categories!</ion-label>
@@ -62,9 +68,11 @@
   <ion-item detail button (click)="presentModal()">
     <ion-label>Ingredients</ion-label>
   </ion-item>
+
   <ion-item *ngIf="ingrediendError">
     <ion-label color="danger">A Recipe needs at least one Ingredient!</ion-label>
   </ion-item>
+
   <ion-list *ngFor="let i of foodNames">
     <ion-item>
       <ion-text>{{i}}</ion-text>
@@ -75,6 +83,7 @@
     <ion-label position="stacked">Preparation</ion-label>
     <ion-textarea rows="6" [(ngModel)]="currentPreparation" placeholder="Enter a Text"></ion-textarea>
   </ion-item>
+
   <ion-item *ngIf="preparationError">
     <ion-label color="danger">Write more than 50 Characters please!</ion-label>
   </ion-item>

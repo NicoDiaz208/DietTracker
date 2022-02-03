@@ -18,7 +18,7 @@
           <img src="../../../../../../assets/Recipes/restaurant.png">
         </ion-avatar>
         <ion-label position="fixed">Kalorien</ion-label>
-          <ion-input placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.calorieCurrent"></ion-input>
+          <ion-input slot="end" type="number" placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.calorieCurrent"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -26,8 +26,7 @@
           <img src="../../../../../../assets/Recipes/Protein.jpg">
         </ion-avatar>
         <ion-label position="fixed">Protein</ion-label>
-          <ion-input placeholder="Enter Input"  [(ngModel)]="this.newCalorieIntake.proteinCurrent"></ion-input>
-
+          <ion-input slot="end" type="number" placeholder="Enter Input"  [(ngModel)]="this.newCalorieIntake.proteinCurrent"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -35,7 +34,7 @@
           <img src="../../../../../../assets/Recipes/Kohlenhydrate.png">
         </ion-avatar>
         <ion-label>Kohlenhydrate</ion-label>
-        <ion-input placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.carbohydratesCurrent"></ion-input>
+        <ion-input slot="end" type="number" placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.carbohydratesCurrent"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -43,7 +42,7 @@
           <img src="../../../../../../assets/Recipes/Fett.png">
         </ion-avatar>
         <ion-label>Fett</ion-label>
-        <ion-input placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.fatCurrent"></ion-input>
+        <ion-input slot="end" type="number" placeholder="Enter Input" [(ngModel)]="this.newCalorieIntake.fatCurrent"></ion-input>
       </ion-item>
       <ion-item >
         <ion-label>
@@ -55,8 +54,8 @@
 
         </ion-label>
       </ion-item>
+      <ion-item color="primary" button (click)="this.update()">
+        <ion-text slot="end">Add</ion-text>
+      </ion-item>
     </ion-list>
-    <ion-button (click)="this.update()">Update</ion-button>
-
-
 </ion-content>

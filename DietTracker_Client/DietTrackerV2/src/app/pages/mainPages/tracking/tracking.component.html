@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Erfolge</ion-title>
+    <ion-title>Tracking</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +10,7 @@
 <div class="ion-text-center"></div>
 <ion-list>
     <ion-card>
-      <ion-item>
+      <ion-item button detail (click)="navigate()">
         <ion-avatar slot="start">
           <img src="../../../../assets/Recipes/restaurant.png">
         </ion-avatar>
@@ -18,18 +18,16 @@
           <h2>Kalorien</h2>
           <p>{{this.calorieIntake.calorieCurrent}} / {{calorienGoal}} </p>
         </ion-label>
-        <ion-button (click)="navigate()" slot="end">add</ion-button>
       </ion-item>
     </ion-card>
     <ion-card>
-      <ion-item>
+      <ion-item button detail (click)="navigateActivity()">
         <ion-avatar slot="start">
           <img src="../../../../assets/icon/running.png">
         </ion-avatar>
         <ion-label>
           <h2>Activity</h2>
         </ion-label>
-        <ion-button (click)="navigateActivity()" slot="end">add</ion-button>
       </ion-item>
     </ion-card>
     <ion-card>
@@ -59,7 +57,7 @@
       </ion-item>
     </ion-card>
     <ion-card>
-      <ion-item>
+      <ion-item button detail (click)="navigateAchivement()" >
         <ion-avatar slot="start">
           <img src="../../../../assets/Recipes/herausfoderung.png">
         </ion-avatar>
@@ -67,16 +65,14 @@
           Achievements
 
         </ion-label>
-        <ion-button (click)="navigateAchivement()"slot="end">GoTo</ion-button>
       </ion-item>
     </ion-card>
     <ion-card>
-      <ion-item>
+      <ion-item button (click)="navigateAllActivitys()" detail>
         <ion-avatar slot="start">
           <img src="../../../../assets/icon/sport-equipment.png">
         </ion-avatar>
         <ion-label>All Activity</ion-label>
-        <ion-button (click)="navigateAllActivitys()"slot="end">GoTo</ion-button>
       </ion-item>
     </ion-card>
 

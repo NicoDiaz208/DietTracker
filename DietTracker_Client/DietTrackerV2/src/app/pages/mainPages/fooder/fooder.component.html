@@ -10,7 +10,7 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 80%; height: 80%;" ></ion-img>
+                <ion-img [src]="getImage(rec.id)" style="width: 80%; height: 80%;" ></ion-img>
               </ion-col>
               <ion-col>
                 <ion-list>
@@ -32,53 +32,4 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
-      <!-- <ion-card class="ion-card-content"></ion-card> -->
-
-  <!--
-    <ion-content>
-      <ion-card color="light">
-        <ion-card-header>
-            <ion-title *ngIf="this.isAdded">
-              <ion-badge>Added</ion-badge>
-            </ion-title>
-          <ion-card-title class="ion-text-center">{{recipe.name}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-img src="../../../../assets/Recipes/Dummy.jpg" style="width: 80%; height: 80%;" ></ion-img>
-              </ion-col>
-              <ion-col>
-                <ion-list>
-                  <ion-item>
-                    <ion-text>For 5 People</ion-text>
-                  </ion-item>
-                  <ion-item *ngFor="let item of foodList">
-                    <ion-badge>{{item.name}}</ion-badge>
-                  <ion-text slot="end">{{item.amount}} {{item.unit}}</ion-text>
-                 </ion-item>
-                </ion-list>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ion-list>
-            <ion-item>
-              <ion-textarea readonly="true" rows="10" value={{recipe.preparation}}> </ion-textarea>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-  <ion-fab vertical="center">
-    <ion-fab-button (click)="update()">
-      <ion-icon name="heart-dislike-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <ion-fab vertical="center" horizontal="end">
-    <ion-fab-button *ngIf="!this.isAdded" (click)="add()">
-      <ion-icon name="heart-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  -->
 </ion-content>

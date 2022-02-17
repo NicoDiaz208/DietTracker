@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/api/user.service';
 import { FoodDto } from 'src/app/services/model/foodDto';
 import { Ingredient } from 'src/app/services/model/ingredient';
 import { RecipeDto } from 'src/app/services/model/recipeDto';
+import { environment } from 'src/environments/environment';
 
 interface IngredientDetail{
   name: string;
@@ -124,6 +125,10 @@ export class FooderComponent implements OnInit, AfterViewInit {
     k.name = name;
     k.amount = f.value;
     return k;
+  }
+
+  getImage(id: string): string{
+    return environment.apiBase+'api/Recipe/image/recipe/'+id;
   }
 
 }

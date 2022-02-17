@@ -53,8 +53,7 @@ export class AddRecipeComponent implements OnInit {
     private modalController: ModalController,
     private platform: Platform,
     private router: Router,
-    private pickerCtrl: PickerController,
-    private http: HttpClient) {  }
+    private pickerCtrl: PickerController) {  }
 
   ngOnInit()
   {

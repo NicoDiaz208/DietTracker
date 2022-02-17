@@ -163,22 +163,22 @@ export class AddRecipeComponent implements OnInit {
       data: base64Data
     });
 
-    //Upload Image to Recipe
-    const formData = new FormData();
-    formData.append('file', this.dataURLtoFile(base64Data, fileName), fileName);
-
-    this.http.post(environment.apiBase+'api/Food/UploadImage', {recipeId,formData}, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress)
-          {this.progress = Math.round(100 * event.loaded / event.total);}
-        else if (event.type === HttpEventType.Response) {
-          this.message = 'Upload success.';
-        }
-      });
+    this.recipeService.apiRecipeUploadImagePostForm(this.dataURLtoFile(base64Data, fileName), recipeId).toPromise();
 
     return true;
-    //https://www.youtube.com/watch?v=fU8uM5oU1wY&ab_channel=SimonGrimm
-}
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type: mime});
+  }
 
   async readAsBase64(photo: Photo) {
     // "hybrid" will detect Cordova or Capacitor
@@ -251,7 +251,7 @@ export class AddRecipeComponent implements OnInit {
     return noError;
   }
 
-  save(){
+  async save(){
 
     if(!this.validateInput()){
       return;
@@ -267,24 +267,10 @@ export class AddRecipeComponent implements OnInit {
     };
     console.log('saved!');
 
-    //TBD
-    //let recipeId = '';
-    //this.recipeService.apiRecipePost(creation).subscribe(x=> recipeId = x.id);
-    //console.log(recipeId);
+    const recipeDto = await this.recipeService.apiRecipePost(creation).toPromise();
 
-    //this.saveImage(this.photo, recipeId);
+    this.saveImage(this.photo, recipeDto.id);
+    this.cancel();
   }
-
-  dataURLtoFile(dataurl, filename) {
-    const arr = dataurl.split(',');
-        const mime = arr[0].match(/:(.*?);/)[1];
-        const bstr = atob(arr[1]);
-        let n = bstr.length;
-        const u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {type: mime});
-}
 
 }

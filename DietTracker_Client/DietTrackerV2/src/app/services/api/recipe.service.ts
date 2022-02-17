@@ -346,6 +346,46 @@ export class RecipeService {
     /**
      * 
      * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiRecipeImageRecipeIdGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiRecipeImageRecipeIdGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiRecipeImageRecipeIdGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiRecipeImageRecipeIdGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiRecipeImageRecipeIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/api/Recipe/image/recipe/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -566,14 +606,16 @@ export class RecipeService {
     /**
      * 
      * 
+     * @param file 
      * @param recipeId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiRecipeUploadImagePost(recipeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiRecipeUploadImagePost(recipeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiRecipeUploadImagePostForm(file?: Blob, recipeId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiRecipeUploadImagePostForm(file?: Blob, recipeId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiRecipeUploadImagePostForm(file?: Blob, recipeId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiRecipeUploadImagePostForm(file?: Blob, recipeId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -593,10 +635,30 @@ export class RecipeService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'multipart/form-data'
         ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) as any || formParams;
+        }
 
         return this.httpClient.request<any>('post',`${this.basePath}/api/Recipe/UploadImage`,
             {
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

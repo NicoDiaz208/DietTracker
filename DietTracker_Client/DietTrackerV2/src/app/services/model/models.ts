@@ -24,6 +24,7 @@ export * from './objectId';
 export * from './recipe';
 export * from './recipeCreationDto';
 export * from './recipeDto';
+export * from './recipeUploadImageBody';
 export * from './sleep';
 export * from './sleepCreationDto';
 export * from './sleepDto';

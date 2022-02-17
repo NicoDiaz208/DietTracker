@@ -1,4 +1,5 @@
 ﻿using DietTracker_DataAccess;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -108,17 +109,17 @@ namespace DietTracker_Api.Controller
 
         [HttpPost, DisableRequestSizeLimit]
         [Route(nameof(UploadImage))]
-        public async Task<IActionResult> UploadImage(string recipeId)
+        public async Task<IActionResult> UploadImage(string recipeId, IFormFile file)
         {
             var recipe = await recipeCollection.GetById(recipeId);
             if (recipe == null) return NotFound(false);
 
-            var formCollection = await Request.ReadFormAsync();
-            var file = formCollection.Files[0];
+            //var formCollection = await Request.ReadFormAsync();
+            //var file = formCollection.Files[0];
             if (file.Length > 0)
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
-                using (var stream = await bucket.OpenUploadStreamAsync(fileName))
+                //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
+                using (var stream = await bucket.OpenUploadStreamAsync(file.FileName))
                 {
                     var na = new Recipe(
                     stream.Id,
@@ -157,6 +158,20 @@ namespace DietTracker_Api.Controller
         {
             var oid = new ObjectId(id);
             return File(await bucket.OpenDownloadStreamAsync(oid), "image/jpeg");
+        }
+
+        [HttpGet("image/recipe/{id}")]
+        public async Task<IActionResult> GetImageByRecipeId(string id)
+        {
+            var recipe = await  this.recipeCollection.GetById(id);
+
+            if(recipe == null) return NotFound();
+
+            if (recipe?.Picture == null) return NotFound();
+
+            return File(await bucket.OpenDownloadStreamAsync(recipe.Picture), "image/jpeg");
+
+
         }
     }
 }

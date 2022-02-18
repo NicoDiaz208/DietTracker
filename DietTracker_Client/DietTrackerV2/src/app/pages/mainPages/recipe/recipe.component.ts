@@ -13,11 +13,18 @@ import { CategoryDto } from 'src/app/services/model/categoryDto';
 export class RecipeComponent implements OnInit {
 
   public categories: CategoryDto[];
+  public currentCategories: CategoryDto[];
 
-  constructor(private recipeService: RecipeService, private categoryService: CategoryService, private route: ActivatedRoute, private router: Router) {
+  constructor(private recipeService: RecipeService, private categoryService: CategoryService,
+    private route: ActivatedRoute, private router: Router) {
    }
 
-
+   filterCategories(searchString: string){
+     if(searchString === ''){
+        this.currentCategories = this.categories;
+     }
+     this.currentCategories = this.categories.filter(x=> x.name.toLowerCase().startsWith(searchString.toLowerCase()));
+   }
 
    nextPage(cat: string){
     this.router.navigate(['/main-pages/recipe/generic',cat]);
@@ -28,8 +35,13 @@ export class RecipeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.categoryService.apiCategoryGetAllGet().subscribe(data=>this.categories = data);
+    this.categoryService.apiCategoryGetAllGet().subscribe(data=>{
+      this.categories = data;
+      this.currentCategories = data;
+    });
     //this.recipeService.apiRecipeGetAllCategoriesGet();
   }
+
+
 
 }

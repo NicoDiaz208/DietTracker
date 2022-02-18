@@ -9,9 +9,9 @@
   <ion-content>
     <ion-list>
       <ion-list-header>
-        <ion-searchbar placeholder="Search Category"  style="margin: 0;"></ion-searchbar>
+        <ion-searchbar (ionChange)="filterCategories($event.target.value)" placeholder="Search Category"  style="margin: 0;"></ion-searchbar>
       </ion-list-header>
-      <ion-item class="ion-text-center" detail button *ngFor="let cat of categories" (click)="nextPage(cat.name)">
+      <ion-item class="ion-text-center" detail button *ngFor="let cat of currentCategories" (click)="nextPage(cat.name)">
         <ion-text >{{cat.name}}</ion-text>
       </ion-item>
     </ion-list>

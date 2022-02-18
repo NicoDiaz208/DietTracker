@@ -1,3 +1,24 @@
-<p>
-  settings works!
-</p>
+<ion-header class="bottom" [translucent]="true">
+  <ion-toolbar class="bottom" style="text-align: center;">
+    <ion-title>Settings</ion-title>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label slot="start" position="fixed">Username:</ion-label>
+      <ion-input slot="start" [disabled]="true">{{userDto.name}}</ion-input>
+      <ion-button slot="end">Edit</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start" position="fixed">Password:</ion-label>
+      <ion-input slot="start" [disabled]="true" type="password"></ion-input>
+      <ion-button slot="end">Edit</ion-button>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

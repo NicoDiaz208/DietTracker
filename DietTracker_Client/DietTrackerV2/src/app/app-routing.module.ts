@@ -16,6 +16,7 @@ import { TrackActivityComponent } from './pages/mainPages/tracking/components/tr
 import { AllActivitiesComponent } from './pages/mainPages/tracking/components/all-activities/all-activities.component';
 import {DetailActivityComponent} from
  './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
+import { SettingsComponent } from './pages/mainPages/profile/settings/settings.component';
 
 const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'tracking', component: TrackingComponent},
       { path: 'tracking/addCalories/:calorieIntakeId', component: AddCaloriesComponent},
       { path: 'profile', component: ProfileComponent},
+      { path: 'profile/settings', component: SettingsComponent},
       { path: 'tracking/achievement', component: AchievementComponent},
       { path: 'recipe/add-recipe', component: AddRecipeComponent},
       { path: 'tracking/trackActivity', component : TrackActivityComponent},

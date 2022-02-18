@@ -44,6 +44,7 @@ import { TrackActivityComponent } from './pages/mainPages/tracking/components/tr
 import { AllActivitiesComponent } from './pages/mainPages/tracking/components/all-activities/all-activities.component';
 import {DetailActivityComponent} from
  './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
+import { SettingsComponent } from './pages/mainPages/profile/settings/settings.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {DetailActivityComponent} from
     ModalRecipeCategoryComponent,
     TrackActivityComponent,
     AllActivitiesComponent,
-    DetailActivityComponent
+    DetailActivityComponent,
+    SettingsComponent
   ],
   entryComponents: [],
   imports: [

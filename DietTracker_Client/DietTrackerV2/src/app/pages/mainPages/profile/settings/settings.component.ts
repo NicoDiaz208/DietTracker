@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/api/user.service';
+import { UserDto } from 'src/app/services/model/userDto';
 
 @Component({
   selector: 'app-settings',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  public userDto: UserDto = {};
 
-  ngOnInit() {}
+  constructor(private userService: UserService) { }
+
+  async ngOnInit() {
+    this.userDto = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
+  }
 
 }

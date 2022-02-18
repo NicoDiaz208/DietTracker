@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="strFilter" slot="start" title="Search"></ion-searchbar>
+    <ion-searchbar (ionChange)="filter($event.target.value)" slot="start" title="Search"></ion-searchbar>
     <ion-button (click)="filter()" color="light" slot="start" style="top: 50%;" >
       <ion-icon name="settings-outline"></ion-icon>
     </ion-button>

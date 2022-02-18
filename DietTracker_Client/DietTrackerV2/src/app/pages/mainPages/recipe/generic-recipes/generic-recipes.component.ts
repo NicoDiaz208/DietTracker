@@ -14,7 +14,7 @@ import { ModalRecipeCategoryComponent } from './modal-recipe-category/modal-reci
 })
 export class GenericRecipesComponent implements OnInit {
   @Input() category = 'Vegan';
-  allRecipes: Array<Recipe>;
+  allRecipes: Array<RecipeDto>;
   public recipes: Array<RecipeDto>;
   public strFilter: string;
 
@@ -28,7 +28,11 @@ export class GenericRecipesComponent implements OnInit {
 
   async ngOnInit() {
       //this.restService.apiRecipeGet().subscribe(data => {this.recipes = (data	as RecipeDto[])});
-      this.restService.apiRecipeGetAllRecipesByCategoryGet(this.category).subscribe(data => {this.recipes = (data as RecipeDto[]);});
+      this.restService.apiRecipeGetAllRecipesByCategoryGet(this.category).subscribe(data =>
+        {
+          this.recipes = (data as RecipeDto[]);
+          this.allRecipes = (data as RecipeDto[]);
+        });
       //this.userRecipes = await this.userService.apiUserGetAllRecipesGet(localStorage.getItem('userId')).toPromise();
 
       /*
@@ -43,8 +47,12 @@ export class GenericRecipesComponent implements OnInit {
     this.router.navigate(['/main-pages/recipe/']);
   }
 
-  filter(){
-    //NOT Implemented!!!
+  filter(searchString: string){
+    if(searchString === ''){
+      this.recipes = this.allRecipes;
+    }
+
+    this.recipes = this.allRecipes.filter(x=> x.name.toLowerCase().startsWith(searchString.toLowerCase()));
   }
 
   async presentModal(recipe: RecipeDto) {

@@ -10,11 +10,36 @@ import { UserDto } from 'src/app/services/model/userDto';
 export class SettingsComponent implements OnInit {
 
   public userDto: UserDto = {};
+  public weight = 0;
+  public goalWeight = 0;
+  public name = '';
 
   constructor(private userService: UserService) { }
 
   async ngOnInit() {
     this.userDto = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
+    this.weight = this.userDto.weight;
+    this.goalWeight = this.userDto.goalWeight;
+    this.name = this.userDto.name;
+  }
+
+  async updateWeight(){
+
+    this.userDto.weight = this.weight;
+
+
+  }
+  async updateGoalWeight(){
+
+    this.userDto.goalWeight = this.goalWeight;
+
+
+  }
+  async updateName(){
+
+    this.userDto.name = this.name;
+
+
   }
 
 }

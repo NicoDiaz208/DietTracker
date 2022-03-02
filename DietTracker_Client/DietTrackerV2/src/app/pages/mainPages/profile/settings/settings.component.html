@@ -11,13 +11,23 @@
   <ion-list>
     <ion-item>
       <ion-label slot="start" position="fixed">Username:</ion-label>
-      <ion-input slot="start" [disabled]="true">{{userDto.name}}</ion-input>
-      <ion-button slot="end">Edit</ion-button>
+      <ion-input [(ngModel)]="name" slot="start" [disabled]="false"></ion-input>
+      <ion-button (click)="this.updateName()" slot="end">Update</ion-button>
     </ion-item>
     <ion-item>
       <ion-label slot="start" position="fixed">Password:</ion-label>
       <ion-input slot="start" [disabled]="true" type="password"></ion-input>
-      <ion-button slot="end">Edit</ion-button>
+      <ion-button slot="end" >Update</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start" position="fixed">Gewicht:</ion-label>
+      <ion-input [(ngModel)]="weight" slot="start" [disabled]="false" placeholder={{userDto.weight}} ></ion-input>
+      <ion-button slot="end" (click)="this.updateWeight()">Update</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start" position="fixed">Zielgewicht:</ion-label>
+      <ion-input [(ngModel)]="goalWeight" slot="start" [disabled]="false" placeholder={{userDto.goalWeight}}></ion-input>
+      <ion-button (click)="this.updateGoalWeight()" slot="end">Update</ion-button>
     </ion-item>
 
   </ion-list>

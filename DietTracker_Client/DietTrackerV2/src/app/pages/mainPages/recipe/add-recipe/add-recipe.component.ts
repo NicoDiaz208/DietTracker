@@ -32,6 +32,7 @@ export class AddRecipeComponent implements OnInit {
   public modalPage: any;
   public selected: Ingredient[] = [];
   public foodNames: string[] = [];
+  public foodStats: string[] = [];
   public currentDifficulty = 0;
   public currentPreparetime = '';
   public currentPicture = '../../../../../assets/Recipes/noimg.jpg';
@@ -115,7 +116,8 @@ export class AddRecipeComponent implements OnInit {
       cssClass: 'my-custom-class',
       componentProps: {
         selected: this.selected,
-        names: this.foodNames
+        names: this.foodNames,
+        value : this.foodStats
       }
     });
     await modal.present();
@@ -123,6 +125,7 @@ export class AddRecipeComponent implements OnInit {
 
     this.selected = data.selected as Ingredient[];
     this.foodNames = data.names as string[];
+    this.foodStats = data.value as string[];
 
     this.selected.forEach(element => {
       console.log(element);

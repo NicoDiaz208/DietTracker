@@ -45,11 +45,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<DailyProgressDto>> GetSingleDailyProgress(string id)
         {
             var item = await dailyProgressCollection.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null) return NotFound();
             return new DailyProgressDto(item.Id.ToString(),item.Protein,item.Calories, item.Percentage,item.Date);
         }
 
@@ -71,19 +67,5 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
-        [HttpPost]
-        [Route(nameof(InitDailyProgress))]
-        public async Task<ActionResult<DailyProgressDto>> InitDailyProgress()
-        {
-            var na = new DailyProgress(ObjectId.Empty, 5, 200, 500, DateTime.Now);
-            await dailyProgressCollection.InsertOneAsync(na);
-            na = new DailyProgress(ObjectId.Empty, 10, 201, 511, DateTime.Now);
-            await dailyProgressCollection.InsertOneAsync(na);
-            na = new DailyProgress(ObjectId.Empty, 3, 233, 530, DateTime.Now);
-            await dailyProgressCollection.InsertOneAsync(na);
-
-            return Ok(200);
-
-        }
     }
 }

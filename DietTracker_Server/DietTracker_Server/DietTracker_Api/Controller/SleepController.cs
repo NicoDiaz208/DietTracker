@@ -21,11 +21,15 @@ namespace DietTracker_Api.Controller
         }
 
         public record SleepCreationDto(
-            int HoSG, int HoSC,DateTime Date);
+            int HoSG,
+            int HoSC,
+            DateTime Date);
 
         public record SleepDto(
             string Id,
-            int HoSG, int HoSC,DateTime Date);
+            int HoSG,
+            int HoSC,
+            DateTime Date);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SleepDto>>> GetAll()
@@ -39,11 +43,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<SleepDto>> GetSingleSleep(string id)
         {
             var item = await sleepCollection.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null) return NotFound();
             return new SleepDto(item.Id.ToString(), item.HoSG, item.HoSC,item.Date);
         }
 
@@ -67,18 +67,6 @@ namespace DietTracker_Api.Controller
                 await sleepCollection.ReplaceById(id, na);
             }
             
-            return Ok(200);
-        }
-        [HttpPost]
-        [Route(nameof(InitSleep))]
-        public async Task<ActionResult<SleepDto>> InitSleep()
-        {
-            var na = new Sleep(ObjectId.Empty, 3, 8, DateTime.Now, ObjectId.Empty);
-            await sleepCollection.InsertOneAsync(na);
-            na = new Sleep(ObjectId.Empty, 7, 18, DateTime.Now, ObjectId.Empty);
-            await sleepCollection.InsertOneAsync(na);
-            na = new Sleep(ObjectId.Empty, 13, 28, DateTime.Now, ObjectId.Empty);
-            await sleepCollection.InsertOneAsync(na);
             return Ok(200);
         }
 

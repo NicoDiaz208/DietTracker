@@ -39,11 +39,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<CategoryDto>> GetSingleCategory(string id)
         {
             var item = await categoryController.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null) return NotFound();
             return new CategoryDto(item.Id.ToString(), item.category);
         }
 

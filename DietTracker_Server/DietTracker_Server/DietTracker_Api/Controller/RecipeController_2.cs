@@ -170,8 +170,6 @@ namespace DietTracker_Api.Controller
             if (recipe?.Picture == null) return NotFound();
 
             return File(await bucket.OpenDownloadStreamAsync(recipe.Picture), "image/jpeg");
-
-
         }
     }
 }

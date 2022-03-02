@@ -269,6 +269,21 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+        [HttpPost]
+        [Route(nameof(Update))]
+        public async Task<ActionResult<UserDto>> Update(UserDto usr, string id)
+        {
+            var entity = await userCollection.GetById(id);
+            if (entity != null)
+            {
+                var newUser = new User(entity.Picture, entity.Id, entity.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, entity.RecipeIds, entity.ActivityIds, entity.DailyProgressIds, entity.CalorieIntakeIds, entity.WaterIntakeIds, entity.SleepIds, entity.AchievementsIds, usr.ActivityLevel);
+
+                await userCollection.ReplaceById(id, newUser);
+
+            }
+            return Ok(200);
+        }
+
         [HttpGet]
         [Route(nameof(GetCalorieIntakeByDate))]
         public async Task<ActionResult<String>> GetCalorieIntakeByDate(String userId, DateTime date)

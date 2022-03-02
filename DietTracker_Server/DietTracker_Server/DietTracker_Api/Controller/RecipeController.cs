@@ -58,21 +58,8 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<RecipeDto>> GetSingleRecipe(string id)
         {
             var item = await recipeCollection.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return new RecipeDto(
-                item.Id.ToString(), 
-                item.Name, 
-                item.PrepareTime, 
-                item.Difficulty,
-                item.Categories.Select(a => new CategoryDto(
-                    a.Id.ToString(),
-                    a.category)).ToList(),
-                item.Preparation, 
-                item.FoodIds);
+            if (item == null) return NotFound();
+            return new RecipeDto(item.Id.ToString(), item.Name, item.PrepareTime, item.Difficulty,item.Categories.Select(a => new CategoryDto(a.Id.ToString(),a.category)).ToList(),item.Preparation, item.FoodIds);
         }
 
         [HttpPost]
@@ -144,19 +131,6 @@ namespace DietTracker_Api.Controller
                     oldRecipe.Categories);
                 await recipeCollection.ReplaceById(id, na);
             }
-            return Ok(200);
-        }
-
-        [HttpPost]
-        [Route(nameof(InitRecipe))]
-        public async Task<ActionResult<RecipeDto>> InitRecipe()
-        {
-            var na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Pizza Magherita", "3 hours", 2, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
-            await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Apfel Strudel", "1 hour", 3, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
-            await recipeCollection.InsertOneAsync(na);
-            na = new Recipe(ObjectId.Empty,ObjectId.Empty, "Nicos Salat", "5 hours", 7, "Hier sollte ein großer text stehen", new List<Ingredient>(), new List<Category>());
-            await recipeCollection.InsertOneAsync(na);
             return Ok(200);
         }
 

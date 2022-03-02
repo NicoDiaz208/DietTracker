@@ -50,7 +50,6 @@ namespace DietTracker_Api.Controller
         {
             var dbResult = await foodCollection.GetAll();
             var result = dbResult.Select(a => new FoodDto(a.Id.ToString(), a.Name, a.Unit, a.Value, a.Calories, a.Protein, a.TotalCarbohydrates,a.Sugar,a.Fiber,a.Fat));
-
             return Ok(result);
         }
 
@@ -58,12 +57,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<FoodDto>> GetSingleFood(string id)
         {
             var result = await foodCollection.GetById(id);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
+            if (result == null) return NotFound();
             return new FoodDto(result.Id.ToString(), result.Name, result.Unit, result.Value, result.Calories, result.Protein, result.TotalCarbohydrates, result.Sugar, result.Fiber, result.Fat);
         }
 
@@ -80,24 +74,8 @@ namespace DietTracker_Api.Controller
         [Route(nameof(Replace))]
         public async Task<ActionResult<FoodDto>> Replace(FoodCreationDto foodDto,string id)
         {
-            var oldFood = await foodCollection.GetById(ObjectId.Parse(id));
-            if(oldFood != null) { 
-                 var na = new Food(ObjectId.Parse(id), foodDto.Name, foodDto.Unit, foodDto.Value, foodDto.Calories, foodDto.Protein, foodDto.TotalCarbohydrates, foodDto.Sugar, foodDto.Fiber, foodDto.Fat);
-                 await foodCollection.ReplaceById(id,na);
-            }
-            return Ok(200);
-        }
-
-        [HttpPost]
-        [Route(nameof(InitFood))]
-        public async Task<ActionResult<FoodDto>> InitFood()
-        {
-            var na = new Food(ObjectId.Empty, "Apple", "g", 125, 65, 0, 14.3, 12.9, 3, 0.5);
-            await foodCollection.InsertOneAsync(na);
-            na = new Food(ObjectId.Empty, "Banana", "g", 120,115.2,1.2,26.4,20.6,2.4,0.2);
-            await foodCollection.InsertOneAsync(na);
-            na = new Food(ObjectId.Empty, "Tomato", "g", 115, 19.6,1.2,3,0,0,0.2);
-            await foodCollection.InsertOneAsync(na);
+            var na = new Food(ObjectId.Parse(id), foodDto.Name, foodDto.Unit, foodDto.Value, foodDto.Calories, foodDto.Protein, foodDto.TotalCarbohydrates, foodDto.Sugar, foodDto.Fiber, foodDto.Fat);
+            await foodCollection.ReplaceById(id,na);
             return Ok(200);
         }
     }

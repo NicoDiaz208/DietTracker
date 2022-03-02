@@ -44,11 +44,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<AchievementDto>> GetSingleAchievement(string id)
         {
             var item = await achievementCollection.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null) return NotFound();
             return new AchievementDto(item.Id.ToString(), item.Name, item.Now,item.Description, item.Goal);
         }
 
@@ -67,19 +63,6 @@ namespace DietTracker_Api.Controller
         {
             var na = new Achievement(ObjectId.Parse(id), item.Name, item.Now,item.Description, item.Goal);
             await achievementCollection.ReplaceById(id, na);
-            return Ok(200);
-        }
-
-        [HttpPost]
-        [Route(nameof(InitAchievement))]
-        public async Task<ActionResult<AchievementDto>> InitAchievement()
-        {
-            var na = new Achievement(ObjectId.Empty, "Running", 0,"Km", 5);
-            await achievementCollection.InsertOneAsync(na);
-            na = new Achievement(ObjectId.Empty, "Swimming", 0,"m", 5);
-            await achievementCollection.InsertOneAsync(na);
-            na = new Achievement(ObjectId.Empty, "Jogging", 0,"Km", 5);
-            await achievementCollection.InsertOneAsync(na);
             return Ok(200);
         }
     }

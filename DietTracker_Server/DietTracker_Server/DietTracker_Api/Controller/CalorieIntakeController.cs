@@ -50,7 +50,6 @@ namespace DietTracker_Api.Controller
         {
             var dbResult = await calorieIntakeCollection.GetAll();
             var result = dbResult.Select(a => new CalorieIntakeDto(a.Id.ToString(),a.CalorieGoal, a.CalorieCurrent, a.FatGoal, a.FatCurrent, a.ProteinGoal, a.ProteinCurrent, a.CarbohydratesGoal, a.CarbohydratesCurrent, a.Date));
-
             return Ok(result);
         }
 
@@ -58,12 +57,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<CalorieIntakeDto>> GetSingleCalorieIntake(string id)
         {
             var result = await calorieIntakeCollection.GetById(id);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
+            if (result == null) return NotFound();
             return new CalorieIntakeDto(result.Id.ToString(), result.CalorieGoal, result.CalorieCurrent, result.FatGoal, result.FatCurrent, result.ProteinGoal, result.ProteinCurrent, result.CarbohydratesGoal, result.CarbohydratesCurrent, result.Date);
         }
 
@@ -82,19 +76,6 @@ namespace DietTracker_Api.Controller
         {
             var na = new CalorieIntake(ObjectId.Parse(id), calorieIntakeCreationDto.CalorieGoal, calorieIntakeCreationDto.CalorieCurrent, calorieIntakeCreationDto.FatGoal, calorieIntakeCreationDto.FatCurrent, calorieIntakeCreationDto.ProteinGoal, calorieIntakeCreationDto.ProteinCurrent, calorieIntakeCreationDto.CarbohydratesGoal, calorieIntakeCreationDto.CarbohydratesCurrent, calorieIntakeCreationDto.Date); 
             await calorieIntakeCollection.ReplaceById(id, na);
-            return Ok(200);
-        }
-
-        [HttpPost]
-        [Route(nameof(InitCalorieIntake))]
-        public async Task<ActionResult<CalorieIntakeDto>> InitCalorieIntake()
-        {
-            var na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
-            await calorieIntakeCollection.InsertOneAsync(na);
-            na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
-            await calorieIntakeCollection.InsertOneAsync(na);
-            na = new CalorieIntake(ObjectId.Empty, 500, 200, 800, 400, 300, 150, 200, 100, DateTime.Now);
-            await calorieIntakeCollection.InsertOneAsync(na);
             return Ok(200);
         }
     }

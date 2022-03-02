@@ -87,10 +87,7 @@ namespace DietTracker_Api.Controller
             {
                 var activity = await activityCollection.GetById(i.ToString());
                 if (activity == null) break;
-                else if (activity.date.Date == System.DateTime.Now.Date)
-                {
-                    aclist.Add(activity);
-                }
+                else if (activity.date.Date == System.DateTime.Now.Date) aclist.Add(activity);
 
             }
 

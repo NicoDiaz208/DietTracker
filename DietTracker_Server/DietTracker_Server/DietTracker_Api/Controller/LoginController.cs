@@ -22,8 +22,6 @@ namespace DietTracker_Api.Controller
             loginCollection = cf.GetCollection<Login>();
             userCollection = cf2.GetCollection<User>();
         }
-
-
         public record LoginDto(
             string Username,
             string Password
@@ -33,11 +31,7 @@ namespace DietTracker_Api.Controller
         public async Task<ActionResult<LoginDto>> GetSingleLogin(string id)
         {
             var item = await loginCollection.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null) return NotFound();
             return new LoginDto(item.Username,item.Password);
         }
 
@@ -46,12 +40,7 @@ namespace DietTracker_Api.Controller
         {
             var item = await loginCollection.GetByNameAndPassword(name, password);
             var usr = await userCollection.GetUserByUsername(name);
-
-            if (item == null || usr == null)
-            {
-                return NotFound();
-            }
-
+            if (item == null || usr == null) return NotFound();
             return usr.Id.ToString();
         }
 

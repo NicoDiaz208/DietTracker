@@ -14,8 +14,8 @@ namespace DietTracker_DataAccess
     public record Activity(
         ObjectId Id,
         AcitvityEnum name,
-        double distance,		//km
-        int minutes,			//duration of activity
+        double distance,		
+        int minutes,			
         double burnedCalories,
         DateTime date) : IHaveId;
 
@@ -35,7 +35,7 @@ namespace DietTracker_DataAccess
         ObjectId Id,
         double Percentage,
         double Protein,
-        double Calories,        //
+        double Calories,        
         DateTime Date) : IHaveId;
 
     public record Food(

@@ -26,19 +26,20 @@ export class SettingsComponent implements OnInit {
   async updateWeight(){
 
     this.userDto.weight = this.weight;
+    await this.userService.apiUserReplacePost( this.userDto, localStorage.getItem('userId')).toPromise();
 
 
   }
   async updateGoalWeight(){
 
     this.userDto.goalWeight = this.goalWeight;
-
+    await this.userService.apiUserReplacePost(this.userDto, localStorage.getItem('userId')).toPromise();
 
   }
   async updateName(){
 
     this.userDto.name = this.name;
-
+   await this.userService.apiUserReplacePost( this.userDto, localStorage.getItem('userId')).toPromise();
 
   }
 

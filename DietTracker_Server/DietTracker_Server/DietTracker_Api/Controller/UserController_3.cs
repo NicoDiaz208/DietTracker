@@ -19,5 +19,15 @@ namespace DietTracker_Api.Controller
             var bmr = 66.47 + (13.75 * item.Weight) + (5.003 * item.Height) - 6.755 * GetAgeSolo(item);
             return Ok(Convert.ToInt32(bmr));
         }
+
+        [HttpGet]
+        [Route(nameof(GetOutPut))]
+        public async Task<ActionResult<int>> GetOutPut(UserDto usr, string distance)
+        {
+            var dis = Convert.ToInt32(distance);
+            var FullOutput = usr.Weight * dis *0.95;
+            return Convert.ToInt32(FullOutput);
+                
+        }
     }
 }

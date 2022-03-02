@@ -97,44 +97,6 @@ export class AchievementsService {
     /**
      * 
      * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiAchievementsInitAchievementPost(observe?: 'body', reportProgress?: boolean): Observable<AchievementDto>;
-    public apiAchievementsInitAchievementPost(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AchievementDto>>;
-    public apiAchievementsInitAchievementPost(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AchievementDto>>;
-    public apiAchievementsInitAchievementPost(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<AchievementDto>('post',`${this.basePath}/api/Achievements/InitAchievement`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

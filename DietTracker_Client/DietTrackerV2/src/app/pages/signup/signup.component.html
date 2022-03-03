@@ -9,7 +9,7 @@
     <ion-row class="form-row" >
       <ion-col >
         <form>
-          
+
           <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
             <ion-input [(ngModel)]="this.username" type="text" name="username" required></ion-input>
@@ -25,9 +25,20 @@
             <ion-input [(ngModel)]="this.repassword" type="password" name="repassword" required></ion-input>
           </ion-item>
 
-          <ion-item lines="full">
-            <ion-label position="floating">Date of Birth</ion-label>
-            <ion-input [(ngModel)]="this.dateOfBirth" type="text" name="dateOfBirth" required></ion-input>
+          <ion-item>
+            <ion-input placeholder="Enter Birthday" [value]="dateOfBirth"></ion-input>
+            <ion-button fill="clear" id="open-date-input-2">
+              <ion-icon icon="calendar"></ion-icon>
+            </ion-button>
+            <ion-popover trigger="open-date-input-2" show-backdrop="false">
+              <ng-template>
+                <ion-datetime
+                  #popoverDatetime2
+                  presentation="date"
+                  (ionChange)="dateOfBirth = formatDate(popoverDatetime2.value)"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
           </ion-item>
 
           <ion-item lines="full">

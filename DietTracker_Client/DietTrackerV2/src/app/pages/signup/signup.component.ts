@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup,FormBuilder,Validators, FormControl } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
@@ -7,6 +7,8 @@ import { LoginService } from 'src/app/services/api/login.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { UserCreationDto } from 'src/app/services/model/userCreationDto';
 import { LoginDto } from 'src/app/services/model/loginDto';
+import { IonDatetime } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-signup',
@@ -14,6 +16,9 @@ import { LoginDto } from 'src/app/services/model/loginDto';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+
+  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
+
   user = '';
   username = '';
   password = '';
@@ -90,5 +95,18 @@ export class SignupComponent implements OnInit {
       this.loginService.apiLoginPost(this.loginCreate).toPromise();
       this.navigate();
     }
+  }
+
+
+  confirm() {
+    this.datetime.confirm();
+  }
+
+  reset() {
+    this.datetime.reset();
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'MMM dd yyyy');
   }
 }

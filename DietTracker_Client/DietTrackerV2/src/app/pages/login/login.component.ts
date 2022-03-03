@@ -4,7 +4,7 @@ import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import { AlertService } from './../../services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoginService } from 'src/app/services/api/login.service';
-
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',

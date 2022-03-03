@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private readonly fb: FormBuilder,
+    public loadingController: LoadingController,
     private router: Router)
   {
     this.loginForm = this.fb.group({
@@ -55,4 +56,35 @@ export class LoginComponent implements OnInit {
        this.submitForm();
     }
  }
+
+
+
+
+
+ async presentLoading() {
+  const loading = await this.loadingController.create({
+    cssClass: 'my-custom-class',
+    message: 'Please wait...',
+    duration: 2000
+  });
+  await loading.present();
+
+  const { role, data } = await loading.onDidDismiss();
+  console.log('Loading dismissed!');
+}
+
+async presentLoadingWithOptions() {
+  const loading = await this.loadingController.create({
+    spinner: null,
+    duration: 5000,
+    message: 'Click the backdrop to dismiss early...',
+    translucent: true,
+    cssClass: 'custom-class custom-loading',
+    backdropDismiss: true
+  });
+  await loading.present();
+
+  const { role, data } = await loading.onDidDismiss();
+  console.log('Loading dismissed with role:', role);
+}
 }

@@ -47,13 +47,13 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.required,Validators.minLength(8)]],
       repassword: ['', [Validators.required,Validators.minLength(8)]],
       gender:['', [Validators.required]],
-      dateOfBirth:['', [Validators.required]],
-      goalWeight:['', [Validators.required]],
-      height:['', [Validators.required]],
-      email:['', [Validators.required]],
+      dateOfBirth:['', []],
+      goalWeight:['', [Validators.required, Validators.min(0),Validators.max(300)]],
+      height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
+      email:['', [Validators.required, Validators.email]],
       phoneNumber:['', [Validators.required]],
-      activityLevel:['', [Validators.required]],
-      weight:['', [Validators.required]]
+      activityLevel:['', [Validators.required,Validators.min(0),Validators.max(10)]],
+      weight:['', [Validators.required, Validators.min(0),Validators.max(300)]]
     });
   }
   ngOnInit() {}

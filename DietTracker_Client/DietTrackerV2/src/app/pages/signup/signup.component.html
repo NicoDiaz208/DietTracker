@@ -8,21 +8,25 @@
     </ion-row>
     <ion-row class="form-row" >
       <ion-col >
-        <form>
+        <form [formGroup]="signupForm" #f="ngForm">
 
           <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
-            <ion-input [(ngModel)]="this.username" type="text" name="username" required></ion-input>
+            <ion-input formControlName="username" type="text" name="username"></ion-input>
+            <div *ngIf="signupForm.controls.username.touched && signupForm.controls.username.errors?.required">Missing user name</div>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
-            <ion-input [(ngModel)]="this.password" type="password" name="password" required></ion-input>
+            <ion-input formControlName="password" type="password" name="password"></ion-input>
+            <div *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.required">Missing password</div>
+            <div *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.minlength">Password too short</div>
+
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Repeat Password</ion-label>
-            <ion-input [(ngModel)]="this.repassword" type="password" name="repassword" required></ion-input>
+            <ion-input formControlName="repassword" type="password" name="repassword"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -43,43 +47,47 @@
 
           <ion-item lines="full">
             <ion-label position="floating">Gender</ion-label>
-            <ion-input [(ngModel)]="this.gender" type="text" name="gender" required></ion-input>
+            <ion-input formControlName="gender" type="text" name="gender"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Goal Weight</ion-label>
-            <ion-input [(ngModel)]="this.goalWeight" type="number" name="goalWeight" required></ion-input>
+            <ion-input formControlName="goalWeight" type="number" name="goalWeight"></ion-input>
 
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Height</ion-label>
-            <ion-input [(ngModel)]="this.height" type="number" name="height" required></ion-input>
+            <ion-input formControlName="height" type="number" name="height"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Email</ion-label>
-            <ion-input [(ngModel)]="this.email" type="text" name="email" required></ion-input>
+            <ion-input formControlName="email" type="text" name="email"></ion-input>
           </ion-item>
 
 
           <ion-item lines="full">
             <ion-label position="floating">Phone Number</ion-label>
-            <ion-input [(ngModel)]="this.phoneNumber" type="text" name="phoneNumber" required></ion-input>
+            <ion-input formControlName="phoneNumber" type="text" name="phoneNumber"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Weight</ion-label>
-            <ion-input [(ngModel)]="this.weight" type="number" name="weight" required></ion-input>
+            <ion-input formControlName="weight" type="number" name="weight"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Activity Level(1 to 10)</ion-label>
-            <ion-input [(ngModel)]="this.activityLevel" type="number" name="activityLevel" required></ion-input>
+            <ion-input formControlName="activityLevel" type="number" name="activityLevel"></ion-input>
           </ion-item>
 
-          <ion-button (click)="submitForm()" type="submit" color="danger" expand="block">Sign Up</ion-button>
+          <ion-button (click)="submitForm()" type="submit" color="danger" expand="block" [disabled]="signupForm.invalid">Sign Up</ion-button>
           <a [routerLink]="['/login']" class="small-text">Already got an Account?</a>
+
+          <p>
+            {{ signupForm.valid | json }}
+          </p>
         </form>
       </ion-col>
     </ion-row>

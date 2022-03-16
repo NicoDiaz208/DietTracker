@@ -31,6 +31,7 @@
 
           <ion-item>
             <ion-input placeholder="Enter Birthday" [value]="dateOfBirth"></ion-input>
+            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing Height</div>
             <ion-button fill="clear" id="open-date-input-2">
               <ion-icon icon="calendar"></ion-icon>
             </ion-button>
@@ -47,39 +48,56 @@
 
           <ion-item lines="full">
             <ion-label position="floating">Gender</ion-label>
-            <ion-input formControlName="gender" type="text" name="gender"></ion-input>
+            <ion-select okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="blonde">Male</ion-select-option>
+              <ion-select-option value="black">Female</ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">Goal Weight</ion-label>
+            <ion-label position="floating">Goal Weight (KG)</ion-label>
             <ion-input formControlName="goalWeight" type="number" name="goalWeight"></ion-input>
+            <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.required">Missing Goal Weight</div>
+            <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.min">Value must be between 20 and 300</div>
+            <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.max">Value must be between 20 and 300</div>
 
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">Height</ion-label>
+            <ion-label position="floating">Height (CM)</ion-label>
             <ion-input formControlName="height" type="number" name="height"></ion-input>
+            <div *ngIf="signupForm.controls.height.touched && signupForm.controls.height.errors?.required">Missing Height</div>
+
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Email</ion-label>
             <ion-input formControlName="email" type="text" name="email"></ion-input>
+            <div *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.required">Missing Email</div>
           </ion-item>
 
 
           <ion-item lines="full">
             <ion-label position="floating">Phone Number</ion-label>
             <ion-input formControlName="phoneNumber" type="text" name="phoneNumber"></ion-input>
+            <div *ngIf="signupForm.controls.phoneNumber.touched && signupForm.controls.phoneNumber.errors?.required">Missing Phone Number</div>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Weight</ion-label>
             <ion-input formControlName="weight" type="number" name="weight"></ion-input>
+            <div *ngIf="signupForm.controls.weight.touched && signupForm.controls.weight.errors?.required">Missing Weight</div>
+            <div *ngIf="signupForm.controls.weight.touched && signupForm.controls.weight.errors?.min">Value must be between 20 and 300</div>
+            <div *ngIf="signupForm.controls.weight.touched && signupForm.controls.weight.errors?.max">Value must be between 20 and 300</div>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Activity Level(1 to 10)</ion-label>
             <ion-input formControlName="activityLevel" type="number" name="activityLevel"></ion-input>
+            <div *ngIf="signupForm.controls.activityLevel.touched && signupForm.controls.activityLevel.errors?.required">Missing ActivityLevel</div>
+            <div *ngIf="signupForm.controls.activityLevel.touched && signupForm.controls.activityLevel.errors?.min">Value must be greater equal 1</div>
+            <div *ngIf="signupForm.controls.activityLevel.touched && signupForm.controls.activityLevel.errors?.max">Value must be smaller equal 10</div>
+
           </ion-item>
 
           <ion-button (click)="submitForm()" type="submit" color="danger" expand="block" [disabled]="signupForm.invalid">Sign Up</ion-button>

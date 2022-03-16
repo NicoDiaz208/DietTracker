@@ -45,15 +45,15 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       username:['', [Validators.required]],
       password: ['', [Validators.required,Validators.minLength(8)]],
-      repassword: ['', [Validators.required,Validators.minLength(8)]],
+      repassword: ['', [Validators.required,Validators.minLength(8),Validators.pattern]],
       gender:['', [Validators.required]],
-      dateOfBirth:['', []],
-      goalWeight:['', [Validators.required, Validators.min(0),Validators.max(300)]],
+      dateOfBirth:['', [Validators.required]],
+      goalWeight:['', [Validators.required, Validators.min(20),Validators.max(300)]],
       height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
       email:['', [Validators.required, Validators.email]],
       phoneNumber:['', [Validators.required]],
-      activityLevel:['', [Validators.required,Validators.min(0),Validators.max(10)]],
-      weight:['', [Validators.required, Validators.min(0),Validators.max(300)]]
+      activityLevel:['', [Validators.required,Validators.min(1),Validators.max(10)]],
+      weight:['', [Validators.required, Validators.min(20),Validators.max(300)]]
     });
   }
   ngOnInit() {}

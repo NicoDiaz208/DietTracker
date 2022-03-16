@@ -8,15 +8,17 @@
     </ion-row>
     <ion-row class="form-row" >
       <ion-col >
-        <form >
+        <form [formGroup]="loginForm" #f="ngForm">
           <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
-            <ion-input [(ngModel)]="this.username" type="text" name="username" required></ion-input>
+            <ion-input formControlName="username" type="text" name="username"></ion-input>
+            <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required">Missing username</div>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
-            <ion-input [(ngModel)]="this.password" type="password" name="password" required (keyup)="handleKeyUp($event)" ></ion-input>
+            <ion-input formControlName="password" type="password" name="password" ></ion-input>
+            <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">Missing password</div>
           </ion-item>
 
           <ion-button (click)="submitForm()" type="submit" color="danger" expand="block">Sign In</ion-button>

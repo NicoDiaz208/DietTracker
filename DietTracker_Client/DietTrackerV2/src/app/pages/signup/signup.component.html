@@ -27,11 +27,13 @@
           <ion-item lines="full">
             <ion-label position="floating">Repeat Password</ion-label>
             <ion-input formControlName="repassword" type="password" name="repassword"></ion-input>
+            <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.required">Missing password</div>
+            <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.pattern">Password does not match</div>
           </ion-item>
 
           <ion-item>
             <ion-input placeholder="Enter Birthday" [value]="dateOfBirth"></ion-input>
-            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing Height</div>
+            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing date</div>
             <ion-button fill="clear" id="open-date-input-2">
               <ion-icon icon="calendar"></ion-icon>
             </ion-button>
@@ -57,7 +59,7 @@
           <ion-item lines="full">
             <ion-label position="floating">Goal Weight (KG)</ion-label>
             <ion-input formControlName="goalWeight" type="number" name="goalWeight"></ion-input>
-            <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.required">Missing Goal Weight</div>
+            <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.required">Missing goal weight</div>
             <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.min">Value must be between 20 and 300</div>
             <div *ngIf="signupForm.controls.goalWeight.touched && signupForm.controls.goalWeight.errors?.max">Value must be between 20 and 300</div>
 
@@ -66,7 +68,7 @@
           <ion-item lines="full">
             <ion-label position="floating">Height (CM)</ion-label>
             <ion-input formControlName="height" type="number" name="height"></ion-input>
-            <div *ngIf="signupForm.controls.height.touched && signupForm.controls.height.errors?.required">Missing Height</div>
+            <div *ngIf="signupForm.controls.height.touched && signupForm.controls.height.errors?.required">Missing height</div>
 
           </ion-item>
 
@@ -74,6 +76,7 @@
             <ion-label position="floating">Email</ion-label>
             <ion-input formControlName="email" type="text" name="email"></ion-input>
             <div *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.required">Missing Email</div>
+            <div *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.email">Not a valid email</div>
           </ion-item>
 
 
@@ -81,6 +84,8 @@
             <ion-label position="floating">Phone Number</ion-label>
             <ion-input formControlName="phoneNumber" type="text" name="phoneNumber"></ion-input>
             <div *ngIf="signupForm.controls.phoneNumber.touched && signupForm.controls.phoneNumber.errors?.required">Missing Phone Number</div>
+            <div *ngIf="signupForm.controls.phoneNumber.touched && signupForm.controls.phoneNumber.errors?.pattern">Not valid</div>
+
           </ion-item>
 
           <ion-item lines="full">

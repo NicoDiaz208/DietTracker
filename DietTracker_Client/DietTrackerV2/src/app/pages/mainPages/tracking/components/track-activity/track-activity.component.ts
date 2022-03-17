@@ -21,10 +21,12 @@ export class TrackActivityComponent implements OnInit {
   public names: string[] = ActivityNames.instance.names;
   public user: UserDto = {};
   public activity: ActivityCreationDto = {};
+  public runningActivity: ActivityCreationDto = {};
   public activities: ActivityDto[] = [];
   public errors = '';
   public isError = false;
   private dailyActivities: ActivityDto[] = [];
+
 
 
 
@@ -66,6 +68,13 @@ export class TrackActivityComponent implements OnInit {
   }
   back(){
     this.router.navigate(['/main-pages/tracking/']);
+  }
+
+
+  async addRunning(){
+    this.runningActivity.date = new Date(Date.now());
+    this.runningActivity.name = 0;
+    // warten auf Nico
   }
 
 }

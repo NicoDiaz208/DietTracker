@@ -45,15 +45,15 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       username:['', [Validators.required]],
       password: ['', [Validators.required,Validators.minLength(8)]],
-      repassword: ['', [Validators.required,Validators.minLength(8)]],
+      repassword: ['', [Validators.required,Validators.pattern(this.password)]],
       gender:['', [Validators.required]],
       dateOfBirth:['', [Validators.required]],
-      goalWeight:['', [Validators.required]],
-      height:['', [Validators.required]],
-      email:['', [Validators.required]],
-      phoneNumber:['', [Validators.required]],
-      activityLevel:['', [Validators.required]],
-      weight:['', [Validators.required]]
+      goalWeight:['', [Validators.required, Validators.min(20),Validators.max(300)]],
+      height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
+      email:['', [Validators.required, Validators.email]],
+      phoneNumber:['', [Validators.required,Validators.pattern('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')]],
+      activityLevel:['', [Validators.required,Validators.min(1),Validators.max(10)]],
+      weight:['', [Validators.required, Validators.min(20),Validators.max(300)]]
     });
   }
   ngOnInit() {}

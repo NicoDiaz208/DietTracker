@@ -29,5 +29,39 @@ namespace DietTracker_Api.Controller
             return Convert.ToInt32(FullOutput);
                 
         }
+
+        [HttpGet]
+        [Route(nameof(GetCaloriesFromRunning))]
+        public async Task<ActionResult<int>> GetCaloriesFromRunning(UserDto usr,int time)
+        {
+            var OutPut = usr.Weight * time * 7;
+            return Ok(Convert.ToInt32(OutPut));
+        }
+
+        [HttpGet]
+        [Route(nameof(GetCaloriesFromSwimming))]
+        public async Task<ActionResult<int>> GetCaloriesFromSwimming(UserDto usr, int time)
+        {
+            var OutPut = usr.Weight * time * 10;
+            return Ok(Convert.ToInt32(OutPut));
+        }
+
+        [HttpGet]
+        [Route(nameof(GetCaloriesFromBicycling))]
+        public async Task<ActionResult<int>> GetCaloriesFromBicycling(UserDto usr, int time)
+        {
+            var OutPut = usr.Weight * time * 5;
+            return Ok(Convert.ToInt32(OutPut));
+        }
+
+        [HttpGet]
+        [Route(nameof(GetCaloriesFromWalking))]
+        public async Task<ActionResult<int>> GetCaloriesFromWalking(UserDto usr, int time)
+        {
+            var OutPut = usr.Weight * time * 3;
+            return Ok(Convert.ToInt32(OutPut));
+        }
+
+
     }
 }

@@ -1,0 +1,22 @@
+<ion-item>
+    <ion-input placeholder="Enter Birthday"></ion-input>
+    <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing date</div>
+    <ion-button fill="clear" id="open-date-input-2">
+      <ion-icon icon="calendar"></ion-icon>
+    </ion-button>
+    <ion-popover trigger="open-date-input-2" show-backdrop="false">
+      <ng-template>
+        <ion-datetime
+          formControlName="dateOfBirth"
+          #popoverDatetime2
+          presentation="date"
+          (ionChange)="signupForm.controls.dateOfBirth.value = formatDate(popoverDatetime2.value)"
+        ></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+
+  <ion-item >
+    <ion-label class="" position="floating">Date</ion-label>
+    <ion-datetime formControlName="dateOfBirth" value="{{dateOfBirth}}"></ion-datetime>
+  </ion-item>

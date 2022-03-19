@@ -32,7 +32,7 @@
 
           <ion-item button="true" id="open-date-input">
             <ion-label>Date</ion-label>
-            <ion-text slot="end">{{ signupForm.controls.dateOfBirth.value }}</ion-text>
+            <ion-text slot="end" required>{{ signupForm.controls.dateOfBirth.value }}</ion-text>
             <ion-popover trigger="open-date-input" show-backdrop="false">
               <ng-template>
                 <ion-datetime

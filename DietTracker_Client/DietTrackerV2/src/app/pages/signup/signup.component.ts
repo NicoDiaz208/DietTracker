@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
 
-
+  user = '';
   userCreate: UserCreationDto = {};
   loginCreate: LoginDto = {};
 
@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.required,Validators.minLength(8)]],
       repassword: ['', [Validators.required]],
       gender:['', [Validators.required]],
-      dateOfBirth:['', [Validators.required]],
+      dateOfBirth:[''],
       goalWeight:['', [Validators.required, Validators.min(20),Validators.max(300)]],
       height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
       email:['', [Validators.required, Validators.email]],
@@ -95,5 +95,17 @@ export class SignupComponent implements OnInit {
 
   formatDate(value: string) {
     return format(parseISO(value), 'MMM dd yyyy');
+  }
+
+  async userExists(){
+
+    this.user = await this.loginService.apiLoginGetSingleLoginGet(this.signupForm.controls.username.value,
+      this.signupForm.controls.password.value).toPromise();
+
+      if(this.user == null)
+      {
+        return false;
+      }
+      return true;
   }
 }

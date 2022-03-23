@@ -3,7 +3,7 @@ import { UserDto } from '../../../services/model/userDto';
 import{UserService} from '../../../services/api/user.service';
 import { User } from 'src/app/services/model/user';
 import { DailyProgressDto } from 'src/app/services/model/dailyProgressDto';
-import { DailyProgress } from 'src/app/services/model/models';
+
 import { NodeWithI18n } from '@angular/compiler';
 
 
@@ -15,7 +15,7 @@ import { NodeWithI18n } from '@angular/compiler';
 export class ProfileComponent implements OnInit {
   public imageUrl = '../../../../assets/Recipes/TestPerson.jpg';
   public user: UserDto = {};
-  public progresses: Array<DailyProgress> = [];
+
   year: number = new Date().getFullYear();
   public age: number;
   public kcal: Array<number> = [];
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   async ngOnInit() {
     this.age = await this.userService.apiUserGetAgeGet(localStorage.getItem('userId')).toPromise();
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
-    this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+
     this.kcal = await this.userService.apiUserGetLastProgressGet(localStorage.getItem('userId')).toPromise();
 
   }

@@ -92,4 +92,8 @@ export class TrackingComponent implements OnInit {
   navigateAllActivitys(){
     this.router.navigate(['/main-pages/tracking/allActivities']);
   }
+
+  navigateAllDailyStats(){
+    this.router.navigate(['/main-pages/tracking/allDailyStats']);
+  }
 }

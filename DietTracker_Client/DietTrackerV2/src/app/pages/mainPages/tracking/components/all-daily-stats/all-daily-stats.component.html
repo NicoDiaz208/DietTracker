@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>All Daily Stats</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content>
+    <ion-list>
+      <ion-item detail button *ngFor="let progress of progresses" (click)="nextPage(progress.id)">
+        <ion-text slot="start">{{progress.date | date : 'fullDate'}}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-content>

@@ -17,6 +17,8 @@ import { AllActivitiesComponent } from './pages/mainPages/tracking/components/al
 import {DetailActivityComponent} from
  './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
 import { SettingsComponent } from './pages/mainPages/profile/settings/settings.component';
+import { AllDailyStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/all-daily-stats.component';
+import { DetailStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/detail-stats/detail-stats.component';
 
 const routes: Routes = [
   { path:'', pathMatch: 'full', redirectTo: '/login' },
@@ -35,6 +37,8 @@ const routes: Routes = [
       { path: 'tracking/achievement', component: AchievementComponent},
       { path: 'recipe/add-recipe', component: AddRecipeComponent},
       { path: 'tracking/trackActivity', component : TrackActivityComponent},
+      { path: 'tracking/allDailyStats', component : AllDailyStatsComponent},
+      {path: 'tracking/allActivities/DetailStats/:progressId', component: DetailStatsComponent},
       { path: 'tracking/allActivities', component : AllActivitiesComponent},
       {path: 'tracking/allActivities/ActivityDetail/:activityId', component: DetailActivityComponent}
     ]

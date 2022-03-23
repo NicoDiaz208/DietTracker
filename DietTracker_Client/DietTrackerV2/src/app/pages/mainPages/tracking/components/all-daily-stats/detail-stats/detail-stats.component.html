@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{progress.date | date : 'medium'}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>Calories</ion-label>
+        <ion-input disabled="true" [(ngModel)]="progress.calories"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>protein </ion-label>
+        <ion-input disabled="true" [(ngModel)]="progress.protein"></ion-input>
+      </ion-item>
+     <!--  <ion-item>
+        <ion-label>Duration in min: </ion-label>
+        <ion-input disabled="true" [(ngModel)]="activity.minutes"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>BurnedCalories in kcal: </ion-label>
+        <ion-input disabled="true" [(ngModel)]="activity.burnedCalories"></ion-input>
+      </ion-item> -->
+    </ion-list>
+  </ion-content>
+</ion-content>

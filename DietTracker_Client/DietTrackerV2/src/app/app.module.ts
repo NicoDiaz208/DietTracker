@@ -45,6 +45,8 @@ import { AllActivitiesComponent } from './pages/mainPages/tracking/components/al
 import {DetailActivityComponent} from
  './pages/mainPages/tracking/components/all-activities/activityDetail/detail-activity/detail-activity.component';
 import { SettingsComponent } from './pages/mainPages/profile/settings/settings.component';
+import { AllDailyStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/all-daily-stats.component';
+import { DetailStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/detail-stats/detail-stats.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { SettingsComponent } from './pages/mainPages/profile/settings/settings.c
     TrackActivityComponent,
     AllActivitiesComponent,
     DetailActivityComponent,
-    SettingsComponent
+    SettingsComponent,
+    AllDailyStatsComponent,
+    DetailStatsComponent
   ],
   entryComponents: [],
   imports: [

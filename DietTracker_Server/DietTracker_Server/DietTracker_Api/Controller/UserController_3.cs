@@ -22,7 +22,7 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetOutPut))]
-        public async Task<ActionResult<int>> GetOutPut(UserDto usr, string distance)
+        public ActionResult<int>GetOutPut(UserDto usr, string distance)
         {
             var dis = Convert.ToInt32(distance);
             var FullOutput = usr.Weight * dis *0.95;
@@ -32,7 +32,7 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromRunning))]
-        public async Task<ActionResult<int>> GetCaloriesFromRunning(UserDto usr,int time)
+        public ActionResult<int> GetCaloriesFromRunning(UserDto usr,int time)
         {
             var OutPut = usr.Weight * time * 7;
             return Ok(Convert.ToInt32(OutPut));
@@ -40,7 +40,7 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromSwimming))]
-        public async Task<ActionResult<int>> GetCaloriesFromSwimming(UserDto usr, int time)
+        public ActionResult<int> GetCaloriesFromSwimming(UserDto usr, int time)
         {
             var OutPut = usr.Weight * time * 10;
             return Ok(Convert.ToInt32(OutPut));
@@ -48,7 +48,7 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromBicycling))]
-        public async Task<ActionResult<int>> GetCaloriesFromBicycling(UserDto usr, int time)
+        public ActionResult<int> GetCaloriesFromBicycling(UserDto usr, int time)
         {
             var OutPut = usr.Weight * time * 5;
             return Ok(Convert.ToInt32(OutPut));
@@ -56,7 +56,7 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromWalking))]
-        public async Task<ActionResult<int>> GetCaloriesFromWalking(UserDto usr, int time)
+        public ActionResult<int> GetCaloriesFromWalking(UserDto usr, int time)
         {
             var OutPut = usr.Weight * time * 3;
             return Ok(Convert.ToInt32(OutPut));

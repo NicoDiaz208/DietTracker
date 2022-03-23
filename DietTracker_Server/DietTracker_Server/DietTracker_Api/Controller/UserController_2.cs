@@ -1,4 +1,5 @@
 ﻿using DietTracker_DataAccess;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -276,37 +277,78 @@ namespace DietTracker_Api.Controller
 
         }
 
+        //[HttpPost, DisableRequestSizeLimit]
+        //[Route(nameof(UploadImage))]
+        //public async Task<IActionResult> UploadImage(string userId)
+        //{
+        //    var usr = await userCollection.GetById(userId);
+        //    if (usr == null) return NotFound();
+
+        //    var formCollection = await Request.ReadFormAsync();
+        //    var file = formCollection.Files[0];
+        //    if (file.Length > 0)
+        //    {
+        //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
+        //        using (var stream = await bucket.OpenUploadStreamAsync(fileName))
+        //        {
+        //            if(usr.Picture == ObjectId.Empty)
+        //            {
+        //                _ = bucket.DeleteAsync(usr.Picture);
+        //            }
+        //            var na = new User(stream.Id, ObjectId.Parse(userId), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
+        //            await userCollection.ReplaceById(userId, na);
+
+        //            await file.CopyToAsync(stream);
+        //            await stream.CloseAsync();
+        //        }
+
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
+
         [HttpPost, DisableRequestSizeLimit]
         [Route(nameof(UploadImage))]
-        public async Task<IActionResult> UploadImage(string userId)
+        public async Task<IActionResult> UploadImage(string usrId, IFormFile file)
         {
-            var usr = await userCollection.GetById(userId);
-            if (usr == null) return NotFound();
+            var usr = await userCollection.GetById(usrId);
+            if(usr == null) return NotFound(false);
 
-            var formCollection = await Request.ReadFormAsync();
-            var file = formCollection.Files[0];
-            if (file.Length > 0)
+            if(file.Length > 0)
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)?.FileName?.Trim('"');
-                using (var stream = await bucket.OpenUploadStreamAsync(fileName))
+                using (var stream =  await bucket.OpenUploadStreamAsync(file.FileName))
                 {
-                    if(usr.Picture == ObjectId.Empty)
-                    {
-                        _ = bucket.DeleteAsync(usr.Picture);
-                    }
-                    var na = new User(stream.Id, ObjectId.Parse(userId), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, usr.RecipeIds, usr.ActivityIds, usr.DailyProgressIds, usr.CalorieIntakeIds, usr.WaterIntakeIds, usr.SleepIds, usr.AchievementsIds, usr.ActivityLevel);
-                    await userCollection.ReplaceById(userId, na);
+                    var newUsr = new User(stream.Id, 
+                        usr.Id, 
+                        usr.Name, 
+                        usr.DateOfBirth, 
+                        usr.Gender, 
+                        usr.GoalWeight, 
+                        usr.Height, 
+                        usr.Email, 
+                        usr.PhoneNumber, 
+                        usr.Weight, 
+                        usr.RecipeIds, 
+                        usr.ActivityIds, 
+                        usr.DailyProgressIds, 
+                        usr.CalorieIntakeIds, 
+                        usr.WaterIntakeIds,
+                        usr.SleepIds, 
+                        usr.AchievementsIds, 
+                        usr.ActivityLevel);
 
+                    await userCollection.ReplaceById(usrId, newUsr);
                     await file.CopyToAsync(stream);
                     await stream.CloseAsync();
                 }
 
                 return Ok();
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            return BadRequest();
         }
 
         [HttpGet("images")]
@@ -324,6 +366,18 @@ namespace DietTracker_Api.Controller
             return File(await bucket.OpenDownloadStreamAsync(oid), "image/jpeg");
         }
 
-        
+        [HttpGet("images/user/{id}")]
+        public async Task<IActionResult> GetImageByUserId(string id)
+        {
+            var user = await this.userCollection.GetById(id);
+
+            if (user == null) return NotFound();
+
+            if (user?.Picture == null) return NotFound();
+
+            return File(await bucket.OpenDownloadStreamAsync(user.Picture), "image/jpeg");
+        }
+
+
     }
 }

@@ -74,7 +74,11 @@ export class TrackActivityComponent implements OnInit {
   async addRunning(){
     this.runningActivity.date = new Date(Date.now());
     this.runningActivity.name = 0;
-    // warten auf Nico
+    // eslint-disable-next-line max-len
+    this.runningActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromRunningGet(this.user.id, this.runningActivity.minutes).toPromise();
+    const id = await this.activityService.apiActivityPost(this.runningActivity).toPromise();
+    await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+
   }
 
 }

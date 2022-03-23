@@ -72,8 +72,12 @@
   <img src="../../../../../../assets/icon/sport-equipment.png">
 </ion-avatar>
   <label>Run Calkulator</label>
-  <ion-input disabled="true" placeholder="Fett" [(ngModel)]="this.activity.distance"> Distance</ion-input>
+  <ion-input disabled="true" placeholder="Minutes" [(ngModel)]="this.runningActivity.minutes"> Minutes</ion-input>
 </ion-item>
+<ion-item color="primary" button (click)="addRunning()">
+  <ion-text slot="end">Add</ion-text>
+</ion-item>
+
 
  <!--
  <ion-item>

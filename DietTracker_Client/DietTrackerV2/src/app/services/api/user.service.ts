@@ -21,7 +21,7 @@ import { Achievement } from '../model/achievement';
 import { Activity } from '../model/activity';
 import { ActivityDto } from '../model/activityDto';
 import { CalorieIntake } from '../model/calorieIntake';
-import { DailyProgress } from '../model/dailyProgress';
+import { DailyProgressDto } from '../model/dailyProgressDto';
 import { FileInfo } from '../model/fileInfo';
 import { Recipe } from '../model/recipe';
 import { Sleep } from '../model/sleep';
@@ -749,9 +749,9 @@ export class UserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<DailyProgress>>;
-    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DailyProgress>>>;
-    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DailyProgress>>>;
+    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<DailyProgressDto>>;
+    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DailyProgressDto>>>;
+    public apiUserGetAllDailyProgressGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DailyProgressDto>>>;
     public apiUserGetAllDailyProgressGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -777,7 +777,7 @@ export class UserService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<DailyProgress>>('get',`${this.basePath}/api/User/GetAllDailyProgress`,
+        return this.httpClient.request<Array<DailyProgressDto>>('get',`${this.basePath}/api/User/GetAllDailyProgress`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

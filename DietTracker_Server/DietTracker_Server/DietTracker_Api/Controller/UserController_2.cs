@@ -38,18 +38,18 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetAllDailyProgress))]
-        public async Task<ActionResult<List<DailyProgress>>> GetAllDailyProgress(string userId)
+        public async Task<ActionResult<List<DailyProgressController.DailyProgressDto>>> GetAllDailyProgress(string userId)
         {
             var usr = await userCollection.GetById(userId);
             if (usr == null) return NotFound();
 
-            List<DailyProgress> dpList = new();
+            List<DailyProgressController.DailyProgressDto> dpList = new();
 
             foreach (var id in usr.DailyProgressIds)
             {
                 var cur = await dailyProgressCollection.GetById(id.ToString());
                 if (cur == null) continue;
-                dpList.Add(cur);
+                dpList.Add(new DailyProgressController.DailyProgressDto(cur.Id.ToString(), cur.Protein, cur.Calories, cur.Percentage, cur.Date));
             }
 
             return dpList;

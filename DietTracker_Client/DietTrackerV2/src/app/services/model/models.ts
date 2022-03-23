@@ -11,7 +11,6 @@ export * from './calorieIntakeDto';
 export * from './category';
 export * from './categoryCreationDto';
 export * from './categoryDto';
-export * from './dailyProgress';
 export * from './dailyProgressCreationDto';
 export * from './dailyProgressDto';
 export * from './fileInfo';

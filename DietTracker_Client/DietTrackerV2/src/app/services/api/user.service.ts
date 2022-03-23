@@ -980,6 +980,261 @@ export class UserService {
     /**
      * 
      * 
+     * @param usrId 
+     * @param time 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetCaloriesFromBicyclingGet(usrId?: string, time?: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetCaloriesFromBicyclingGet(usrId?: string, time?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetCaloriesFromBicyclingGet(usrId?: string, time?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetCaloriesFromBicyclingGet(usrId?: string, time?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
+        }
+        if (time !== undefined && time !== null) {
+            queryParameters = queryParameters.set('time', <any>time);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetCaloriesFromBicycling`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param usrId 
+     * @param time 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetCaloriesFromRunningGet(usrId?: string, time?: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetCaloriesFromRunningGet(usrId?: string, time?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetCaloriesFromRunningGet(usrId?: string, time?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetCaloriesFromRunningGet(usrId?: string, time?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
+        }
+        if (time !== undefined && time !== null) {
+            queryParameters = queryParameters.set('time', <any>time);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetCaloriesFromRunning`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param usrId 
+     * @param time 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetCaloriesFromSwimmingGet(usrId?: string, time?: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetCaloriesFromSwimmingGet(usrId?: string, time?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetCaloriesFromSwimmingGet(usrId?: string, time?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetCaloriesFromSwimmingGet(usrId?: string, time?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
+        }
+        if (time !== undefined && time !== null) {
+            queryParameters = queryParameters.set('time', <any>time);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetCaloriesFromSwimming`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param usrId 
+     * @param time 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetCaloriesFromWalkingGet(usrId?: string, time?: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetCaloriesFromWalkingGet(usrId?: string, time?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetCaloriesFromWalkingGet(usrId?: string, time?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetCaloriesFromWalkingGet(usrId?: string, time?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
+        }
+        if (time !== undefined && time !== null) {
+            queryParameters = queryParameters.set('time', <any>time);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetCaloriesFromWalking`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param usrId 
+     * @param distance 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetOutPutGet(usrId?: string, distance?: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiUserGetOutPutGet(usrId?: string, distance?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiUserGetOutPutGet(usrId?: string, distance?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiUserGetOutPutGet(usrId?: string, distance?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
+        }
+        if (distance !== undefined && distance !== null) {
+            queryParameters = queryParameters.set('distance', <any>distance);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/User/GetOutPut`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -1252,6 +1507,46 @@ export class UserService {
     /**
      * 
      * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserImagesUserIdGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiUserImagesUserIdGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiUserImagesUserIdGet(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiUserImagesUserIdGet(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiUserImagesUserIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/api/User/images/user/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -1412,19 +1707,21 @@ export class UserService {
     /**
      * 
      * 
-     * @param userId 
+     * @param file 
+     * @param usrId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiUserUploadImagePost(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiUserUploadImagePost(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiUserUploadImagePost(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiUserUploadImagePost(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiUserUploadImagePostForm(file?: Blob, usrId?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiUserUploadImagePostForm(file?: Blob, usrId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiUserUploadImagePostForm(file?: Blob, usrId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiUserUploadImagePostForm(file?: Blob, usrId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (userId !== undefined && userId !== null) {
-            queryParameters = queryParameters.set('userId', <any>userId);
+        if (usrId !== undefined && usrId !== null) {
+            queryParameters = queryParameters.set('usrId', <any>usrId);
         }
 
         let headers = this.defaultHeaders;
@@ -1439,10 +1736,30 @@ export class UserService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'multipart/form-data'
         ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) as any || formParams;
+        }
 
         return this.httpClient.request<any>('post',`${this.basePath}/api/User/UploadImage`,
             {
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

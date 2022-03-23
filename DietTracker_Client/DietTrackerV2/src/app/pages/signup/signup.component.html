@@ -28,31 +28,29 @@
             <ion-label position="floating">Repeat Password</ion-label>
             <ion-input formControlName="repassword" type="password" name="repassword"></ion-input>
             <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.required">Missing password</div>
-            <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.pattern">Password does not match</div>
           </ion-item>
 
-          <ion-item>
-            <ion-input placeholder="Enter Birthday" [value]="dateOfBirth"></ion-input>
-            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing date</div>
-            <ion-button fill="clear" id="open-date-input-2">
-              <ion-icon icon="calendar"></ion-icon>
-            </ion-button>
-            <ion-popover trigger="open-date-input-2" show-backdrop="false">
+          <ion-item button="true" id="open-date-input">
+            <ion-label>Date</ion-label>
+            <ion-text slot="end" required>{{ signupForm.controls.dateOfBirth.value }}</ion-text>
+            <ion-popover trigger="open-date-input" show-backdrop="false">
               <ng-template>
                 <ion-datetime
-                  #popoverDatetime2
+                  #popoverDatetime
                   presentation="date"
-                  (ionChange)="dateOfBirth = formatDate(popoverDatetime2.value)"
+                  (ionChange)="signupForm.controls.dateOfBirth.value = formatDate(popoverDatetime.value)"
                 ></ion-datetime>
               </ng-template>
             </ion-popover>
           </ion-item>
 
+
+
           <ion-item lines="full">
             <ion-label position="floating">Gender</ion-label>
-            <ion-select okText="Okay" cancelText="Dismiss">
-              <ion-select-option value="blonde">Male</ion-select-option>
-              <ion-select-option value="black">Female</ion-select-option>
+            <ion-select formControlName="gender" okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -109,8 +107,54 @@
           <a [routerLink]="['/login']" class="small-text">Already got an Account?</a>
 
           <p>
+            Is valid:
             {{ signupForm.valid | json }}
           </p>
+          <p>
+            Name
+            {{ signupForm.controls.username.value | json }}
+          </p>
+          <p>
+            pass
+            {{ signupForm.controls.password.value | json }}
+          </p>
+          <p>
+            Repass
+            {{ signupForm.controls.repassword.value | json }}
+          </p>
+          <p>
+            Date of birth
+            {{ signupForm.controls.dateOfBirth.value | json }}
+          </p>
+          <p>
+            Gender
+            {{ signupForm.controls.gender.value | json }}
+          </p>
+          <p>
+            Goal weight
+            {{ signupForm.controls.goalWeight.value | json }}
+          </p>
+          <p>
+            Height
+            {{ signupForm.controls.height.value | json }}
+          </p>
+          <p>
+            email
+            {{ signupForm.controls.email.value | json }}
+          </p>
+          <p>
+            Phone
+            {{ signupForm.controls.phoneNumber.value | json }}
+          </p>
+          <p>
+            weight
+            {{ signupForm.controls.weight.value | json }}
+          </p>
+          <p>
+            activity
+            {{ signupForm.controls.activityLevel.value | json }}
+          </p>
+
         </form>
       </ion-col>
     </ion-row>

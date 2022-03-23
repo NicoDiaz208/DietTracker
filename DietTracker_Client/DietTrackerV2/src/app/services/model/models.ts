@@ -31,6 +31,7 @@ export * from './sleepDto';
 export * from './user';
 export * from './userCreationDto';
 export * from './userDto';
+export * from './userUploadImageBody';
 export * from './waterIntake';
 export * from './waterIntakeCreationDto';
 export * from './waterIntakeDto';

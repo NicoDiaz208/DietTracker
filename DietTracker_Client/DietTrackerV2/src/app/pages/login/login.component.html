@@ -17,7 +17,7 @@
 
           <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
-            <ion-input formControlName="password" type="password" name="password" ></ion-input>
+            <ion-input formControlName="password" type="password" name="password" required></ion-input>
             <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">Missing password</div>
           </ion-item>
 

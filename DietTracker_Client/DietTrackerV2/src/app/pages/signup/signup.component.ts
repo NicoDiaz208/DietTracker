@@ -19,19 +19,8 @@ export class SignupComponent implements OnInit {
 
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
-  user = '';
-  username = '';
-  password = '';
-  repassword = '';
-  gender = '';
-  dateOfBirth = '';
-  goalWeight = 0;
-  height = 0;
-  email = '';
-  phoneNumber = '';
-  weight = 0;
-  activityLevel =0;
 
+  user = '';
   userCreate: UserCreationDto = {};
   loginCreate: LoginDto = {};
 
@@ -45,9 +34,9 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       username:['', [Validators.required]],
       password: ['', [Validators.required,Validators.minLength(8)]],
-      repassword: ['', [Validators.required,Validators.pattern(this.password)]],
+      repassword: ['', [Validators.required]],
       gender:['', [Validators.required]],
-      dateOfBirth:['', [Validators.required]],
+      dateOfBirth:[''],
       goalWeight:['', [Validators.required, Validators.min(20),Validators.max(300)]],
       height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
       email:['', [Validators.required, Validators.email]],
@@ -73,21 +62,19 @@ export class SignupComponent implements OnInit {
       console.log('Password do not Match');
     }
     else{
-      this.userCreate.name = this.username;
-      let newDate = new Date(this.dateOfBirth);
+      this.userCreate.name = this.signupForm.controls.username.value;
+      let newDate = new Date(this.signupForm.controls.dateOfBirth.value);
       this.userCreate.dateOfBirth = newDate;
-      this.userCreate.gender = this.gender;
-      this.userCreate.goalWeight = this.goalWeight;
-      this.userCreate.height = this.height;
-      this.userCreate.email = this.email;
-      this.userCreate.phoneNumber = this.phoneNumber;
-      this.userCreate.weight = this.weight;
-      this.userCreate.activityLevel = this.activityLevel;
+      this.userCreate.gender = this.signupForm.controls.gender.value;
+      this.userCreate.goalWeight = this.signupForm.controls.goalWeight.value;
+      this.userCreate.height =this.signupForm.controls.height.value;
+      this.userCreate.email = this.signupForm.controls.email.value;
+      this.userCreate.phoneNumber = this.signupForm.controls.phoneNumber.value;
+      this.userCreate.weight = this.signupForm.controls.weight.value;
+      this.userCreate.activityLevel = this.signupForm.controls.activityLevel.value;
 
-      console.log(this.password);
-
-      this.loginCreate.password = this.password;
-      this.loginCreate.username = this.username;
+      this.loginCreate.password = this.signupForm.controls.password.value;
+      this.loginCreate.username = this.signupForm.controls.username.value;
 
       console.log(this.userCreate);
       console.log(this.loginCreate);
@@ -108,5 +95,17 @@ export class SignupComponent implements OnInit {
 
   formatDate(value: string) {
     return format(parseISO(value), 'MMM dd yyyy');
+  }
+
+  async userExists(){
+
+    this.user = await this.loginService.apiLoginGetSingleLoginGet(this.signupForm.controls.username.value,
+      this.signupForm.controls.password.value).toPromise();
+
+      if(this.user == null)
+      {
+        return false;
+      }
+      return true;
   }
 }

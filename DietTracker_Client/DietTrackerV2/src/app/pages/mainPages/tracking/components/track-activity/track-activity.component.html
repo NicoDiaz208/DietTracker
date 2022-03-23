@@ -66,25 +66,75 @@
  <ion-item *ngIf="isError">
    <ion-text color="danger">Value must be positive!</ion-text>
  </ion-item>
+<br>
+<br>
+ <h4>Automatic Calculator</h4>
+<br>
 
- <!-- <ion-item-divider color="black">
-  <ion-label>
-    Running Activity
-  </ion-label>
- </ion-item-divider>
-
+ <h5>Running</h5>
   <ion-item>
     <ion-avatar slot="start">
      <img src="../../../../../../assets/icon/sport-equipment.png">
    </ion-avatar>
      <ion-label>
-       <h2>Run Calculator in Minutes</h2>
-     <ion-input placeholder="Minutes" [(ngModel)]="this.runningActivity.minutes"> </ion-input>
+       <ion-input placeholder="Minutes" [(ngModel)]="this.runningActivity.minutes"> </ion-input>
    </ion-label>
    </ion-item>
-   <ion-item color="primary" button (click)="addRunning()">
-     <ion-text expand="block" fill="outline">Add</ion-text>
-   </ion-item> -->
+   <ion-item >
+     <ion-button size="3" color="primary"  slot="end" button (click)="addRunning()">
+      <ion-text expand="block" fill="outline">Add</ion-text>
+     </ion-button>
+
+   </ion-item>
+
+<br>
+<h5>Swimming</h5>
+  <ion-item>
+    <ion-avatar slot="start">
+     <img src="../../../../../../assets/icon/sport-equipment.png">
+   </ion-avatar>
+     <ion-label>
+       <ion-input placeholder="Minutes" [(ngModel)]="this.swimmingActivity.minutes"> </ion-input>
+   </ion-label>
+   </ion-item>
+   <ion-item >
+      <ion-button size="3" color="primary" slot="end" button (click)="addSwimming()">
+        <ion-text expand="block" fill="outline">Add</ion-text>
+      </ion-button>
+
+   </ion-item>
+  <br>
+  <h5>Walking</h5>
+  <ion-item>
+    <ion-avatar slot="start">
+     <img src="../../../../../../assets/icon/sport-equipment.png">
+   </ion-avatar>
+     <ion-label>
+       <ion-input placeholder="Minutes" [(ngModel)]="this.walkingActivity.minutes"> </ion-input>
+   </ion-label>
+   </ion-item>
+   <ion-item >
+      <ion-button size="3" color="primary" slot="end" button (click)="addWalking()">
+        <ion-text expand="block" fill="outline">Add</ion-text>
+      </ion-button>
+
+   </ion-item>
+  <br>
+  <h5>Cycling</h5>
+  <ion-item>
+    <ion-avatar slot="start">
+     <img src="../../../../../../assets/icon/sport-equipment.png">
+   </ion-avatar>
+     <ion-label>
+       <ion-input placeholder="Minutes" [(ngModel)]="this.cyclingActivity.minutes"> </ion-input>
+   </ion-label>
+   </ion-item>
+   <ion-item >
+      <ion-button size="3" color="primary" slot="end" button (click)="addCycling()">
+        <ion-text expand="block" fill="outline">Add</ion-text>
+      </ion-button>
+
+   </ion-item>
 </ion-list>
 
  <!--

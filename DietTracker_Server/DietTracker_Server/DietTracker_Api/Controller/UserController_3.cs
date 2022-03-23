@@ -1,6 +1,7 @@
 ﻿using DietTracker_DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DietTracker_Api.Controller
@@ -35,8 +36,9 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromRunning))]
-        public async Task<ActionResult<int>> GetCaloriesFromRunning(string usrId,int time)
+        public async Task<ActionResult<int>> GetCaloriesFromRunning(string usrId,double time)
         {
+            time = time / 60;
             var usr = await userCollection.GetById(usrId);
             if (usr == null) return NotFound();
 
@@ -46,8 +48,9 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromSwimming))]
-        public async Task<ActionResult<int>> GetCaloriesFromSwimming(string usrId, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromSwimming(string usrId, double time)
         {
+            time = time / 60;
             var usr = await userCollection.GetById(usrId);
             if ( usr == null) return NotFound();
 
@@ -57,8 +60,9 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromBicycling))]
-        public async Task<ActionResult<int>> GetCaloriesFromBicycling(string usrId, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromBicycling(string usrId, double time)
         {
+            time = time / 60;
             var usr = await userCollection.GetById(usrId);
             if(usr == null) return NotFound();
 
@@ -68,8 +72,9 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromWalking))]
-        public async Task<ActionResult<int>> GetCaloriesFromWalking(string usrId, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromWalking(string usrId, double time)
         {
+            time = time / 60;
             var usr = await userCollection.GetById(usrId);
             if( usr == null) return NotFound();
 
@@ -77,6 +82,37 @@ namespace DietTracker_Api.Controller
             return Ok(Convert.ToInt32(OutPut));
         }
 
+        [HttpGet]
+        [Route(nameof(GetLastProgress))]
+        public async Task<ActionResult<List<double>>> GetLastProgress(string usrId)
+        {
+            var usr = await userCollection.GetById(usrId);
+            if (usr == null) return NotFound();
+
+            var intake = new List<double>(new double[5]);
+
+            int count = 0;
+            foreach(var item in usr.CalorieIntakeIds)
+            {
+                if (count == 4) break;
+                var calories = await calorieIntakeCollection.GetById(item);
+                if(calories == null) return NotFound();
+                intake[count] = calories.CalorieCurrent;
+                count++;
+            }
+            count = 0;
+
+            foreach( var item in usr.DailyProgressIds)
+            {
+                if(count== 4) break;
+                var calories = await dailyProgressCollection.GetById(item);
+                if (calories == null) return NotFound();
+                intake[count] = intake[count] - calories.Calories;
+                count++;
+            }
+
+            return intake;
+        }
 
     }
 }

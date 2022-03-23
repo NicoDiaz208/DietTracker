@@ -25,6 +25,9 @@ export class TrackActivityComponent implements OnInit {
   public activities: ActivityDto[] = [];
   public errors = '';
   public isError = false;
+  public swimmingActivity: ActivityCreationDto = {};
+  public walkingActivity: ActivityCreationDto = {};
+  public cyclingActivity: ActivityCreationDto = {};
   private dailyActivities: ActivityDto[] = [];
 
 
@@ -78,7 +81,39 @@ export class TrackActivityComponent implements OnInit {
     this.runningActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromRunningGet(this.user.id, this.runningActivity.minutes).toPromise();
     const id = await this.activityService.apiActivityPost(this.runningActivity).toPromise();
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+    this.back();
+  }
+  async addSwimming(){
+    this.swimmingActivity.date = new Date(Date.now());
+    this.swimmingActivity.name = 1;
 
+    // eslint-disable-next-line max-len
+    this.swimmingActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromSwimmingGet(this.user.id, this.swimmingActivity.minutes).toPromise();
+    const id = await this.activityService.apiActivityPost(this.swimmingActivity).toPromise();
+    await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+    this.back();
+  }
+
+  async addWalking(){
+    this.walkingActivity.date = new Date(Date.now());
+    this.walkingActivity.name = 3;
+
+    // eslint-disable-next-line max-len
+    this.walkingActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromWalkingGet(this.user.id, this.walkingActivity.minutes).toPromise();
+    const id = await this.activityService.apiActivityPost(this.walkingActivity).toPromise();
+    await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+    this.back();
+  }
+
+  async addCycling(){
+    this.cyclingActivity.date = new Date(Date.now());
+    this.cyclingActivity.name = 4;
+
+    // eslint-disable-next-line max-len
+    this.cyclingActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromBicyclingGet(this.user.id, this.cyclingActivity.minutes).toPromise();
+    const id = await this.activityService.apiActivityPost(this.cyclingActivity).toPromise();
+    await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+    this.back();
   }
 
 }

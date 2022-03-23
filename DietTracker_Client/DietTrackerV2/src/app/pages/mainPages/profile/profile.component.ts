@@ -12,6 +12,7 @@ import { DailyProgress } from 'src/app/services/model/models';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  public imageUrl = '../../../../assets/Recipes/TestPerson.jpg';
   public user: UserDto = {};
   public progresses: Array<DailyProgress> = [];
   year: number = new Date().getFullYear();
@@ -23,6 +24,10 @@ export class ProfileComponent implements OnInit {
     this.age = await this.userService.apiUserGetAgeGet(localStorage.getItem('userId')).toPromise();
     this.user = await this.userService.getSingleUser(localStorage.getItem('userId')).toPromise();
     this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+  }
+
+  getImage(){
+    return 'http://diettrackerapi.azurewebsites.net/api/User/images/user/'+this.user.id;
   }
 
 

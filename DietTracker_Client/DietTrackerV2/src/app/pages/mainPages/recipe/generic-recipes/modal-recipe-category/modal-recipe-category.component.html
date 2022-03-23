@@ -8,7 +8,7 @@
   <ion-list>
     <ion-list-header>
       <ion-thumbnail class="ion-padding-end">
-        <ion-img  src="../../../../../../assets/Recipes/AmelReplacePic.jpeg"></ion-img>
+        <ion-img  [src]="getImage()"></ion-img>
         </ion-thumbnail>
       <ion-text>{{recipe.name}}</ion-text>
     </ion-list-header>

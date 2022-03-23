@@ -6,6 +6,7 @@ import { Food } from 'src/app/services/model/food';
 import { FoodDto } from 'src/app/services/model/foodDto';
 import { Recipe } from 'src/app/services/model/recipe';
 import { RecipeDto } from 'src/app/services/model/recipeDto';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modal-recipe-category',
@@ -23,6 +24,9 @@ export class ModalRecipeCategoryComponent implements OnInit {
 
   }
 
+  getImage(): string{
+    return environment.apiBase+'api/Recipe/image/recipe/'+this.recipe.id;
+  }
   back(){
     this.modalController.dismiss({
       recipe: this.recipe

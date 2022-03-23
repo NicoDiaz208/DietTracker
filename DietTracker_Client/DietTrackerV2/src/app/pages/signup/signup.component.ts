@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/api/user.service';
 import { UserCreationDto } from 'src/app/services/model/userCreationDto';
 import { LoginDto } from 'src/app/services/model/loginDto';
 import { IonDatetime } from '@ionic/angular';
-import { format, parseISO } from 'date-fns';
+import * as dateFns from 'date-fns';
 
 @Component({
   selector: 'app-signup',
@@ -94,7 +94,7 @@ export class SignupComponent implements OnInit {
   }
 
   formatDate(value: string) {
-    return format(parseISO(value), 'MMM dd yyyy');
+    return dateFns.format(dateFns.parseISO(value), 'MMM dd yyyy');
   }
 
   async userExists(){

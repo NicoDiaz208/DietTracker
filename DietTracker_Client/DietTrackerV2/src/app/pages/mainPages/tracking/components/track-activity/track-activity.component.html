@@ -60,7 +60,7 @@
  </ion-item>
 
  <ion-item color="primary" button (click)="add()">
-   <ion-text slot="end">Add</ion-text>
+   <ion-text expand="block" fill="outline">Add</ion-text>
  </ion-item>
 
  <ion-item *ngIf="isError">
@@ -71,11 +71,13 @@
  <ion-avatar slot="start">
   <img src="../../../../../../assets/icon/sport-equipment.png">
 </ion-avatar>
-  <label>Run Calkulator</label>
-  <ion-input disabled="true" placeholder="Minutes" [(ngModel)]="this.runningActivity.minutes"> Minutes</ion-input>
+  <ion-label>
+    <h2>Run Calkulator in Minutes</h2>
+  <ion-input placeholder="Minutes" [(ngModel)]="this.runningActivity.minutes"> </ion-input>
+</ion-label>
 </ion-item>
 <ion-item color="primary" button (click)="addRunning()">
-  <ion-text slot="end">Add</ion-text>
+  <ion-text expand="block" fill="outline">Add</ion-text>
 </ion-item>
 
 

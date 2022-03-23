@@ -72,7 +72,7 @@ export class TrackActivityComponent implements OnInit {
 
 
   async addRunning(){
-    this.runningActivity.date = new Date(Date.now());
+     this.runningActivity.date = new Date(Date.now());
     this.runningActivity.name = 0;
     // eslint-disable-next-line max-len
     this.runningActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromRunningGet(this.user.id, this.runningActivity.minutes).toPromise();

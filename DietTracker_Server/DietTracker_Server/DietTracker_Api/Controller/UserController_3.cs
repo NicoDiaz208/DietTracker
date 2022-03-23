@@ -22,8 +22,11 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetOutPut))]
-        public ActionResult<int>GetOutPut(UserDto usr, string distance)
+        public async Task<ActionResult<int>> GetOutPut(string usrId, string distance)
         {
+            var usr = await userCollection.GetById(usrId);
+            if (usr == null) return NotFound();
+
             var dis = Convert.ToInt32(distance);
             var FullOutput = usr.Weight * dis *0.95;
             return Convert.ToInt32(FullOutput);
@@ -32,32 +35,44 @@ namespace DietTracker_Api.Controller
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromRunning))]
-        public ActionResult<int> GetCaloriesFromRunning(UserDto usr,int time)
+        public async Task<ActionResult<int>> GetCaloriesFromRunning(string usrId,int time)
         {
+            var usr = await userCollection.GetById(usrId);
+            if (usr == null) return NotFound();
+
             var OutPut = usr.Weight * time * 7;
             return Ok(Convert.ToInt32(OutPut));
         }
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromSwimming))]
-        public ActionResult<int> GetCaloriesFromSwimming(UserDto usr, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromSwimming(string usrId, int time)
         {
+            var usr = await userCollection.GetById(usrId);
+            if ( usr == null) return NotFound();
+
             var OutPut = usr.Weight * time * 10;
             return Ok(Convert.ToInt32(OutPut));
         }
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromBicycling))]
-        public ActionResult<int> GetCaloriesFromBicycling(UserDto usr, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromBicycling(string usrId, int time)
         {
+            var usr = await userCollection.GetById(usrId);
+            if(usr == null) return NotFound();
+
             var OutPut = usr.Weight * time * 5;
             return Ok(Convert.ToInt32(OutPut));
         }
 
         [HttpGet]
         [Route(nameof(GetCaloriesFromWalking))]
-        public ActionResult<int> GetCaloriesFromWalking(UserDto usr, int time)
+        public async Task<ActionResult<int>> GetCaloriesFromWalking(string usrId, int time)
         {
+            var usr = await userCollection.GetById(usrId);
+            if( usr == null) return NotFound();
+
             var OutPut = usr.Weight * time * 3;
             return Ok(Convert.ToInt32(OutPut));
         }

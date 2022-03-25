@@ -30,21 +30,11 @@
             <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.required">Missing password</div>
           </ion-item>
 
-          <ion-item button="true" id="open-date-input">
-            <ion-label>Date</ion-label>
-            <ion-text slot="end" required>{{ signupForm.controls.dateOfBirth.value }}</ion-text>
-            <ion-popover trigger="open-date-input" show-backdrop="false">
-              <ng-template>
-                <ion-datetime
-                  #popoverDatetime
-                  presentation="date"
-                  (ionChange)="signupForm.controls.dateOfBirth.value = formatDate(popoverDatetime.value)"
-                ></ion-datetime>
-              </ng-template>
-            </ion-popover>
+
+          <!-- Datetime in popover with cover element -->
+          <ion-item >
+            <ion-datetime formControlName="dateOfBirth" presentation="date"></ion-datetime>
           </ion-item>
-
-
 
           <ion-item lines="full">
             <ion-label position="floating">Gender</ion-label>
@@ -105,56 +95,6 @@
 
           <ion-button (click)="submitForm()" type="submit" color="danger" expand="block" [disabled]="signupForm.invalid">Sign Up</ion-button>
           <a [routerLink]="['/login']" class="small-text">Already got an Account?</a>
-
-          <p>
-            Is valid:
-            {{ signupForm.valid | json }}
-          </p>
-          <p>
-            Name
-            {{ signupForm.controls.username.value | json }}
-          </p>
-          <p>
-            pass
-            {{ signupForm.controls.password.value | json }}
-          </p>
-          <p>
-            Repass
-            {{ signupForm.controls.repassword.value | json }}
-          </p>
-          <p>
-            Date of birth
-            {{ signupForm.controls.dateOfBirth.value | json }}
-          </p>
-          <p>
-            Gender
-            {{ signupForm.controls.gender.value | json }}
-          </p>
-          <p>
-            Goal weight
-            {{ signupForm.controls.goalWeight.value | json }}
-          </p>
-          <p>
-            Height
-            {{ signupForm.controls.height.value | json }}
-          </p>
-          <p>
-            email
-            {{ signupForm.controls.email.value | json }}
-          </p>
-          <p>
-            Phone
-            {{ signupForm.controls.phoneNumber.value | json }}
-          </p>
-          <p>
-            weight
-            {{ signupForm.controls.weight.value | json }}
-          </p>
-          <p>
-            activity
-            {{ signupForm.controls.activityLevel.value | json }}
-          </p>
-
         </form>
       </ion-col>
     </ion-row>

@@ -71,6 +71,14 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+        [HttpGet]
+        [Route(nameof(GetByDate))]
+        public async Task<ActionResult<WaterIntake>> GetByDate(DateTime date)
+        {
+            var WaterIntakes = await waterIntakeCollection.GetAll();
+            var result = WaterIntakes.FirstOrDefault(a => a.Date == date);
+            return Ok(result);
+        }
 
     }
 }

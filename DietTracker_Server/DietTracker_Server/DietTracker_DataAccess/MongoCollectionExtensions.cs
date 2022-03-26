@@ -31,6 +31,8 @@ namespace DietTracker_DataAccess
             where T : IHaveId
             => GetById(collection, ObjectId.Parse(id));
 
+        
+
         public static async Task<T?> GetById<T>(this IMongoCollection<T> collection, ObjectId id)
             where T: IHaveId
         {

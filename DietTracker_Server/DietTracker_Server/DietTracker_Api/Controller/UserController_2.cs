@@ -55,6 +55,62 @@ namespace DietTracker_Api.Controller
             return dpList;
         }
 
+        public record DailyProgressExtendedDto(
+            string Id,
+            double Protein,
+            double Calories,
+            double Percentage,
+            DateTime Date,
+            double fat,
+            double Cap,
+            double Waterintake,
+            double SleepIntake);
+
+        [HttpGet]
+        [Route(nameof(GetAllDailyProgressExtended))]
+        public async Task<ActionResult<List<DailyProgressExtendedDto>>> GetAllDailyProgressExtended(string userId)
+        {
+            var usr = await userCollection.GetById(userId);
+            var sleeps = await sleepCollection.GetAll();
+            var calories = await calorieIntakeCollection.GetAll();
+            var waters = await waterIntakeCollection.GetAll();
+            if (usr == null) return NotFound();
+
+            List<DailyProgressExtendedDto> dpList = new();
+
+
+            foreach (var id in usr.DailyProgressIds)
+            {
+               
+                var dailyprog = await dailyProgressCollection.GetById(id.ToString());
+                if(dailyprog == null) continue;
+
+                DateTime date = dailyprog.Date;
+
+                var sleep = sleeps.FirstOrDefault(a => a.Date.Date == date.Date);
+                if (sleep == null) continue;
+
+                var CalorieIn = calories.FirstOrDefault(a => a.Date.Date == date.Date);
+                if (CalorieIn == null) continue;
+
+                var water = waters.FirstOrDefault(a => a.Date.Date == date.Date);
+                if (water == null) continue;
+
+                dpList.Add(new DailyProgressExtendedDto(dailyprog.Id.ToString(), dailyprog.Protein, dailyprog.Calories, dailyprog.Percentage, dailyprog.Date,CalorieIn.FatCurrent,CalorieIn.CarbohydratesCurrent,water.GoWC,sleep.HoSC));
+
+            }
+
+            return dpList;
+        }
+
+        [HttpGet]
+        [Route(nameof(samedate))]
+        public bool samedate(DateTime a1,DateTime a2)
+        {
+            if(a1.Date ==a2.Date) return true;
+            return false;
+        }
+
         [HttpGet]
         [Route(nameof(GetAllActivities))]
         public async Task<ActionResult<List<ActivityController.ActivityDto>>> GetAllActivities(string userId)

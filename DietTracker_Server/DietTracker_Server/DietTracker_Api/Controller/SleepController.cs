@@ -70,5 +70,15 @@ namespace DietTracker_Api.Controller
             return Ok(200);
         }
 
+
+        [HttpGet]
+        [Route(nameof(GetByDate))]
+        public async Task<ActionResult<Sleep>> GetByDate(DateTime date)
+        {
+            var SleepIntakes = await sleepCollection.GetAll();
+            var result = SleepIntakes.FirstOrDefault(a => a.Date == date);
+            return Ok(result);
+        }
+
     }
 }

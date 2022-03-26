@@ -78,5 +78,15 @@ namespace DietTracker_Api.Controller
             await calorieIntakeCollection.ReplaceById(id, na);
             return Ok(200);
         }
+
+
+        [HttpGet]
+        [Route(nameof(GetByDate))]
+        public async Task<ActionResult<CalorieIntake>> GetByDate(DateTime date)
+        {
+            var calorieIntakes = await calorieIntakeCollection.GetAll();
+            var result = calorieIntakes.FirstOrDefault(a => a.Date == date);
+            return Ok(result);
+        }
     }
 }

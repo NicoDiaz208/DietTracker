@@ -30,12 +30,10 @@
             <div *ngIf="signupForm.controls.repassword.touched && signupForm.controls.repassword.errors?.required">Missing password</div>
           </ion-item>
 
-          <!--Date of birth field-->
-          <ion-item lines="full">
-            <ion-label position="floating">Date of birth</ion-label>
-            <ion-input placeholder="DD/MM/YYYY" formControlName="dateOfBirth" type="text"></ion-input>
-            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.required">Missing date of birth</div>
-            <div *ngIf="signupForm.controls.dateOfBirth.touched && signupForm.controls.dateOfBirth.errors?.pattern">Not valid</div>
+
+          <!-- Datetime in popover with cover element -->
+          <ion-item >
+            <ion-datetime formControlName="dateOfBirth" presentation="date"></ion-datetime>
           </ion-item>
 
           <ion-item lines="full">

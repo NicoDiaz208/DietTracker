@@ -103,6 +103,38 @@ namespace DietTracker_Api.Controller
             return dpList;
         }
 
+
+        [HttpGet]
+        [Route(nameof(GetSingleDailyProgressExtended))]
+        public async Task<ActionResult<DailyProgressExtendedDto>> GetSingleDailyProgressExtended(string userId,string datestring)
+        {
+            var usr = await userCollection.GetById(userId);
+            var sleeps = await sleepCollection.GetAll();
+            var calories = await calorieIntakeCollection.GetAll();
+            var waters = await waterIntakeCollection.GetAll();
+            if (usr == null) return NotFound();
+            var date = DateTime.Parse(datestring);
+
+                var dailyprogs = await dailyProgressCollection.GetAll();
+               var dailyprog = dailyprogs.FirstOrDefault(a => a.Date.Date == date.Date);
+
+
+
+                var sleep = sleeps.FirstOrDefault(a => a.Date.Date == date.Date);
+
+                var CalorieIn = calories.FirstOrDefault(a => a.Date.Date == date.Date);
+
+
+                var water = waters.FirstOrDefault(a => a.Date.Date == date.Date);
+
+
+               var result = new DailyProgressExtendedDto(dailyprog.Id.ToString(), dailyprog.Protein, dailyprog.Calories, dailyprog.Percentage, dailyprog.Date, CalorieIn.FatCurrent, CalorieIn.CarbohydratesCurrent, water.GoWC, sleep.HoSC);
+
+
+
+            return result;
+        }
+
         [HttpGet]
         [Route(nameof(samedate))]
         public bool samedate(DateTime a1,DateTime a2)

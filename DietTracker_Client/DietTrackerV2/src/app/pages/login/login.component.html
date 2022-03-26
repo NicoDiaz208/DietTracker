@@ -11,17 +11,17 @@
         <form [formGroup]="loginForm" #f="ngForm">
           <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
-            <ion-input (keyup.enter)="submitForm()" formControlName="username" type="text" name="username"></ion-input>
+            <ion-input formControlName="username" type="text" name="username"></ion-input>
             <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required">Missing username</div>
           </ion-item>
 
           <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
-            <ion-input   formControlName="password" type="password" name="password" required></ion-input>
+            <ion-input formControlName="password" type="password" name="password" required></ion-input>
             <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">Missing password</div>
           </ion-item>
 
-          <ion-button  type="submit" color="danger" expand="block">Sign In</ion-button>
+          <ion-button (click)="submitForm()" type="submit" color="danger" expand="block">Sign In</ion-button>
           <a [routerLink]="['/forgot-pass']" class="small-text">Forgot Password?</a>
         </form>
         <a style="text-align:center" [routerLink]="['/signup']" class="small-text">Have no account yet? Sign up now!</a>

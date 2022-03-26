@@ -13,6 +13,7 @@ export * from './categoryCreationDto';
 export * from './categoryDto';
 export * from './dailyProgressCreationDto';
 export * from './dailyProgressDto';
+export * from './dailyProgressExtendedDto';
 export * from './fileInfo';
 export * from './food';
 export * from './foodCreationDto';

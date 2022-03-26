@@ -12,6 +12,7 @@ import { Ingredient } from 'src/app/services/model/ingredient';
 export class ModalFoodComponent implements OnInit {
   @Input() selected: Ingredient[];
   @Input() names: string[];
+  @Input() foodAmount: number[]=[];
   public ingredientsAll: Food[] = [];
   public ingredientsPresentation: Food[] = [];
   public selectedFoods: Ingredient[] = [];

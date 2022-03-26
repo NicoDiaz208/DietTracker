@@ -98,6 +98,52 @@ export class CalorieIntakeService {
     /**
      * 
      * 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiCalorieIntakeGetByDateGet(date?: Date, observe?: 'body', reportProgress?: boolean): Observable<CalorieIntake>;
+    public apiCalorieIntakeGetByDateGet(date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CalorieIntake>>;
+    public apiCalorieIntakeGetByDateGet(date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CalorieIntake>>;
+    public apiCalorieIntakeGetByDateGet(date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<CalorieIntake>('get',`${this.basePath}/api/CalorieIntake/GetByDate`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

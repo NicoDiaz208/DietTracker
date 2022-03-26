@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { Sleep } from '../model/sleep';
 import { SleepCreationDto } from '../model/sleepCreationDto';
 import { SleepDto } from '../model/sleepDto';
 
@@ -137,6 +138,52 @@ export class SleepService {
 
         return this.httpClient.request<Array<SleepDto>>('get',`${this.basePath}/api/Sleep`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiSleepGetByDateGet(date?: Date, observe?: 'body', reportProgress?: boolean): Observable<Sleep>;
+    public apiSleepGetByDateGet(date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Sleep>>;
+    public apiSleepGetByDateGet(date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Sleep>>;
+    public apiSleepGetByDateGet(date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Sleep>('get',`${this.basePath}/api/Sleep/GetByDate`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

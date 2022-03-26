@@ -50,9 +50,11 @@ export class LoginComponent implements OnInit {
     alert(this.msg);
   }
 
-  handleKeyUp(){
+  handleKeyUp(e){
+    if(e.keyCode === 13){
        this.submitForm();
-   }
+    }
+ }
 
 
 

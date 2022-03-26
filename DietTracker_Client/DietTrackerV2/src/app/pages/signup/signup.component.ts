@@ -17,6 +17,9 @@ import * as dateFns from 'date-fns';
 })
 export class SignupComponent implements OnInit {
 
+  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
+
+
   user = '';
   userCreate: UserCreationDto = {};
   loginCreate: LoginDto = {};
@@ -33,13 +36,11 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.required,Validators.minLength(8)]],
       repassword: ['', [Validators.required]],
       gender:['', [Validators.required]],
-      dateOfBirth:['',[Validators.required,
-      Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4})$')]],
+      dateOfBirth:[''],
       goalWeight:['', [Validators.required, Validators.min(20),Validators.max(300)]],
       height:['', [Validators.required, Validators.min(0), Validators.max(300)]],
       email:['', [Validators.required, Validators.email]],
-      phoneNumber:['', [Validators.required,
-        Validators.pattern('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')]],
+      phoneNumber:['', [Validators.required,Validators.pattern('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')]],
       activityLevel:['', [Validators.required,Validators.min(1),Validators.max(10)]],
       weight:['', [Validators.required, Validators.min(20),Validators.max(300)]]
     });
@@ -83,11 +84,21 @@ export class SignupComponent implements OnInit {
     }
   }
 
+
+  confirm() {
+    this.datetime.confirm();
+  }
+
+  reset() {
+    this.datetime.reset();
+  }
+
   formatDate(value: string) {
     return dateFns.format(dateFns.parseISO(value), 'MMM dd yyyy');
   }
 
   async userExists(){
+
     this.user = await this.loginService.apiLoginGetSingleLoginGet(this.signupForm.controls.username.value,
       this.signupForm.controls.password.value).toPromise();
 

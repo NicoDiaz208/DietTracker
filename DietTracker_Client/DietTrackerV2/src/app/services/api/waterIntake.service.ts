@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { WaterIntake } from '../model/waterIntake';
 import { WaterIntakeCreationDto } from '../model/waterIntakeCreationDto';
 import { WaterIntakeDto } from '../model/waterIntakeDto';
 
@@ -137,6 +138,52 @@ export class WaterIntakeService {
 
         return this.httpClient.request<Array<WaterIntakeDto>>('get',`${this.basePath}/api/WaterIntake`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiWaterIntakeGetByDateGet(date?: Date, observe?: 'body', reportProgress?: boolean): Observable<WaterIntake>;
+    public apiWaterIntakeGetByDateGet(date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterIntake>>;
+    public apiWaterIntakeGetByDateGet(date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterIntake>>;
+    public apiWaterIntakeGetByDateGet(date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<WaterIntake>('get',`${this.basePath}/api/WaterIntake/GetByDate`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

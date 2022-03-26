@@ -22,6 +22,7 @@ import { Activity } from '../model/activity';
 import { ActivityDto } from '../model/activityDto';
 import { CalorieIntake } from '../model/calorieIntake';
 import { DailyProgressDto } from '../model/dailyProgressDto';
+import { DailyProgressExtendedDto } from '../model/dailyProgressExtendedDto';
 import { FileInfo } from '../model/fileInfo';
 import { Recipe } from '../model/recipe';
 import { Sleep } from '../model/sleep';
@@ -732,6 +733,52 @@ export class UserService {
         ];
 
         return this.httpClient.request<Array<Activity>>('get',`${this.basePath}/api/User/GetAllDailyActivities`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetAllDailyProgressExtendedGet(userId?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<DailyProgressExtendedDto>>;
+    public apiUserGetAllDailyProgressExtendedGet(userId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DailyProgressExtendedDto>>>;
+    public apiUserGetAllDailyProgressExtendedGet(userId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DailyProgressExtendedDto>>>;
+    public apiUserGetAllDailyProgressExtendedGet(userId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (userId !== undefined && userId !== null) {
+            queryParameters = queryParameters.set('userId', <any>userId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<DailyProgressExtendedDto>>('get',`${this.basePath}/api/User/GetAllDailyProgressExtended`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -1685,6 +1732,57 @@ export class UserService {
         return this.httpClient.request<UserDto>('post',`${this.basePath}/api/User/Replace`,
             {
                 body: body,
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param a1 
+     * @param a2 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserSamedateGet(a1?: Date, a2?: Date, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public apiUserSamedateGet(a1?: Date, a2?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public apiUserSamedateGet(a1?: Date, a2?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public apiUserSamedateGet(a1?: Date, a2?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (a1 !== undefined && a1 !== null) {
+            queryParameters = queryParameters.set('a1', <any>a1.toISOString());
+        }
+        if (a2 !== undefined && a2 !== null) {
+            queryParameters = queryParameters.set('a2', <any>a2.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('get',`${this.basePath}/api/User/samedate`,
+            {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

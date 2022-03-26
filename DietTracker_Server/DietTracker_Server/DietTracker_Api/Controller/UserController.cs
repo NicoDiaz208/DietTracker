@@ -189,6 +189,27 @@ namespace DietTracker_Api.Controller
             return Ok(new UserDto(user.Id.ToString(), user.Name, user.DateOfBirth, user.Gender, user.GoalWeight, user.Height, user.Email, user.PhoneNumber, user.Weight, user.ActivityLevel));
         }
 
+
+        [HttpGet]
+        [Route(nameof(GetSingleUsername))]
+        public async Task<ActionResult<string>> GetSingleUsername(string username)
+        {
+            var user = await userCollection.GetUserByUsername(username);
+            if (user == null) return NotFound();
+
+            return user.Name;
+        }
+
+        [HttpGet]
+        [Route(nameof(GetSingleUsername))]
+        public async Task<ActionResult<string>> GetSingleEmail(string email)
+        {
+            var user = await userCollection.GetUserByEmail(email);
+            if (user == null) return NotFound();
+
+            return user.Name;
+        }
+
         [HttpPost]
         [Route(nameof(CalculateDailyProgress))]
         public async Task<ActionResult<String>> CalculateDailyProgress(string userId, DateTime date)

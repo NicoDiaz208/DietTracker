@@ -54,7 +54,13 @@ namespace DietTracker_DataAccess
             return await cursor.FirstOrDefaultAsync();
         }
 
+        public static async Task<T?> GetUserByEmail<T>(this IMongoCollection<T> collection, string email)
+            where T : User
+        {
+            var cursor = await collection.FindAsync<T>(Builders<T>.Filter.Eq(x => x.Email, email));
+            return await cursor.FirstOrDefaultAsync();
+        }
 
-       
+
     }
 }

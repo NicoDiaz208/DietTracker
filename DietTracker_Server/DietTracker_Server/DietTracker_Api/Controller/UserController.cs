@@ -201,7 +201,7 @@ namespace DietTracker_Api.Controller
         }
 
         [HttpGet]
-        [Route(nameof(GetSingleUsername))]
+        [Route(nameof(GetSingleEmail))]
         public async Task<ActionResult<string>> GetSingleEmail(string email)
         {
             var user = await userCollection.GetUserByEmail(email);

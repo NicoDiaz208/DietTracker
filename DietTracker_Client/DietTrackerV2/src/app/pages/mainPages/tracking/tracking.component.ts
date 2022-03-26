@@ -96,4 +96,7 @@ export class TrackingComponent implements OnInit {
   navigateAllDailyStats(){
     this.router.navigate(['/main-pages/tracking/allDailyStats']);
   }
+  refresh(): void {
+    window.location.reload();
+}
 }

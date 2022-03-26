@@ -275,4 +275,8 @@ export class AddRecipeComponent implements OnInit {
     this.cancel();
   }
 
+  back(){
+    this.router.navigate(['/main-pages/recipe']);
+  }
+
 }

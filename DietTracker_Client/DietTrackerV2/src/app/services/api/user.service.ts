@@ -1425,6 +1425,52 @@ export class UserService {
     /**
      * 
      * 
+     * @param email 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetSingleEmailGet(email?: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiUserGetSingleEmailGet(email?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiUserGetSingleEmailGet(email?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public apiUserGetSingleEmailGet(email?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (email !== undefined && email !== null) {
+            queryParameters = queryParameters.set('email', <any>email);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<string>('get',`${this.basePath}/api/User/GetSingleEmail`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param username 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -1458,6 +1504,52 @@ export class UserService {
         ];
 
         return this.httpClient.request<User>('get',`${this.basePath}/api/User/GetSingleUserByUsername`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param username 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiUserGetSingleUsernameGet(username?: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public apiUserGetSingleUsernameGet(username?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public apiUserGetSingleUsernameGet(username?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public apiUserGetSingleUsernameGet(username?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (username !== undefined && username !== null) {
+            queryParameters = queryParameters.set('username', <any>username);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<string>('get',`${this.basePath}/api/User/GetSingleUsername`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

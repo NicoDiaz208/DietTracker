@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/api/user.service';
 import { DailyProgressDto } from 'src/app/services/model/models';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -11,10 +12,10 @@ import { DailyProgressDto } from 'src/app/services/model/models';
 })
 export class AllDailyStatsComponent implements OnInit {
   public progresses: Array<DailyProgressDto> = [];
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService,public datepipe: DatePipe) { }
 
   async ngOnInit() {
-    this.progresses = await this.userService.apiUserGetAllDailyProgressGet(localStorage.getItem('userId')).toPromise();
+    this.progresses = await this.userService.apiUserGetAllDailyProgressExtendedGet(localStorage.getItem('userId')).toPromise();
 
   }
 
@@ -22,9 +23,10 @@ export class AllDailyStatsComponent implements OnInit {
   back(){
     this.router.navigate(['/main-pages/tracking/']);
   }
-  nextPage(progress: string){
+  nextPage(progress: Date){
+    const str = this.datepipe.transform(progress, 'yyyy-MM-ddT15:53:58.7Z');
 
     //this.router.navigate(['/main-pages/recipe/generic',cat]);
-    this.router.navigate(['/main-pages/tracking/allActivities/DetailStats',progress]);
+    this.router.navigate(['/main-pages/tracking/allActivities/DetailStats',str]);
    }
 }

@@ -47,6 +47,7 @@ import {DetailActivityComponent} from
 import { SettingsComponent } from './pages/mainPages/profile/settings/settings.component';
 import { AllDailyStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/all-daily-stats.component';
 import { DetailStatsComponent } from './pages/mainPages/tracking/components/all-daily-stats/detail-stats/detail-stats.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -94,6 +95,7 @@ import { DetailStatsComponent } from './pages/mainPages/tracking/components/all-
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, RecipeService,
     WaterIntakeService,
     UserService,
+    DatePipe,
     SleepService,
     FoodService,
     CategoryService,

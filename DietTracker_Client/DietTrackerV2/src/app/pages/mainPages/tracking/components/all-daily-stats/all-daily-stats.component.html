@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-content>
     <ion-list>
-      <ion-item detail button *ngFor="let progress of progresses" (click)="nextPage(progress.id)">
+      <ion-item detail button *ngFor="let progress of progresses" (click)="nextPage(progress.date)">
         <ion-text slot="start">{{progress.date | date : 'fullDate'}}</ion-text>
       </ion-item>
     </ion-list>

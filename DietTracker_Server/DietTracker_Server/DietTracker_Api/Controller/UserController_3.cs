@@ -95,8 +95,8 @@ namespace DietTracker_Api.Controller
             foreach(var item in usr.CalorieIntakeIds)
             {
                 if (count == 4) break;
-                var calories = await calorieIntakeCollection.GetById(item);
-                if(calories == null) return NotFound();
+                var calories = await calorieIntakeCollection.GetById(item.ToString());
+                if (calories == null) break ;
                 intake[count] = calories.CalorieCurrent;
                 count++;
             }
@@ -105,8 +105,8 @@ namespace DietTracker_Api.Controller
             foreach( var item in usr.DailyProgressIds)
             {
                 if(count== 4) break;
-                var calories = await dailyProgressCollection.GetById(item);
-                if (calories == null) return NotFound();
+                var calories = await dailyProgressCollection.GetById(item.ToString());
+                if (calories == null) break ;
                 intake[count] = intake[count] - calories.Calories;
                 count++;
             }

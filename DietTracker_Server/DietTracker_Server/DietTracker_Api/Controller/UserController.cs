@@ -284,7 +284,7 @@ namespace DietTracker_Api.Controller
             var oldusr = await userCollection.GetById(ObjectId.Parse(id));
             if (oldusr != null)
             {
-                var na = new User(ObjectId.Empty,ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, oldusr.RecipeIds, oldusr.ActivityIds, oldusr.DailyProgressIds, oldusr.CalorieIntakeIds, oldusr.WaterIntakeIds, oldusr.SleepIds,oldusr.AchievementsIds, usr.ActivityLevel);
+                var na = new User(oldusr.Picture,ObjectId.Parse(id), usr.Name, usr.DateOfBirth, usr.Gender, usr.GoalWeight, usr.Height, usr.Email, usr.PhoneNumber, usr.Weight, oldusr.RecipeIds, oldusr.ActivityIds, oldusr.DailyProgressIds, oldusr.CalorieIntakeIds, oldusr.WaterIntakeIds, oldusr.SleepIds,oldusr.AchievementsIds, usr.ActivityLevel);
                 await userCollection.ReplaceById(id, na);
             }
             return Ok(200);

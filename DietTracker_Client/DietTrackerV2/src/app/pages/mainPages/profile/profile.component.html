@@ -13,7 +13,7 @@
 <ion-content class="flex">
     <ion-card color="light">
       <ion-card-content>
-        <ion-avatar class="image-center">
+        <ion-avatar class="image-center" *ngIf="profileAvailable">
           <img [src]="getImage()">
         </ion-avatar>
         <ion-grid class="ttt3">
@@ -32,7 +32,7 @@
     </ion-card>
     <ion-card color="light">
       <ion-text id="progressbar" style="font-size:160%;" >Progress bar</ion-text>
-      <ion-progress-bar style="width: 240px; left: 14.5px; height:10px; margin-bottom: 20px;"> </ion-progress-bar>
+      <ion-progress-bar style="  height:10px; margin-bottom: 20px;" [value]="this.progress.percentage/100"> </ion-progress-bar>
         <!--Fix this error-->
     </ion-card>
     <ion-card color="light">

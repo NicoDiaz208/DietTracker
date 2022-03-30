@@ -11,6 +11,12 @@
         <form [formGroup]="signupForm" #f="ngForm">
 
           <ion-item lines="full">
+            <ion-avatar class="image-center" >
+            <ion-img (click)="selectImage()" [src]="currentPicture" ></ion-img>
+          </ion-avatar>
+        </ion-item>
+
+          <ion-item lines="full">
             <ion-label position="floating">Username</ion-label>
             <ion-input formControlName="username" type="text" name="username"></ion-input>
             <div *ngIf="signupForm.controls.username.touched && signupForm.controls.username.errors?.required">Missing user name</div>

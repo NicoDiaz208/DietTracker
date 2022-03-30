@@ -229,14 +229,10 @@ namespace DietTracker_Api.Controller
                     countIsTrue++;
                     acList.Add(cur);
                 }
-                else if(isSameDay(cur.date, date))
-                {
-                    acList.Add(cur);
-                }
             }
 
             var acLength = acList.Count;
-            var percentage = (acLength == 0) ? 0 : 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(acLength));
+            var percentage = (acLength == 0) ? 0 : 100 * (Convert.ToDouble(countIsTrue) / Convert.ToDouble(usr.ActivityLevel));
 
             DailyProgress? dailyProgress = null;
             foreach(var i in usr.DailyProgressIds)

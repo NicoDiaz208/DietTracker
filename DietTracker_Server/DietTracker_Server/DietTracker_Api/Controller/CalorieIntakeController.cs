@@ -72,7 +72,7 @@ namespace DietTracker_Api.Controller
 
         [HttpPost]
         [Route(nameof(Replace))]
-        public async Task<ActionResult<CalorieIntakeDto>> Replace(CalorieIntakeCreationDto calorieIntakeCreationDto, string id)
+        public async Task<ActionResult<CalorieIntakeDto>> Replace(CalorieIntakeDto calorieIntakeCreationDto, string id)
         {
             var na = new CalorieIntake(ObjectId.Parse(id), calorieIntakeCreationDto.CalorieGoal, calorieIntakeCreationDto.CalorieCurrent, calorieIntakeCreationDto.FatGoal, calorieIntakeCreationDto.FatCurrent, calorieIntakeCreationDto.ProteinGoal, calorieIntakeCreationDto.ProteinCurrent, calorieIntakeCreationDto.CarbohydratesGoal, calorieIntakeCreationDto.CarbohydratesCurrent, calorieIntakeCreationDto.Date); 
             await calorieIntakeCollection.ReplaceById(id, na);

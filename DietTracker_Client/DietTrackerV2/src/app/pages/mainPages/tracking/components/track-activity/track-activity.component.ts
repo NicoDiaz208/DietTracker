@@ -65,12 +65,14 @@ export class TrackActivityComponent implements OnInit {
     if(this.isError){
       return;
     }
-
+    console.log(this.calorieIntake.id);
     this.activity.date = new Date(Date.now());
     this.activity.name = this.currName;
+
     console.log(this.activity.name);
     const id = await this.activityService.apiActivityPost(this.activity).toPromise();
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
     this.calorieIntake.calorieCurrent -= this.activity.burnedCalories;
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(this.calorieIntake, this.calorieIntake.id).toPromise();
@@ -88,11 +90,12 @@ export class TrackActivityComponent implements OnInit {
     this.runningActivity.name = 0;
     // eslint-disable-next-line max-len
     this.runningActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromRunningGet(this.user.id, this.runningActivity.minutes).toPromise();
+
     const id = await this.activityService.apiActivityPost(this.runningActivity).toPromise();
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
     //
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
-    this.calorieIntake.calorieCurrent -= this.activity.burnedCalories;
+    this.calorieIntake.calorieCurrent -= this.runningActivity.burnedCalories;
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(this.calorieIntake, this.calorieIntake.id).toPromise();
     this.back();
   }
@@ -102,11 +105,19 @@ export class TrackActivityComponent implements OnInit {
 
     // eslint-disable-next-line max-len
     this.swimmingActivity.burnedCalories= await this.userService.apiUserGetCaloriesFromSwimmingGet(this.user.id, this.swimmingActivity.minutes).toPromise();
+    console.log(this.swimmingActivity.burnedCalories);
+
     const id = await this.activityService.apiActivityPost(this.swimmingActivity).toPromise();
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
+    console.log(id.id);
+    console.log(this.calorieIntakeId);
+
     //
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
-    this.calorieIntake.calorieCurrent -= this.activity.burnedCalories;
+    console.log(this.calorieIntake.id);
+
+    this.calorieIntake.calorieCurrent -= this.swimmingActivity.burnedCalories;
+    console.log(this.calorieIntake.id.length);
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(this.calorieIntake, this.calorieIntake.id).toPromise();
     this.back();
   }
@@ -121,7 +132,7 @@ export class TrackActivityComponent implements OnInit {
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
     //
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
-    this.calorieIntake.calorieCurrent -= this.activity.burnedCalories;
+    this.calorieIntake.calorieCurrent -= this.walkingActivity.burnedCalories;
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(this.calorieIntake, this.calorieIntake.id).toPromise();
     this.back();
   }
@@ -136,7 +147,7 @@ export class TrackActivityComponent implements OnInit {
     await this.userService.apiUserAddActivityToUserPost(this.user.id, id.id).toPromise();
     //
     this.calorieIntake = await this.calorieIntakeService.getSingleCalorieIntake(this.calorieIntakeId).toPromise();
-    this.calorieIntake.calorieCurrent -= this.activity.burnedCalories;
+    this.calorieIntake.calorieCurrent -= this.cyclingActivity.burnedCalories;
     await this.calorieIntakeService.apiCalorieIntakeReplacePost(this.calorieIntake, this.calorieIntake.id).toPromise();
     this.back();
   }

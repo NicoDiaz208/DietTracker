@@ -116,19 +116,19 @@ namespace DietTracker_Api.Controller
             var date = DateTime.Parse(datestring);
 
                 var dailyprogs = await dailyProgressCollection.GetAll();
-               var dailyprog = dailyprogs.FirstOrDefault(a => a.Date.Date == date.Date);
+               var dailyprog = dailyprogs.FirstOrDefault(a => a.Date.Date == date.Date && usr.DailyProgressIds.Contains(a.Id));
 
 
 
-                var sleep = sleeps.FirstOrDefault(a => a.Date.Date == date.Date);
+                var sleep = sleeps.FirstOrDefault(a => a.Date.Date == date.Date && usr.SleepIds.Contains(a.Id));
 
-                var CalorieIn = calories.FirstOrDefault(a => a.Date.Date == date.Date);
-
-
-                var water = waters.FirstOrDefault(a => a.Date.Date == date.Date);
+                var CalorieIn = calories.FirstOrDefault(a => a.Date.Date == date.Date && usr.CalorieIntakeIds.Contains(a.Id));
 
 
-               var result = new DailyProgressExtendedDto(dailyprog.Id.ToString(), dailyprog.Protein, dailyprog.Calories, dailyprog.Percentage, dailyprog.Date, CalorieIn.FatCurrent, CalorieIn.CarbohydratesCurrent, water.GoWC, sleep.HoSC);
+                var water = waters.FirstOrDefault(a => a.Date.Date == date.Date && usr.WaterIntakeIds.Contains(a.Id));
+
+
+               var result = new DailyProgressExtendedDto(dailyprog.Id.ToString(), dailyprog.Protein, (CalorieIn.CalorieCurrent - dailyprog.Calories), dailyprog.Percentage, dailyprog.Date, CalorieIn.FatCurrent, CalorieIn.CarbohydratesCurrent, water.GoWC, sleep.HoSC);
 
 
 

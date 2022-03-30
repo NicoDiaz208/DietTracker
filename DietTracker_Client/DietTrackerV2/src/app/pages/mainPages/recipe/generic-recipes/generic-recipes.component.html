@@ -19,7 +19,6 @@
         <ion-col size="12" *ngFor="let recipe of recipes; let i= index">
           <ion-card (click)="presentModal(recipe)">
             <ion-card-header>
-              <ion-card-subtitle>{{recipe.category}}</ion-card-subtitle>
               <ion-card-title style="font-size: medium; font-weight: bold;">{{recipe.name}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
